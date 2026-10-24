@@ -26,7 +26,7 @@ export const EnvelopeAnimation = ({ onComplete }) => {
     // Stage 4: Settle and transition to main invitation experience
     const timer4 = setTimeout(() => {
       onComplete();
-    }, 4000);
+    }, 5200);
 
     return () => {
       clearTimeout(timer1);
