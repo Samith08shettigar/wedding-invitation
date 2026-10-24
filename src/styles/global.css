@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-maroon-dark: #1A0105;
+    --color-maroon: #38020D;
+    --color-burgundy: #4A0A16;
+    --color-gold: #D4AF37;
+    --color-gold-light: #FFDF78;
+    --color-gold-dark: #8C6616;
+    --color-cream: #FAF5EB;
+    --color-ivory: #FFFDF7;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #FAF4E8;
+    background-color: #140104;
+  }
+
+  body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* Custom Typography */
+.font-cursive {
+  font-family: 'Great Vibes', cursive;
+}
+
+.font-serif {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-royal {
+  font-family: 'Cinzel', serif;
+}
+
+.font-body {
+  font-family: 'Outfit', sans-serif;
+}

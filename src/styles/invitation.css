@@ -1,0 +1,85 @@
+/* Gold Gradients & Shimmer */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #FFF6D6 0%, #E6CA65 25%, #D4AF37 50%, #AA7C11 75%, #F5DE88 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gold-shimmer {
+  background: linear-gradient(90deg, #D4AF37 0%, #FFF3B0 25%, #D4AF37 50%, #996515 75%, #D4AF37 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+
+.bg-gold-gradient {
+  background: linear-gradient(135deg, #ECC45F 0%, #D4AF37 40%, #B8860B 80%, #E7C972 100%);
+}
+
+.bg-burgundy-radial {
+  background: radial-gradient(circle at center, #4A0A16 0%, #2A020B 70%, #150005 100%);
+}
+
+/* Luxury Paper Texture */
+.bg-cream-parchment {
+  background-color: #FAF5EB;
+  background-image: radial-gradient(#d4af3715 0.75px, transparent 0.75px), radial-gradient(#d4af3715 0.75px, #FAF5EB 0.75px);
+  background-size: 24px 24px;
+  background-position: 0 0, 12px 12px;
+}
+
+/* Borders and Shadows */
+.border-gold {
+  border-color: #D4AF37;
+}
+
+.shadow-royal {
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(212, 175, 55, 0.25);
+}
+
+.box-gold-glow {
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
+}
+
+/* 3D Envelope Animation Classes */
+.perspective-1000 {
+  perspective: 1200px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.envelope-flap {
+  transform-origin: top;
+  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.envelope-flap.open {
+  transform: rotateX(180deg);
+}
+
+/* Custom Scrollbar for Phone Container */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1A0105;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4A0A16;
+  border-radius: 4px;
+  border: 1px solid #D4AF37;
+}
+
+/* Hide scrollbar when desired */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
