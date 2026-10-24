@@ -13,12 +13,12 @@ export const EnvelopeAnimation = ({ onComplete }) => {
       setPhase('unsealing');
     }, 400);
 
-    // Stage 2: Flap rotates 180deg open backward
+    // Stage 2: Flap rotates 180deg open backward around top hinge
     const timer2 = setTimeout(() => {
       setPhase('flap-open');
-    }, 900);
+    }, 950);
 
-    // Stage 3: Royal Invitation card emerges out of pocket
+    // Stage 3: Royal Invitation card emerges smoothly out of pocket
     const timer3 = setTimeout(() => {
       setPhase('card-rising');
     }, 1800);
@@ -26,7 +26,7 @@ export const EnvelopeAnimation = ({ onComplete }) => {
     // Stage 4: Settle and transition to main invitation experience
     const timer4 = setTimeout(() => {
       onComplete();
-    }, 3900);
+    }, 4000);
 
     return () => {
       clearTimeout(timer1);
@@ -36,12 +36,14 @@ export const EnvelopeAnimation = ({ onComplete }) => {
     };
   }, [onComplete]);
 
+  const isFlapOpen = phase === 'flap-open' || phase === 'card-rising';
+
   return (
     <div 
       className="relative w-full h-[840px] flex flex-col items-center justify-between overflow-hidden bg-[#1B0207] select-none cursor-pointer"
       onClick={onComplete}
     >
-      {/* Background: Sunset Palace Scene with glowing windows and water */}
+      {/* Background: Code-Rendered Sunset Palace Scene with glowing windows and water */}
       <SunsetPalaceScene className="z-0" />
 
       {/* Traditional Indian Wedding Hanging Flower Garland (Toran) */}
@@ -122,7 +124,7 @@ export const EnvelopeAnimation = ({ onComplete }) => {
         {/* ENVELOPE FRONT PANELS (Deep Royal Maroon Brocade with Gold Paisley) */}
         <div className="absolute inset-0 rounded-2xl border-2 border-[#D4AF37]/90 shadow-2xl overflow-hidden z-20 pointer-events-none">
           
-          {/* Rich Maroon Base with Subtle Gold Jacquard Shading */}
+          {/* Rich Maroon Base */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#4A0A16] via-[#33040E] to-[#1E0106]" />
 
           {/* Left Triangular Flap with Paisley */}
@@ -159,20 +161,22 @@ export const EnvelopeAnimation = ({ onComplete }) => {
           <div className="absolute inset-1.5 border border-dashed border-[#FFDF78]/30 rounded-xl" />
         </div>
 
-        {/* TOP FLAP (Realistic 3D Backward Rotation around Top Hinge) */}
+        {/* TOP FLAP (Realistic 3D Backward Rotation with Dual-Sided Maroon & Ivory Lining) */}
         <div 
-          className="absolute top-0 inset-x-0 h-[245px] z-30 preserve-3d"
+          className={`absolute top-0 inset-x-0 h-[245px] preserve-3d transition-transform duration-1000 ease-in-out ${
+            isFlapOpen ? 'z-5' : 'z-30'
+          }`}
           style={{
             transformOrigin: 'top center',
-            transition: 'transform 1.3s cubic-bezier(0.4, 0, 0.2, 1)',
-            transform: (phase === 'flap-open' || phase === 'card-rising') ? 'rotateX(180deg)' : 'rotateX(0deg)',
+            transform: isFlapOpen ? 'rotateX(180deg)' : 'rotateX(0deg)',
           }}
         >
-          {/* Triangular Top Flap Shape (Front Maroon Face) */}
+          {/* FRONT FACE: Deep Royal Maroon with Gold Zari Border & Lotus */}
           <div 
-            className="w-full h-full bg-gradient-to-b from-[#5C0D1E] to-[#3B0410] border-b-2 border-[#D4AF37] shadow-xl relative flex flex-col items-center justify-between pb-3"
+            className="absolute inset-0 bg-gradient-to-b from-[#5C0D1E] to-[#3B0410] border-b-2 border-[#D4AF37] shadow-xl flex flex-col items-center justify-between pb-3"
             style={{
               clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
+              backfaceVisibility: 'hidden',
             }}
           >
             {/* Top Zari Trim */}
@@ -184,11 +188,26 @@ export const EnvelopeAnimation = ({ onComplete }) => {
             </div>
           </div>
 
+          {/* BACK FACE: Traditional Warm Ivory Lining with Gold Jali Pattern (Visible when open) */}
+          <div 
+            className="absolute inset-0 bg-[#FFFDF7] border-b-2 border-[#D4AF37] shadow-md flex flex-col items-center justify-center overflow-hidden"
+            style={{
+              clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
+              transform: 'rotateX(180deg)',
+              backfaceVisibility: 'hidden',
+            }}
+          >
+            <IndianLiningPattern />
+            <div className="absolute top-6">
+              <GoldLotus size={24} className="opacity-60" />
+            </div>
+          </div>
+
           {/* Traditional Gold Medallion Wax Seal with Initials */}
           <div 
             className={`absolute bottom-[-32px] left-1/2 -translate-x-1/2 transition-all duration-700 ${
               phase === 'unsealing' ? 'scale-125 filter drop-shadow-[0_0_20px_#FFD700]' : ''
-            } ${(phase === 'flap-open' || phase === 'card-rising') ? 'opacity-0 scale-75' : 'opacity-100'}`}
+            } ${isFlapOpen ? 'opacity-0 scale-75' : 'opacity-100'}`}
           >
             <WaxSeal initials={weddingData.monogram} size={76} />
           </div>
