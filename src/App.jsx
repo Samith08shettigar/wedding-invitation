@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { InvitationCover } from './components/InvitationCover';
+import { PalaceDoorOpening } from './components/PalaceDoorOpening';
 import { EnvelopeAnimation } from './components/EnvelopeAnimation';
 import { PalaceInvitation } from './components/PalaceInvitation';
 import { CoupleIntroduction } from './components/CoupleIntroduction';
@@ -14,25 +14,26 @@ import { NavigationDrawer } from './components/NavigationDrawer';
 import { RsvpModal } from './components/RsvpModal';
 
 export const App = () => {
-  // Screen sequence states: 'cover' (Screen 1) -> 'envelope' (Screen 2) -> 'main' (Screens 3 to 13)
-  const [screenState, setScreenState] = useState('cover');
+  // Screen sequence states: 
+  // 'doors' (Grand Palace Door Opening) -> 'envelope' (3D Traditional Envelope Opening) -> 'main' (Sequential Invitation Screens)
+  const [screenState, setScreenState] = useState('doors');
   const [isRsvpOpen, setIsRsvpOpen] = useState(false);
   const [musicAutoplayTrigger, setMusicAutoplayTrigger] = useState(false);
 
-  // User taps "Tap to Open" on Screen 1
-  const handleOpenCover = () => {
+  // Palace doors finish opening & courtyard revealed -> transition to Envelope
+  const handleDoorsComplete = () => {
     setScreenState('envelope');
     setMusicAutoplayTrigger(true);
   };
 
-  // Envelope finishes or user clicks "Skip Intro"
+  // Envelope finishes or user clicks "Skip Intro" -> transition to Main Sections
   const handleEnvelopeComplete = () => {
     setScreenState('main');
   };
 
-  // User clicks "Replay" on Screen 12
+  // User clicks "Replay" on closing screen -> restart from grand palace entrance
   const handleReplay = () => {
-    setScreenState('cover');
+    setScreenState('doors');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -55,17 +56,20 @@ export const App = () => {
       {/* Central Portrait Mobile Frame (Matches Reference Aspect Ratio ~ 9:16) */}
       <div className="relative w-full sm:max-w-[420px] min-h-screen sm:min-h-[880px] sm:my-6 sm:rounded-[40px] sm:border-4 sm:border-[#D4AF37]/80 sm:ring-8 sm:ring-[#2B020B] shadow-2xl bg-[#200108] overflow-hidden flex flex-col">
         
-        {/* SCREEN 1: Burgundy Ornamental Cover */}
-        {screenState === 'cover' && (
-          <InvitationCover onOpen={handleOpenCover} />
+        {/* STAGE 1: Grand Royal Indian Palace Doors Opening */}
+        {screenState === 'doors' && (
+          <PalaceDoorOpening 
+            onComplete={handleDoorsComplete}
+            onStartMusic={() => setMusicAutoplayTrigger(true)}
+          />
         )}
 
-        {/* SCREEN 2: 3D Envelope Opening & Palace Sunset Reveal */}
+        {/* STAGE 2: 3D Traditional Indian Envelope Opening & Card Reveal */}
         {screenState === 'envelope' && (
           <EnvelopeAnimation onComplete={handleEnvelopeComplete} />
         )}
 
-        {/* SCREENS 3 to 13: Sequential Invitation Experience */}
+        {/* STAGE 3: Sequential Invitation Experience (Screens 3 to 13) */}
         {screenState === 'main' && (
           <main className="w-full flex flex-col">
             {/* Screen 3: Main Invitation Announcement Card */}
