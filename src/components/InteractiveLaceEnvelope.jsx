@@ -9,24 +9,65 @@ import { ChevronUp, ChevronDown } from 'lucide-react';
  */
 export const InteractiveLaceEnvelope = () => {
   const [isPulledOut, setIsPulledOut] = useState(false);
+  const sectionRef = React.useRef(null);
 
   const togglePull = () => {
-    setIsPulledOut(!isPulledOut);
+    setIsPulledOut(prev => !prev);
   };
 
+  // Graceful auto-pull: Mail is open, then content letter rises up smoothly into full view
+  React.useEffect(() => {
+    if (!('IntersectionObserver' in window)) {
+      const timer = setTimeout(() => setIsPulledOut(true), 800);
+      return () => clearTimeout(timer);
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const timer = setTimeout(() => {
+              setIsPulledOut(true);
+            }, 500);
+            return () => clearTimeout(timer);
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    // Safety timer to guarantee reveal even on rapid scrolls
+    const safetyTimer = setTimeout(() => {
+      setIsPulledOut(true);
+    }, 1200);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(safetyTimer);
+    };
+  }, []);
+
   return (
-    <section id="invitation-letter" className="relative w-full py-16 sm:py-24 px-4 bg-luxury-damask text-[#3B0612] flex flex-col items-center text-center select-none overflow-hidden">
+    <section 
+      ref={sectionRef}
+      id="invitation-letter" 
+      className="relative w-full py-16 sm:py-24 px-4 bg-luxury-damask text-[#3B0612] flex flex-col items-center text-center select-none overflow-hidden"
+    >
       
-      {/* Section Header */}
-      <div className="mb-6 text-center">
+      {/* Section Header - Clean and unhindered */}
+      <div className="z-10 text-center">
         <span className="text-[#AA7C11] text-xs font-serif italic tracking-widest uppercase block mb-1">
           Formal Invitation
         </span>
         <h2 className="font-serif italic text-4xl sm:text-5xl text-[#1B3847] tracking-wide font-normal drop-shadow-sm">
           You&apos;re invited
         </h2>
-        <p className="font-serif italic text-xs sm:text-sm text-[#2D5A6E] mt-2 font-medium flex items-center justify-center gap-1.5">
-          <span>{isPulledOut ? 'Tap card to tuck back inside' : 'Tap or pull card to read formal invitation'}</span>
+        <p className="font-serif italic text-xs sm:text-sm text-[#2D5A6E] mt-2 font-medium flex items-center justify-center gap-1.5 cursor-pointer" onClick={togglePull}>
+          <span>{isPulledOut ? 'Tap card to tuck back inside' : 'Tap or pull card to read full invitation'}</span>
           {isPulledOut ? (
             <ChevronDown className="w-4 h-4 text-[#AA7C11] animate-bounce" />
           ) : (
@@ -35,8 +76,10 @@ export const InteractiveLaceEnvelope = () => {
         </p>
       </div>
 
-      {/* ENVELOPE & SLIDING CARD CONTAINER */}
-      <div className="relative w-full max-w-[370px] sm:max-w-[420px] flex flex-col items-center justify-center mt-20 sm:mt-24 pb-8">
+      {/* ENVELOPE & SLIDING CARD CONTAINER 
+          Positioned down with mt-[270px] sm:mt-[290px] so the upward-pointing open flap 
+          and sliding card NEVER hide or overlap "You're Invited" */}
+      <div className="relative w-full max-w-[360px] sm:max-w-[420px] flex flex-col items-center justify-center mt-[270px] sm:mt-[290px] pb-10">
         
         <div className="relative w-full h-[260px] sm:h-[280px] flex items-end justify-center perspective-1600">
           
@@ -50,16 +93,16 @@ export const InteractiveLaceEnvelope = () => {
 
           {/* 2. OPEN TOP FLAP (Points UPWARD behind the card, framing it like an authentic open royal envelope) */}
           <div 
-            className="absolute top-0 inset-x-0 h-[175px] sm:h-[195px] z-15 pointer-events-none -translate-y-full"
+            className="absolute top-0 inset-x-0 h-[140px] sm:h-[155px] z-15 pointer-events-none -translate-y-full"
             style={{
               clipPath: 'polygon(0 100%, 50% 0, 100% 100%)',
               background: 'linear-gradient(to top, #1A4050 0%, #0F2A36 60%, #091C24 100%)',
             }}
           >
             <div className="absolute inset-0 opacity-30 bg-[radial-gradient(#D4AF37_1.5px,transparent_1.5px)] [background-size:14px_14px]" />
-            <svg className="w-full h-full" viewBox="0 0 400 175" preserveAspectRatio="none">
-              <path d="M 0 175 L 200 0 L 400 175" fill="none" stroke="url(#letterGoldRim)" strokeWidth="3.2" />
-              <path d="M 6 171 L 200 6 L 394 171" fill="none" stroke="#FFDF78" strokeWidth="0.8" strokeDasharray="2.5 2.5" opacity="0.75" />
+            <svg className="w-full h-full" viewBox="0 0 400 140" preserveAspectRatio="none">
+              <path d="M 0 140 L 200 0 L 400 140" fill="none" stroke="url(#letterGoldRim)" strokeWidth="3.2" />
+              <path d="M 6 136 L 200 6 L 394 136" fill="none" stroke="#FFDF78" strokeWidth="0.8" strokeDasharray="2.5 2.5" opacity="0.75" />
             </svg>
             <div className="absolute bottom-3 inset-x-0 text-center">
               <span className="font-serif italic text-[10px] text-[#D4AF37] tracking-widest">&#10022; With Love &amp; Blessings &#10022;</span>
@@ -76,14 +119,14 @@ export const InteractiveLaceEnvelope = () => {
             {/* THE FORMAL INVITATION CARD (Sliding up gracefully when clicked or pulled) */}
             <div 
               onClick={togglePull}
-              className={`absolute inset-x-3 sm:inset-x-4 top-2 rounded-2xl bg-[#FFFDF8] border-2 border-[#D4AF37] p-5 sm:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-between text-left select-none pointer-events-auto cursor-pointer transition-all duration-700 ease-out hover:shadow-[0_25px_60px_rgba(212,175,55,0.35)] ${
+              className={`absolute inset-x-3 sm:inset-x-4 top-2 rounded-2xl bg-[#FFFDF8] border-2 border-[#D4AF37] p-4 sm:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-between text-left select-none pointer-events-auto cursor-pointer transition-all duration-1000 ease-out hover:shadow-[0_25px_60px_rgba(212,175,55,0.35)] ${
                 isPulledOut 
-                  ? '-translate-y-[235px] sm:-translate-y-[260px]' 
-                  : '-translate-y-6 sm:-translate-y-8 hover:-translate-y-12'
+                  ? '-translate-y-[260px] sm:-translate-y-[280px]' 
+                  : '-translate-y-4 sm:-translate-y-6 hover:-translate-y-10'
               }`}
               style={{
-                height: '420px',
-                transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
+                height: '350px',
+                transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
                 willChange: 'transform',
               }}
             >
@@ -101,37 +144,37 @@ export const InteractiveLaceEnvelope = () => {
                 <span className="text-[#AA7C11] text-[10px] sm:text-xs font-serif italic tracking-widest">
                   &#10022; || Shree Ganeshay Namah || &#10022;
                 </span>
-                <h3 className="font-serif italic text-xl sm:text-2xl text-[#1B3847] mt-1 font-semibold">
+                <h3 className="font-serif italic text-lg sm:text-xl text-[#1B3847] mt-0.5 font-semibold">
                   {weddingData.letterTitle}
                 </h3>
               </div>
 
               {/* Paragraph 1 */}
-              <p className="font-serif text-xs sm:text-sm text-[#2C4957] leading-relaxed mt-2 text-justify">
+              <p className="font-serif text-[11px] sm:text-xs text-[#2C4957] leading-relaxed mt-1 text-justify">
                 {weddingData.letterParagraph1}
               </p>
 
               {/* Diamond Fleuron Divider */}
-              <div className="text-center text-[#AA7C11] text-xs my-1 flex items-center justify-center gap-2">
+              <div className="text-center text-[#AA7C11] text-[10px] my-1 flex items-center justify-center gap-2">
                 <span className="w-8 h-[1px] bg-[#AA7C11]/30" />
                 <span>&#10022; With Love &amp; Blessings &#10022;</span>
                 <span className="w-8 h-[1px] bg-[#AA7C11]/30" />
               </div>
 
               {/* Paragraph 2 */}
-              <p className="font-serif text-xs sm:text-sm text-[#2C4957] leading-relaxed text-justify">
+              <p className="font-serif text-[11px] sm:text-xs text-[#2C4957] leading-relaxed text-justify">
                 {weddingData.letterParagraph2}
               </p>
 
               {/* Family Sign-off */}
-              <div className="mt-1 pt-2 border-t border-[#AA7C11]/30 text-xs font-serif text-[#1F3E4E]">
+              <div className="mt-1 pt-1.5 border-t border-[#AA7C11]/30 text-[11px] font-serif text-[#1F3E4E]">
                 <p className="italic font-bold text-[#183644] mb-0.5">Warm regards,</p>
-                <div className="flex flex-col gap-0.5 text-[11px] sm:text-xs">
+                <div className="flex flex-col gap-0.5 text-[10px] sm:text-[11px]">
                   <p>
                     <span className="font-semibold text-[#1B3847]">{weddingData.parents.bride.mother}</span> &amp;{' '}
                     <span className="font-semibold text-[#1B3847]">{weddingData.parents.bride.father}</span>
                   </p>
-                  <p className="text-[#7A5A12] italic text-[10px]">and</p>
+                  <p className="text-[#7A5A12] italic text-[9px]">and</p>
                   <p>
                     <span className="font-semibold text-[#1B3847]">{weddingData.parents.groom.mother}</span> &amp;{' '}
                     <span className="font-semibold text-[#1B3847]">{weddingData.parents.groom.father}</span>
@@ -140,7 +183,7 @@ export const InteractiveLaceEnvelope = () => {
               </div>
 
               {/* Tap to Tuck In / Pull Out Toggle Prompt */}
-              <div className="text-center pt-1 flex items-center justify-center gap-1 text-[10px] text-[#AA7C11] font-serif italic">
+              <div className="text-center pt-0.5 flex items-center justify-center gap-1 text-[10px] text-[#AA7C11] font-serif italic">
                 <span>{isPulledOut ? 'Tap to tuck back into envelope' : 'Tap to pull out full letter'}</span>
                 {isPulledOut ? <ChevronDown className="w-3 h-3" /> : <ChevronUp className="w-3 h-3" />}
               </div>
