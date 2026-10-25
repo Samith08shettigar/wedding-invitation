@@ -135,3 +135,40 @@
     filter: drop-shadow(0 0 10px #FFDF78);
   }
 }
+
+/* ============================================================
+   TEMPLE BELLS SWAY ANIMATIONS
+   ============================================================ */
+@keyframes bellSwayLeft {
+  0%, 100% {
+    transform: rotate(-3.5deg);
+  }
+  50% {
+    transform: rotate(3.5deg);
+  }
+}
+
+@keyframes bellSwayRight {
+  0%, 100% {
+    transform: rotate(3.5deg);
+  }
+  50% {
+    transform: rotate(-3.5deg);
+  }
+}
+
+.animate-bell-sway-left {
+  transform-origin: top center;
+  animation: bellSwayLeft 4.2s ease-in-out infinite;
+}
+
+.animate-bell-sway-right {
+  transform-origin: top center;
+  animation: bellSwayRight 4.6s ease-in-out infinite;
+}
+
+.animate-bell-sway-center {
+  transform-origin: top center;
+  animation: bellSwayLeft 5.2s ease-in-out infinite;
+}
+

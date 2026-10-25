@@ -8,11 +8,11 @@
 
 export const weddingData = {
   // Couple Names & Monogram
-  brideName: "Priya Sharma",
-  brideFirstName: "Priya",
-  groomName: "Varun Kapoor",
-  groomFirstName: "Varun",
-  monogram: "P & V",
+  brideName: "Akshitha",
+  brideFirstName: "Akshitha",
+  groomName: "Tushar",
+  groomFirstName: "Tushar",
+  monogram: "A & T",
   subtitle: "Two souls, seven promises, a lifetime of love.",
 
   // Dates & Times

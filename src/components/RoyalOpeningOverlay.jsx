@@ -554,7 +554,7 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
               
               {/* Central Gold Tip Seal Tab */}
               <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full border border-[#D4AF37] bg-[#143542] flex items-center justify-center shadow-lg">
-                <span className="text-[#FFDF78] text-[10px] font-serif font-bold">P &amp; V</span>
+                <span className="text-[#FFDF78] text-[10px] font-serif font-bold">A &amp; T</span>
               </div>
             </div>
 
@@ -762,9 +762,9 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
               <circle cx="50" cy="50" r="36" fill="url(#pvCenterCoreEnt)" stroke="#1F0106" strokeWidth="1.5" />
               <circle cx="50" cy="50" r="33" fill="none" stroke="#FFDF78" strokeWidth="0.9" strokeDasharray="1.8 2" opacity="0.9" />
 
-              <text x="33" y="56" textAnchor="middle" fill="url(#pvGoldTextEnt)" fontSize="17" fontFamily="Georgia, serif" fontWeight="bold">P</text>
+              <text x="33" y="56" textAnchor="middle" fill="url(#pvGoldTextEnt)" fontSize="17" fontFamily="Georgia, serif" fontWeight="bold">A</text>
               <text x="50" y="55" textAnchor="middle" fill="#FFDF78" fontSize="13" fontFamily="Georgia, serif" fontStyle="italic">&amp;</text>
-              <text x="67" y="56" textAnchor="middle" fill="url(#pvGoldTextEnt)" fontSize="17" fontFamily="Georgia, serif" fontWeight="bold">V</text>
+              <text x="67" y="56" textAnchor="middle" fill="url(#pvGoldTextEnt)" fontSize="17" fontFamily="Georgia, serif" fontWeight="bold">T</text>
             </svg>
 
             <div className={`absolute inset-0 rounded-full pointer-events-none ${!isPetalsOpening ? 'animate-seal-glow' : ''}`} />
