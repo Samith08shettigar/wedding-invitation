@@ -51,11 +51,13 @@ const ScratchCardTile = ({ label, value, sublabel, isRevealed, onReveal }) => {
     ctx.fillText(label, width / 2, height - 16);
   }, [label]);
 
+  const strokeCount = useRef(0);
+
   // Scratch handling
   const scratch = (clientX, clientY) => {
-    if (isRevealed) return;
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || isRevealed) return;
+
     const rect = canvas.getBoundingClientRect();
     const x = clientX - rect.left;
     const y = clientY - rect.top;
@@ -63,18 +65,23 @@ const ScratchCardTile = ({ label, value, sublabel, isRevealed, onReveal }) => {
     const ctx = canvas.getContext('2d');
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
-    ctx.arc(x, y, 22, 0, Math.PI * 2);
+    ctx.arc(x, y, 24, 0, Math.PI * 2);
     ctx.fill();
 
-    // Check transparency ratio
-    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    let transparentPixels = 0;
-    for (let i = 3; i < imgData.data.length; i += 4) {
-      if (imgData.data[i] === 0) transparentPixels++;
-    }
-    const ratio = transparentPixels / (canvas.width * canvas.height);
-    if (ratio > 0.45) {
-      onReveal();
+    strokeCount.current += 1;
+    // Fast sampled transparency check every 4th scratch stroke for silky-smooth 60fps
+    if (strokeCount.current % 4 === 0) {
+      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      let transparentPixels = 0;
+      let totalSampled = 0;
+      // Fast stride sampling
+      for (let i = 3; i < imgData.data.length; i += 32) {
+        totalSampled++;
+        if (imgData.data[i] === 0) transparentPixels++;
+      }
+      if (transparentPixels / totalSampled > 0.38) {
+        onReveal();
+      }
     }
   };
 
