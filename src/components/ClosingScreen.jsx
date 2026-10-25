@@ -103,8 +103,23 @@ export const ClosingScreen = ({ onReplay }) => {
           </p>
         </div>
 
-        {/* Center: Replay Experience Button */}
+        {/* Center: Wedding Rings Vignette & Replay Experience Button */}
         <div className="relative z-20 my-auto flex flex-col items-center">
+          {/* Circular Gold-Framed Wedding Rings Vignette (sub_4.png) */}
+          <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full p-1.5 bg-gradient-to-br from-[#FFF2B2] via-[#D4AF37] to-[#8C610F] shadow-2xl mb-6 group">
+            <div className="w-full h-full rounded-full overflow-hidden border-2 border-[#FAF5EB] bg-[#2E020B]">
+              <img 
+                src={weddingData.images.weddingRings} 
+                alt="Sacred Wedding Rings" 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                onError={(e) => {
+                  e.currentTarget.src = "/images/wedding-rings.webp";
+                }}
+              />
+            </div>
+            <div className="absolute inset-0 rounded-full border border-dashed border-[#FFDF78]/40 pointer-events-none" />
+          </div>
+
           <button
             onClick={handleReplayClick}
             className="group relative inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-gradient-to-r from-[#4A0A16] via-[#630E1F] to-[#2B020B] border-2 border-[#D4AF37] text-sm sm:text-base font-royal font-semibold tracking-widest text-[#FFDF78] shadow-2xl hover:scale-105 hover:border-[#FFF2B2] active:scale-95 transition-all cursor-pointer"

@@ -429,3 +429,184 @@ export const ScheduleBadge = ({ type = "ceremony", className = "" }) => {
     </div>
   );
 };
+
+// Royal Indian Monogram Medallion (Screen 1 Cover Medallion)
+export const MedallionMonogram = ({ monogram = "P & A", size = 150, className = "" }) => {
+  return (
+    <div className={`relative flex items-center justify-center select-none ${className}`} style={{ width: size, height: size }}>
+      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="medallionBg" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#4A0A16" />
+            <stop offset="65%" stopColor="#2D020B" />
+            <stop offset="100%" stopColor="#180004" />
+          </radialGradient>
+          <linearGradient id="medallionGold" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#FFF9E6" />
+            <stop offset="25%" stopColor="#FFDF78" />
+            <stop offset="50%" stopColor="#D4AF37" />
+            <stop offset="75%" stopColor="#AA7C11" />
+            <stop offset="100%" stopColor="#6E4C0C" />
+          </linearGradient>
+          <filter id="medallionGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="4" stdDeviation="6" floodColor="#000000" floodOpacity="0.7" />
+            <feDropShadow dx="0" dy="0" stdDeviation="8" floodColor="#D4AF37" floodOpacity="0.35" />
+          </filter>
+        </defs>
+
+        {/* Circular Medallion Base */}
+        <circle cx="80" cy="80" r="70" fill="url(#medallionBg)" filter="url(#medallionGlow)" />
+
+        {/* Scalloped Outer Floral Filigree Ring */}
+        <circle cx="80" cy="80" r="72" stroke="url(#medallionGold)" strokeWidth="1.5" />
+        <circle cx="80" cy="80" r="66" stroke="url(#medallionGold)" strokeWidth="0.8" strokeDasharray="3 3" />
+        <circle cx="80" cy="80" r="58" stroke="url(#medallionGold)" strokeWidth="1.2" />
+
+        {/* 16 Radial Floral Petal Points along the perimeter */}
+        {Array.from({ length: 16 }).map((_, i) => {
+          const angle = (i * 360) / 16;
+          return (
+            <g key={i} transform={`rotate(${angle} 80 80)`}>
+              <path d="M80 6 C83 11 85 14 80 18 C75 14 77 11 80 6 Z" fill="url(#medallionGold)" />
+              <circle cx="80" cy="9" r="1.5" fill="#FFF4D0" />
+            </g>
+          );
+        })}
+
+        {/* Inner Beaded Border */}
+        <circle cx="80" cy="80" r="50" stroke="url(#medallionGold)" strokeWidth="0.8" strokeDasharray="2 2" />
+
+        {/* Intertwined Botanical Vines inside Medallion */}
+        <path d="M60 95 C62 82 72 75 78 70 C84 65 92 68 98 78" stroke="url(#medallionGold)" strokeWidth="1" strokeLinecap="round" />
+        <path d="M64 70 C70 65 82 68 90 85 C94 92 100 95 104 92" stroke="url(#medallionGold)" strokeWidth="0.8" strokeLinecap="round" />
+        
+        {/* Tiny Leaf Accents */}
+        <path d="M72 72 C68 68 70 64 74 66 C75 69 74 71 72 72 Z" fill="url(#medallionGold)" />
+        <path d="M88 78 C92 76 94 80 90 82 C88 81 87 79 88 78 Z" fill="url(#medallionGold)" />
+      </svg>
+
+      {/* Intertwined Monogram Typography */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center select-none pointer-events-none">
+        <div className="relative font-serif font-bold text-gold-shimmer leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+          <div className="flex items-center justify-center gap-0.5">
+            <span className="font-royal text-2xl sm:text-3xl text-[#FFF4D0] -mr-1">P</span>
+            <span className="font-serif italic text-sm text-[#FFDF78] my-auto opacity-90">&amp;</span>
+            <span className="font-royal text-2xl sm:text-3xl text-[#FFF4D0] -ml-1 mt-2">A</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Rajasthani Carved Marble Jharokha Arch (Top-Left of Screen 2 Sunset Palace Scene)
+export const JharokhaCornerArch = ({ className = "" }) => (
+  <div className={`pointer-events-none select-none ${className}`}>
+    <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="jharokhaMarble" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#FFF9EB" />
+          <stop offset="35%" stopColor="#F5E4BE" />
+          <stop offset="70%" stopColor="#DFBF86" />
+          <stop offset="100%" stopColor="#AA7C11" />
+        </linearGradient>
+        <radialGradient id="jharokhaShadow" cx="0%" cy="0%" r="100%">
+          <stop offset="0%" stopColor="#000000" stopOpacity="0.45" />
+          <stop offset="100%" stopColor="transparent" />
+        </radialGradient>
+      </defs>
+
+      {/* Top Corner Wall Section */}
+      <path d="M0 0 H140 C120 15 90 25 70 35 C50 48 35 70 25 95 C15 115 5 135 0 145 Z" fill="url(#jharokhaMarble)" opacity="0.95" />
+      <path d="M0 0 H140 C120 15 90 25 70 35 C50 48 35 70 25 95 C15 115 5 135 0 145 Z" fill="url(#jharokhaShadow)" />
+
+      {/* Multi-Cusped Architectural Foliated Arch Curve */}
+      <path
+        d="M140 0 C125 15 110 18 100 28 C90 38 85 45 75 55 C65 65 55 75 45 90 C35 105 25 125 0 140"
+        stroke="#8C5E0D"
+        strokeWidth="3.5"
+        fill="none"
+      />
+      <path
+        d="M135 0 C120 12 106 15 96 25 C86 35 81 42 71 52 C61 62 51 72 41 87 C31 102 21 122 0 135"
+        stroke="#FFF9E6"
+        strokeWidth="1.5"
+        fill="none"
+      />
+
+      {/* Carved Jaali Relief Rosettes */}
+      <circle cx="28" cy="28" r="5" fill="#8C5E0D" opacity="0.75" />
+      <circle cx="28" cy="28" r="3" fill="#FFF9E6" />
+      <circle cx="55" cy="18" r="4" fill="#8C5E0D" opacity="0.75" />
+      <circle cx="55" cy="18" r="2.5" fill="#FFF9E6" />
+      <circle cx="18" cy="55" r="4" fill="#8C5E0D" opacity="0.75" />
+      <circle cx="18" cy="55" r="2.5" fill="#FFF9E6" />
+
+      {/* Floral Bracket Details */}
+      <path d="M85 10 C80 18 75 22 70 25" stroke="#AA7C11" strokeWidth="1.2" />
+      <path d="M25 70 C22 75 18 80 10 85" stroke="#AA7C11" strokeWidth="1.2" />
+    </svg>
+  </div>
+);
+
+// Floral Sprigs Flanking the Wax Seal on the Envelope (Screen 2)
+export const EnvelopeSealFloralSprigs = ({ className = "" }) => (
+  <div className={`relative flex items-center justify-between w-full pointer-events-none select-none ${className}`}>
+    {/* Left Floral Sprig */}
+    <div className="transform -translate-x-3 -translate-y-1 rotate-12">
+      <svg width="70" height="50" viewBox="0 0 70 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="sealFlowerPink" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#FFF2D6" />
+            <stop offset="45%" stopColor="#FFAAB8" />
+            <stop offset="100%" stopColor="#A82844" />
+          </linearGradient>
+          <linearGradient id="sealLeafGold" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#FFDF78" />
+            <stop offset="60%" stopColor="#D4AF37" />
+            <stop offset="100%" stopColor="#7E560B" />
+          </linearGradient>
+        </defs>
+        {/* Curved stem */}
+        <path d="M60 25 C45 28 30 22 10 35" stroke="url(#sealLeafGold)" strokeWidth="1.5" strokeLinecap="round" />
+        {/* Golden Leaves */}
+        <path d="M45 22 C40 15 48 10 52 16 C54 22 48 25 45 22 Z" fill="url(#sealLeafGold)" />
+        <path d="M32 28 C28 22 34 16 38 21 C40 26 35 30 32 28 Z" fill="url(#sealLeafGold)" />
+        <path d="M22 35 C18 28 24 24 28 29 C29 34 25 38 22 35 Z" fill="url(#sealLeafGold)" />
+        {/* Bloom */}
+        <circle cx="50" cy="22" r="7" fill="url(#sealFlowerPink)" />
+        <circle cx="50" cy="22" r="3" fill="#FFEAA8" />
+        <circle cx="28" cy="30" r="5" fill="url(#sealFlowerPink)" opacity="0.9" />
+      </svg>
+    </div>
+
+    {/* Right Floral Sprig (Mirrored) */}
+    <div className="transform translate-x-3 -translate-y-1 -rotate-12 scale-x-[-1]">
+      <svg width="70" height="50" viewBox="0 0 70 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="sealFlowerPinkR" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#FFF2D6" />
+            <stop offset="45%" stopColor="#FFAAB8" />
+            <stop offset="100%" stopColor="#A82844" />
+          </linearGradient>
+          <linearGradient id="sealLeafGoldR" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#FFDF78" />
+            <stop offset="60%" stopColor="#D4AF37" />
+            <stop offset="100%" stopColor="#7E560B" />
+          </linearGradient>
+        </defs>
+        {/* Curved stem */}
+        <path d="M60 25 C45 28 30 22 10 35" stroke="url(#sealLeafGoldR)" strokeWidth="1.5" strokeLinecap="round" />
+        {/* Golden Leaves */}
+        <path d="M45 22 C40 15 48 10 52 16 C54 22 48 25 45 22 Z" fill="url(#sealLeafGoldR)" />
+        <path d="M32 28 C28 22 34 16 38 21 C40 26 35 30 32 28 Z" fill="url(#sealLeafGoldR)" />
+        <path d="M22 35 C18 28 24 24 28 29 C29 34 25 38 22 35 Z" fill="url(#sealLeafGoldR)" />
+        {/* Bloom */}
+        <circle cx="50" cy="22" r="7" fill="url(#sealFlowerPinkR)" />
+        <circle cx="50" cy="22" r="3" fill="#FFEAA8" />
+        <circle cx="28" cy="30" r="5" fill="url(#sealFlowerPinkR)" opacity="0.9" />
+      </svg>
+    </div>
+  </div>
+);
+

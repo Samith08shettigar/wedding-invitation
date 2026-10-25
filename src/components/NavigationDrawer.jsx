@@ -2,20 +2,17 @@ import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { weddingData } from '../data/weddingData';
 import { GoldLotus, ScallopedMughalArch } from './decorations/IndianOrnaments';
-import { GoldDivider } from './decorations/GoldOrnaments';
+import { GoldDivider, FloralCornerBouquet } from './decorations/GoldOrnaments';
 
 export const NavigationDrawer = ({ onOpenRsvp }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const links = [
-    { label: 'Invitation', targetId: 'home' },
-    { label: 'The Couple', targetId: 'couple' },
-    { label: 'Save The Date', targetId: 'save-the-date' },
-    { label: 'Countdown', targetId: 'countdown' },
-    { label: 'Our Families', targetId: 'message' },
-    { label: 'Schedule', targetId: 'events' },
-    { label: 'Venue & Map', targetId: 'venue' },
-    { label: 'RSVP Attendance', isRsvp: true },
+    { label: 'Home', targetId: 'home' },
+    { label: 'Our Story', targetId: 'couple' },
+    { label: 'Events', targetId: 'events' },
+    { label: 'Venue', targetId: 'venue' },
+    { label: 'RSVP', isRsvp: true },
   ];
 
   const handleNavClick = (link) => {
@@ -62,6 +59,9 @@ export const NavigationDrawer = ({ onOpenRsvp }) => {
 
             {/* Inner Gold Dotted Trim */}
             <div className="absolute inset-2 border border-dashed border-[#FFDF78]/30 rounded-[30px] pointer-events-none" />
+
+            {/* Bottom-right Floral Corner (sub_2.png) */}
+            <FloralCornerBouquet position="bottom-right" className="absolute -bottom-3 -right-3 w-32 h-32 opacity-80 pointer-events-none" />
 
             {/* Close Button */}
             <button

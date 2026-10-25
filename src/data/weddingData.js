@@ -86,12 +86,13 @@ export const weddingData = {
     },
   ],
 
-  // Photographic Assets ONLY (Real photos or high quality placeholders)
+  // Photographic Assets ONLY (Local optimized WebP assets)
   images: {
-    bridePhoto: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80",
-    groomPhoto: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=600&q=80",
-    couplePhoto: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
-    venuePhoto: "https://images.unsplash.com/photo-1599818816942-e19574347717?auto=format&fit=crop&w=800&q=80",
+    bridePhoto: "/images/couple-bride.webp",
+    groomPhoto: "/images/couple-groom.webp",
+    couplePhoto: "/images/couple-bride.webp",
+    venuePhoto: "/images/venue-palace.webp",
+    weddingRings: "/images/wedding-rings.webp",
   },
 
   // Audio Configuration

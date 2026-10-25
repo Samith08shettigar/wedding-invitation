@@ -13,6 +13,7 @@ import { NavigationDrawer } from './components/NavigationDrawer';
 import { RsvpModal } from './components/RsvpModal';
 import { BrassDeepam } from './components/decorations/GoldOrnaments';
 import { TraditionalToran } from './components/decorations/IndianOrnaments';
+import { ScrollToTop } from './components/ScrollToTop';
 
 export const App = () => {
   // Screen sequence states: 
@@ -61,9 +62,12 @@ export const App = () => {
       {/* Floating Global Audio Player & Modal */}
       <MusicControl autoPlayTrigger={musicAutoplayTrigger} />
 
-      {/* Floating Global Navigation Menu Drawer (Active during main celebration) */}
+      {/* Floating Global Navigation Menu Drawer & Scroll-to-Top (Active during main celebration) */}
       {screenState === 'main' && (
-        <NavigationDrawer onOpenRsvp={() => setIsRsvpOpen(true)} />
+        <>
+          <NavigationDrawer onOpenRsvp={() => setIsRsvpOpen(true)} />
+          <ScrollToTop />
+        </>
       )}
 
       {/* RSVP Modal */}

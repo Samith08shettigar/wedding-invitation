@@ -48,12 +48,12 @@ export const CoupleIntroduction = () => {
       {/* Central Couple Portraits & Names */}
       <div className="relative z-20 my-auto flex flex-col items-center text-center px-4 max-w-2xl w-full">
         
-        {/* Two Jharokha Circular Framed Photos */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 mb-6">
+        {/* Two Jharokha Circular Framed Photos Side-by-Side (matching screen_04.png) */}
+        <div className="flex flex-row items-center justify-center gap-4 sm:gap-10 mb-6">
           
           {/* Bride Photo Frame */}
           <div className="flex flex-col items-center group">
-            <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full p-1.5 bg-gradient-to-br from-[#FFF2B2] via-[#D4AF37] to-[#8C610F] shadow-2xl transition-transform duration-500 group-hover:scale-105">
+            <div className="relative w-28 h-28 sm:w-40 sm:h-40 rounded-full p-1.5 bg-gradient-to-br from-[#FFF2B2] via-[#D4AF37] to-[#8C610F] shadow-2xl transition-transform duration-500 group-hover:scale-105">
               <div className="w-full h-full rounded-full overflow-hidden border-2 border-[#FAF5EB] bg-[#F5DE88]">
                 <img 
                   src={weddingData.images.bridePhoto} 
@@ -64,29 +64,12 @@ export const CoupleIntroduction = () => {
                   }}
                 />
               </div>
-              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-[#3B030D] text-[#FFDF78] border border-[#D4AF37] px-3 py-0.5 rounded-full text-[10px] font-royal tracking-widest uppercase shadow">
-                The Bride
-              </div>
             </div>
-            <h3 className="font-serif italic text-2xl sm:text-3xl text-[#781124] font-medium tracking-wide mt-4">
-              {weddingData.brideName}
-            </h3>
-          </div>
-
-          {/* Central Golden Lotus Fleuron on large screens */}
-          <div className="hidden sm:flex flex-col items-center justify-center pt-2">
-            <GoldLotus size={36} className="opacity-90" />
-            <span className="font-serif italic text-2xl text-[#AA7C11] my-1 font-semibold">&amp;</span>
-          </div>
-
-          {/* Mobile ampersand */}
-          <div className="flex sm:hidden items-center justify-center -my-2">
-            <span className="font-serif italic text-2xl text-[#AA7C11] font-semibold">&amp;</span>
           </div>
 
           {/* Groom Photo Frame */}
           <div className="flex flex-col items-center group">
-            <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full p-1.5 bg-gradient-to-br from-[#FFF2B2] via-[#D4AF37] to-[#8C610F] shadow-2xl transition-transform duration-500 group-hover:scale-105">
+            <div className="relative w-28 h-28 sm:w-40 sm:h-40 rounded-full p-1.5 bg-gradient-to-br from-[#FFF2B2] via-[#D4AF37] to-[#8C610F] shadow-2xl transition-transform duration-500 group-hover:scale-105">
               <div className="w-full h-full rounded-full overflow-hidden border-2 border-[#FAF5EB] bg-[#F5DE88]">
                 <img 
                   src={weddingData.images.groomPhoto} 
@@ -97,14 +80,19 @@ export const CoupleIntroduction = () => {
                   }}
                 />
               </div>
-              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-[#3B030D] text-[#FFDF78] border border-[#D4AF37] px-3 py-0.5 rounded-full text-[10px] font-royal tracking-widest uppercase shadow">
-                The Groom
-              </div>
             </div>
-            <h3 className="font-serif italic text-2xl sm:text-3xl text-[#781124] font-medium tracking-wide mt-4">
-              {weddingData.groomName}
-            </h3>
           </div>
+        </div>
+
+        {/* Couple Names (Centered below photos) */}
+        <div className="flex flex-col items-center text-center mt-2 mb-1">
+          <h3 className="font-serif italic text-2xl sm:text-4xl text-[#781124] font-medium tracking-wide">
+            {weddingData.brideName}
+          </h3>
+          <span className="font-serif italic text-xl sm:text-2xl text-[#AA7C11] my-0.5 font-semibold">&amp;</span>
+          <h3 className="font-serif italic text-2xl sm:text-4xl text-[#781124] font-medium tracking-wide">
+            {weddingData.groomName}
+          </h3>
         </div>
 
         {/* Gold Divider */}
