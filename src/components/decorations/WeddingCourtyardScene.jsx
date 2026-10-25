@@ -23,8 +23,8 @@ export const WeddingCourtyardScene = ({ className = "" }) => {
         />
       </picture>
 
-      {/* 2. Soft Atmospheric Sunset Glow & Depth Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-transparent to-black/35 pointer-events-none" />
+      {/* 2. Soft Atmospheric Sunset & Twilight Sky Contrast Overlay (Matches reference image dusk-blue upper arch) */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#08182B]/60 via-[#1A040A]/25 to-black/40 pointer-events-none" />
 
       {/* 3. Golden Dust Shimmer Particles */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-60">
