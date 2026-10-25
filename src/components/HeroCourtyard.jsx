@@ -21,10 +21,11 @@ export const HeroCourtyard = ({ onStartMusic, onOpenComplete }) => {
     if (onStartMusic) onStartMusic();
     setOpenState('opening');
 
+    // 2.4s total: allows the luxurious 2.2s petal unfolding to complete fully and gracefully
     setTimeout(() => {
       setOpenState('opened');
       if (onOpenComplete) onOpenComplete();
-    }, 1200);
+    }, 2400);
   };
 
   const handleSkip = (e) => {
@@ -47,10 +48,10 @@ export const HeroCourtyard = ({ onStartMusic, onOpenComplete }) => {
       {/* 1. COURTYARD BACKGROUND (background1.webp / png) */}
       <WeddingCourtyardScene />
 
-      {/* 2. COURTYARD HERO TEXT (Floats cleanly inside the upper archway) */}
+      {/* 2. COURTYARD HERO TEXT (Floats cleanly inside the upper archway as petals unfold) */}
       <div 
-        className={`relative z-20 pt-14 sm:pt-20 px-6 max-w-lg mx-auto text-center flex flex-col items-center transition-all duration-1000 ${
-          isOpening ? 'opacity-100 translate-y-0 delay-300' : 'opacity-0 translate-y-6 pointer-events-none'
+        className={`relative z-20 pt-14 sm:pt-20 px-6 max-w-lg mx-auto text-center flex flex-col items-center transition-all duration-1200 ease-out ${
+          isOpening ? 'opacity-100 translate-y-0 delay-700' : 'opacity-0 translate-y-8 pointer-events-none'
         }`}
       >
         {/* Sacred Opening Verse */}
@@ -93,22 +94,23 @@ export const HeroCourtyard = ({ onStartMusic, onOpenComplete }) => {
         </div>
       )}
 
-      {/* 3. 4-PETAL CARVED ENVELOPE (Smoothly unfolds and completely disappears when opened) */}
+      {/* 3. 4-PETAL CARVED ENVELOPE (Slowly and gracefully unfolds in 3D) */}
       {!isOpened && (
         <div 
-          className={`absolute inset-0 z-30 perspective-1600 transition-opacity duration-1000 ${
-            isOpening ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'
+          className={`absolute inset-0 z-30 perspective-1600 ${
+            isOpening ? 'pointer-events-none' : 'pointer-events-auto cursor-pointer'
           }`}
           onClick={handleOpen}
         >
           {/* TOP PETAL */}
           <div 
-            className="absolute top-0 inset-x-0 h-1/2 overflow-hidden cursor-pointer transition-all duration-1000 ease-in-out"
+            className="absolute top-0 inset-x-0 h-1/2 overflow-hidden"
             style={{
               clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
               transformOrigin: 'top center',
-              transform: isOpening ? 'rotateX(110deg) translateY(-80%) scaleY(0.4)' : 'none',
+              transform: isOpening ? 'rotateX(115deg) translateY(-30%) scaleY(0.7)' : 'rotateX(0deg) translateY(0) scaleY(1)',
               opacity: isOpening ? 0 : 1,
+              transition: 'transform 2200ms cubic-bezier(0.25, 1, 0.4, 1), opacity 2000ms cubic-bezier(0.4, 0, 0.2, 1) 200ms',
             }}
           >
             <picture>
@@ -119,12 +121,13 @@ export const HeroCourtyard = ({ onStartMusic, onOpenComplete }) => {
 
           {/* LEFT PETAL */}
           <div 
-            className="absolute inset-y-0 left-0 w-1/2 overflow-hidden cursor-pointer transition-all duration-1000 ease-in-out"
+            className="absolute inset-y-0 left-0 w-1/2 overflow-hidden"
             style={{
               clipPath: 'polygon(0 0, 100% 50%, 0 100%)',
               transformOrigin: 'left center',
-              transform: isOpening ? 'rotateY(-110deg) translateX(-80%) scaleX(0.4)' : 'none',
+              transform: isOpening ? 'rotateY(-115deg) translateX(-30%) scaleX(0.7)' : 'rotateY(0deg) translateX(0) scaleX(1)',
               opacity: isOpening ? 0 : 1,
+              transition: 'transform 2200ms cubic-bezier(0.25, 1, 0.4, 1) 100ms, opacity 2000ms cubic-bezier(0.4, 0, 0.2, 1) 300ms',
             }}
           >
             <picture>
@@ -135,12 +138,13 @@ export const HeroCourtyard = ({ onStartMusic, onOpenComplete }) => {
 
           {/* RIGHT PETAL */}
           <div 
-            className="absolute inset-y-0 right-0 w-1/2 overflow-hidden cursor-pointer transition-all duration-1000 ease-in-out"
+            className="absolute inset-y-0 right-0 w-1/2 overflow-hidden"
             style={{
               clipPath: 'polygon(100% 0, 0 50%, 100% 100%)',
               transformOrigin: 'right center',
-              transform: isOpening ? 'rotateY(110deg) translateX(80%) scaleX(0.4)' : 'none',
+              transform: isOpening ? 'rotateY(115deg) translateX(30%) scaleX(0.7)' : 'rotateY(0deg) translateX(0) scaleX(1)',
               opacity: isOpening ? 0 : 1,
+              transition: 'transform 2200ms cubic-bezier(0.25, 1, 0.4, 1) 100ms, opacity 2000ms cubic-bezier(0.4, 0, 0.2, 1) 300ms',
             }}
           >
             <picture>
@@ -151,12 +155,13 @@ export const HeroCourtyard = ({ onStartMusic, onOpenComplete }) => {
 
           {/* BOTTOM PETAL */}
           <div 
-            className="absolute bottom-0 inset-x-0 h-1/2 overflow-hidden cursor-pointer transition-all duration-1000 ease-in-out"
+            className="absolute bottom-0 inset-x-0 h-1/2 overflow-hidden"
             style={{
               clipPath: 'polygon(0 100%, 50% 0, 100% 100%)',
               transformOrigin: 'bottom center',
-              transform: isOpening ? 'rotateX(-110deg) translateY(80%) scaleY(0.4)' : 'none',
+              transform: isOpening ? 'rotateX(-115deg) translateY(30%) scaleY(0.7)' : 'rotateX(0deg) translateY(0) scaleY(1)',
               opacity: isOpening ? 0 : 1,
+              transition: 'transform 2200ms cubic-bezier(0.25, 1, 0.4, 1) 150ms, opacity 2000ms cubic-bezier(0.4, 0, 0.2, 1) 350ms',
             }}
           >
             <picture>
@@ -166,7 +171,13 @@ export const HeroCourtyard = ({ onStartMusic, onOpenComplete }) => {
           </div>
 
           {/* Sealed Invitation Text */}
-          <div className={`absolute top-16 inset-x-0 flex flex-col items-center text-center px-4 pointer-events-none transition-opacity duration-400 ${isOpening ? 'opacity-0' : 'opacity-100'}`}>
+          <div 
+            className="absolute top-16 inset-x-0 flex flex-col items-center text-center px-4 pointer-events-none transition-all duration-600 ease-out"
+            style={{
+              opacity: isOpening ? 0 : 1,
+              transform: isOpening ? 'translateY(-12px)' : 'translateY(0)',
+            }}
+          >
             <p className="font-serif italic text-2xl sm:text-3xl text-[#FFE6EE] tracking-wide drop-shadow-md mb-0.5">
               You are invited
             </p>
@@ -176,11 +187,18 @@ export const HeroCourtyard = ({ onStartMusic, onOpenComplete }) => {
           </div>
 
           {/* Central Red Wax Seal */}
-          <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-auto transition-all duration-400 ${isOpening ? 'scale-0 opacity-0' : 'scale-100 opacity-100'}`}>
+          <div 
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 transition-all duration-500 ease-out"
+            style={{
+              opacity: isOpening ? 0 : 1,
+              transform: isOpening ? 'translate(-50%, -50%) scale(1.15)' : 'translate(-50%, -50%) scale(1)',
+              pointerEvents: isOpening ? 'none' : 'auto',
+            }}
+          >
             <CarvedWaxSeal 
               monogram={weddingData.monogram} 
               size={90} 
-              isPulsing={true}
+              isPulsing={!isOpening}
               onClick={handleOpen} 
             />
           </div>
