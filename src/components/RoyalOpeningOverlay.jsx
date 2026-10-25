@@ -145,25 +145,25 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
 
     setEntrancePhase('petals-opening');
 
-    // Mailbox opens at 800ms as petals sweep outward
+    // Mailbox opens smoothly as petals sweep outward (1200ms)
     setTimeout(() => {
       setMailboxPhase('opening');
-    }, 800);
-
-    // Switch scene to mailbox at 1200ms to free up interaction
-    setTimeout(() => {
-      setScene('mailbox');
     }, 1200);
 
-    // Slide card gracefully upward from inside pocket at 1400ms
+    // Switch scene to mailbox at 1800ms
+    setTimeout(() => {
+      setScene('mailbox');
+    }, 1800);
+
+    // Slide card gracefully and slowly upward from inside pocket at 2200ms
     setTimeout(() => {
       setMailboxPhase('card-up');
-    }, 1400);
+    }, 2200);
 
-    // Butterflies spread across screen and gently disappear at 3400ms
+    // Butterflies spread across screen and gently disappear at 5000ms
     setTimeout(() => {
       setButterfliesDisappear(true);
-    }, 3400);
+    }, 5000);
   };
 
   // Step 2: Trigger mailbox flap opening manually if tapped
@@ -173,10 +173,10 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
       setMailboxPhase('opening');
       setTimeout(() => {
         setMailboxPhase('card-up');
-      }, 600);
+      }, 1000);
       setTimeout(() => {
         setButterfliesDisappear(true);
-      }, 2800);
+      }, 4200);
     }
   };
 
@@ -264,7 +264,7 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
         </div>
 
         {/* 2. GRAND MAILBOX CONTAINER (Centered with proper alignment and proportions) */}
-        <div className="relative w-full max-w-[380px] sm:max-w-[420px] h-full max-h-[100dvh] flex flex-col items-center justify-center px-3 sm:px-4 translate-y-8 sm:translate-y-10">
+        <div className="relative w-full max-w-[380px] sm:max-w-[420px] h-full max-h-[100dvh] flex flex-col items-center justify-center px-3 sm:px-4 translate-y-12 sm:translate-y-14">
           
           <div className="relative w-full h-[260px] sm:h-[280px] flex items-end justify-center perspective-1600">
             
@@ -278,7 +278,7 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
 
             {/* OPEN FLAP (Points UPWARD behind the card when open, framing it like an authentic royal envelope) */}
             <div 
-              className={`absolute top-0 inset-x-0 h-[175px] sm:h-[185px] z-15 pointer-events-none transition-all duration-[1200ms] ease-out ${
+              className={`absolute top-0 inset-x-0 h-[210px] sm:h-[230px] z-15 pointer-events-none transition-all duration-[1500ms] ease-out ${
                 isMailboxFlapOpen 
                   ? 'opacity-100 scale-100 -translate-y-full' 
                   : 'opacity-0 scale-95 translate-y-0'
@@ -290,9 +290,9 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
               }}
             >
               <div className="absolute inset-0 opacity-30 bg-[radial-gradient(#D4AF37_1.5px,transparent_1.5px)] [background-size:14px_14px]" />
-              <svg className="w-full h-full" viewBox="0 0 400 175" preserveAspectRatio="none">
-                <path d="M 0 175 L 200 0 L 400 175" fill="none" stroke="url(#goldRimGrad)" strokeWidth="3.2" />
-                <path d="M 6 171 L 200 6 L 394 171" fill="none" stroke="#FFDF78" strokeWidth="0.8" strokeDasharray="2.5 2.5" opacity="0.75" />
+              <svg className="w-full h-full" viewBox="0 0 400 210" preserveAspectRatio="none">
+                <path d="M 0 210 L 200 0 L 400 210" fill="none" stroke="url(#goldRimGrad)" strokeWidth="3.2" />
+                <path d="M 6 206 L 200 6 L 394 206" fill="none" stroke="#FFDF78" strokeWidth="0.8" strokeDasharray="2.5 2.5" opacity="0.75" />
               </svg>
               <div className="absolute bottom-3 inset-x-0 text-center">
                 <span className="font-serif italic text-[10px] text-[#D4AF37] tracking-widest">&#10022; With Love &amp; Blessings &#10022;</span>
@@ -313,14 +313,14 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
               <div 
                 onClick={isCardUp ? handleEnterWebsite : undefined}
                 onTouchEnd={isCardUp ? handleEnterWebsite : undefined}
-                className={`absolute inset-x-3 sm:inset-x-4 top-2 rounded-2xl bg-[#FFFDF8] border-2 border-[#D4AF37] px-4 py-3 sm:px-5 sm:py-3.5 shadow-[0_25px_60px_rgba(0,0,0,0.85)] flex flex-col items-center justify-between text-center select-none transition-all duration-[1300ms] ease-out ${
+                className={`absolute inset-x-3 sm:inset-x-4 top-2 rounded-2xl bg-[#FFFDF8] border-2 border-[#D4AF37] px-4 py-3 sm:px-5 sm:py-3.5 shadow-[0_25px_60px_rgba(0,0,0,0.85)] flex flex-col items-center justify-between text-center select-none transition-all duration-[1800ms] ease-out ${
                   isCardUp 
-                    ? '-translate-y-[185px] sm:-translate-y-[210px] scale-100 opacity-100 pointer-events-auto cursor-pointer hover:shadow-[0_25px_70px_rgba(212,175,55,0.45)]' 
+                    ? '-translate-y-[235px] sm:-translate-y-[260px] scale-100 opacity-100 pointer-events-auto cursor-pointer hover:shadow-[0_25px_70px_rgba(212,175,55,0.45)]' 
                     : 'translate-y-2 scale-95 opacity-0 pointer-events-none'
                 }`}
                 style={{
                   height: '335px',
-                  transitionTimingFunction: 'cubic-bezier(0.25, 1, 0.4, 1)',
+                  transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
                   willChange: 'transform, opacity',
                 }}
               >
