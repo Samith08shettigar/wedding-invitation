@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { weddingData } from '../data/weddingData';
 import { ChevronDown } from 'lucide-react';
 import mainWebp from '../assets/main.webp';
+import mailBackgroundWebp from '../assets/mailbackground.webp';
 
 // Fluttering Golden Butterflies Configuration (Spreads outward from wax seal across viewport)
 const BUTTERFLIES_CONFIG = [
@@ -216,8 +217,9 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
       </button>
 
       {/* =========================================================================
-          STAGE 2: LUXURY TEAL-BLUE & IVORY CODE-DESIGNED MAILBOX (Matching mail.png)
-          Designed 100% with clean SVG, CSS, and HTML — zero image artifacts, zero tearing!
+          STAGE 2: GRAND ROYAL TEAL-BLUE & IVORY MAILBOX
+          Uses mailbackground.png as the requested background, with a grand
+          vector-designed royal mailbox, properly anchored card, and 3D floral bouquets!
           ========================================================================= */}
       <div 
         className={`absolute inset-0 w-full h-full flex items-center justify-center z-20 transition-opacity duration-700 ease-out ${
@@ -226,22 +228,16 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
             : 'opacity-100 pointer-events-auto'
         }`}
       >
-        {/* SINGLE LUXURY IVORY & CHAMPAGNE BACKDROP (Non-repeating, zero duplication!) */}
-        <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden bg-gradient-to-b from-[#FCFAF6] via-[#F4EFE6] to-[#E8DEC\-C]/30" style={{ background: 'radial-gradient(circle at 50% 45%, #FDFBF8 0%, #F5EFE7 55%, #E9DFD2 100%)' }}>
-          
-          {/* Subtle Antique-Gold Corner Flourishes */}
-          <svg className="absolute top-0 left-0 w-44 h-44 sm:w-56 sm:h-56 text-[#D4AF37] opacity-40 pointer-events-none" viewBox="0 0 200 200" fill="none">
-            <path d="M 0 30 Q 80 30 110 70 Q 140 110 170 200" stroke="currentColor" strokeWidth="1.2" fill="none" />
-            <path d="M 0 55 Q 60 55 85 90 Q 110 125 130 200" stroke="currentColor" strokeWidth="0.8" strokeDasharray="3 3" fill="none" />
-            <circle cx="110" cy="70" r="3" fill="currentColor" />
-            <circle cx="85" cy="90" r="2.5" fill="currentColor" />
-          </svg>
-
-          <svg className="absolute bottom-0 right-0 w-44 h-44 sm:w-56 sm:h-56 text-[#D4AF37] opacity-40 pointer-events-none rotate-180" viewBox="0 0 200 200" fill="none">
-            <path d="M 0 30 Q 80 30 110 70 Q 140 110 170 200" stroke="currentColor" strokeWidth="1.2" fill="none" />
-            <path d="M 0 55 Q 60 55 85 90 Q 110 125 130 200" stroke="currentColor" strokeWidth="0.8" strokeDasharray="3 3" fill="none" />
-            <circle cx="110" cy="70" r="3" fill="currentColor" />
-          </svg>
+        {/* 1. SINGLE FULL-BLEED BACKGROUND FROM mailbackground.png (Requested file path) */}
+        <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
+          <img 
+            src={mailBackgroundWebp} 
+            alt="Royal Floral Background" 
+            className="w-full h-full object-cover object-center" 
+            loading="eager"
+            decoding="async"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#FAF7F0]/15 via-transparent to-[#10242E]/30 pointer-events-none" />
         </div>
 
         {/* Floating Subtle Gold Shimmer Dust */}
@@ -267,30 +263,30 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
           ))}
         </div>
 
-        {/* MAILBOX STAGE CONTAINER (Centered, perfectly proportioned, pure vector precision) */}
-        <div className="relative w-full max-w-[400px] sm:max-w-[430px] h-full max-h-[100dvh] flex flex-col items-center justify-center px-3 sm:px-4">
+        {/* 2. GRAND MAILBOX CONTAINER (Centered with proper alignment and proportions) */}
+        <div className="relative w-full max-w-[390px] sm:max-w-[430px] h-full max-h-[100dvh] flex flex-col items-center justify-center px-3 sm:px-4">
           
           <div className="relative w-full h-[270px] sm:h-[290px] flex items-end justify-center perspective-1600">
             
-            {/* 1. ENVELOPE INTERIOR BACK (Deep Teal with delicate Gold Botanical Jaali) */}
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-[#0F222C] via-[#142E3B] to-[#1B3E4F] border-2 border-[#D4AF37]/60 shadow-[0_20px_50px_rgba(0,0,0,0.55)] overflow-hidden z-10 pointer-events-none">
+            {/* ENVELOPE INTERIOR BACK (Deep Royal Midnight Teal with Gold Jaali) */}
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-[#0F222C] via-[#142E3B] to-[#1B3E4F] border-2 border-[#D4AF37]/70 shadow-[0_25px_60px_rgba(0,0,0,0.6)] overflow-hidden z-10 pointer-events-none">
               <div className="absolute inset-0 opacity-25 bg-[radial-gradient(#D4AF37_1.5px,transparent_1.5px)] [background-size:16px_16px]" />
-              <div className="absolute top-4 inset-x-0 flex flex-col items-center text-center opacity-40">
+              <div className="absolute top-4 inset-x-0 flex flex-col items-center text-center opacity-50">
                 <span className="font-serif italic text-[11px] text-[#E5C158] tracking-widest">&#10022; With Love &amp; Blessings &#10022;</span>
               </div>
             </div>
 
-            {/* 2. THE SINGLE INVITATION CARD (Sliding gracefully UP from INSIDE the envelope pocket!) */}
+            {/* THE INVITATION CARD (Firmly anchored INSIDE the mailbox, gliding smoothly upward!) */}
             <div 
               onClick={isCardUp ? handleEnterWebsite : undefined}
               onTouchEnd={isCardUp ? handleEnterWebsite : undefined}
-              className={`absolute inset-x-3 sm:inset-x-4 top-2 rounded-2xl bg-[#FFFDF8] border-2 border-[#D4AF37] p-5 sm:p-7 shadow-[0_25px_60px_rgba(0,0,0,0.85)] flex flex-col items-center justify-between text-center select-none z-20 transition-all duration-[1400ms] ease-out ${
+              className={`absolute inset-x-3 sm:inset-x-4 top-2 rounded-2xl bg-[#FFFDF8] border-2 border-[#D4AF37] p-5 sm:p-6 shadow-[0_25px_60px_rgba(0,0,0,0.85)] flex flex-col items-center justify-between text-center select-none z-20 transition-all duration-[1400ms] ease-out ${
                 isCardUp 
-                  ? '-translate-y-48 sm:-translate-y-56 scale-100 opacity-100 cursor-pointer hover:shadow-[0_25px_70px_rgba(212,175,55,0.45)]' 
-                  : 'translate-y-16 scale-95 opacity-0 pointer-events-none'
+                  ? '-translate-y-28 sm:-translate-y-36 scale-100 opacity-100 cursor-pointer hover:shadow-[0_25px_70px_rgba(212,175,55,0.45)]' 
+                  : 'translate-y-14 scale-95 opacity-0 pointer-events-none'
               }`}
               style={{
-                height: '430px',
+                height: '380px',
                 transitionTimingFunction: 'cubic-bezier(0.25, 1, 0.4, 1)',
                 willChange: 'transform, opacity',
               }}
@@ -352,32 +348,37 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
               </div>
             </div>
 
-            {/* 3. FRONT POCKET WITH V-CUT, 3D BLOSSOMS, GOLD LEAVES & WAX SEAL (Designed by code itself!) */}
+            {/* GRAND FRONT POCKET WITH 3D BLOSSOMS, GOLD FOLIAGE & WAX SEAL (Covering bottom of card!) */}
             <svg 
               viewBox="0 0 400 190" 
-              className="absolute bottom-0 inset-x-0 w-full z-30 pointer-events-none drop-shadow-[0_15px_30px_rgba(0,0,0,0.6)]"
+              className="absolute bottom-0 inset-x-0 w-full z-30 pointer-events-none drop-shadow-[0_15px_35px_rgba(0,0,0,0.65)]"
               style={{ overflow: 'visible' }}
             >
               <defs>
                 <linearGradient id="pocketTealGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor="#2A5C70" />
-                  <stop offset="35%" stopColor="#1B4353" />
-                  <stop offset="100%" stopColor="#102C38" />
+                  <stop offset="0%" stopColor="#2E637A" />
+                  <stop offset="30%" stopColor="#1C4556" />
+                  <stop offset="70%" stopColor="#143442" />
+                  <stop offset="100%" stopColor="#0B202A" />
                 </linearGradient>
                 <linearGradient id="goldRimGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stopColor="#D4AF37" />
-                  <stop offset="50%" stopColor="#FFF2B2" />
+                  <stop offset="25%" stopColor="#FFF2B2" />
+                  <stop offset="50%" stopColor="#E2BA4D" />
+                  <stop offset="75%" stopColor="#FFF2B2" />
                   <stop offset="100%" stopColor="#D4AF37" />
                 </linearGradient>
                 <linearGradient id="goldLeafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#FFF7D6" />
-                  <stop offset="40%" stopColor="#E5C158" />
+                  <stop offset="35%" stopColor="#FFDE6A" />
+                  <stop offset="70%" stopColor="#D4AF37" />
                   <stop offset="100%" stopColor="#99700E" />
                 </linearGradient>
                 <radialGradient id="tealSealGrad" cx="35%" cy="30%" r="70%">
-                  <stop offset="0%" stopColor="#31677E" />
-                  <stop offset="50%" stopColor="#1C4454" />
-                  <stop offset="100%" stopColor="#0B2029" />
+                  <stop offset="0%" stopColor="#3A758E" />
+                  <stop offset="45%" stopColor="#1C4657" />
+                  <stop offset="85%" stopColor="#0F2A35" />
+                  <stop offset="100%" stopColor="#07171F" />
                 </radialGradient>
               </defs>
 
@@ -392,96 +393,113 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
                 d="M 0 0 L 200 105 L 400 0"
                 fill="none"
                 stroke="url(#goldRimGrad)"
-                strokeWidth="2.8"
+                strokeWidth="3.2"
               />
               <path
                 d="M 6 8 L 200 111 L 394 8"
                 fill="none"
-                stroke="#AA7C11"
-                strokeWidth="0.8"
-                strokeDasharray="2 2"
-                opacity="0.65"
+                stroke="#FFDF78"
+                strokeWidth="0.9"
+                strokeDasharray="2.5 2.5"
+                opacity="0.7"
               />
 
-              {/* LEFT BOTANICAL CLUSTER (Layered White Flowers, Gold Leaves & Teal Foliage) */}
+              {/* LEFT GRAND BOTANICAL CLUSTER */}
               <g transform="translate(130, 95)">
-                {/* Teal Eucalyptus Foliage */}
-                <ellipse cx="-45" cy="-25" rx="14" ry="7" transform="rotate(-25, -45, -25)" fill="#35667A" opacity="0.9" />
-                <ellipse cx="-65" cy="-35" rx="12" ry="6" transform="rotate(-40, -65, -35)" fill="#254F60" opacity="0.9" />
-                {/* Gold Metallic Botanical Sprigs */}
-                <path d="M-80 -40 Q-50 -25 -20 -5" stroke="url(#goldLeafGrad)" strokeWidth="1.6" fill="none" />
-                <circle cx="-75" cy="-38" r="3.2" fill="url(#goldLeafGrad)" />
-                <circle cx="-55" cy="-28" r="3.5" fill="url(#goldLeafGrad)" />
-                <circle cx="-35" cy="-18" r="3.2" fill="url(#goldLeafGrad)" />
-                {/* Gold Foliage Leaves */}
-                <path d="M-40 -15 Q-50 -30 -35 -35 Q-25 -25 -40 -15" fill="url(#goldLeafGrad)" filter="drop-shadow(0 1px 2px rgba(0,0,0,0.3))" />
-                <path d="M-20 -5 Q-30 -20 -15 -25 Q-5 -15 -20 -5" fill="url(#goldLeafGrad)" filter="drop-shadow(0 1px 2px rgba(0,0,0,0.3))" />
-                {/* White Layered Blossom 1 */}
-                <g transform="translate(-45, -12)">
-                  <circle cx="-7" cy="-7" r="6.5" fill="#FFFDF8" stroke="#E6DCC8" strokeWidth="0.6" />
-                  <circle cx="7" cy="-7" r="6.5" fill="#FFFDF8" stroke="#E6DCC8" strokeWidth="0.6" />
-                  <circle cx="-7" cy="7" r="6.5" fill="#FFFDF8" stroke="#E6DCC8" strokeWidth="0.6" />
-                  <circle cx="7" cy="7" r="6.5" fill="#FFFDF8" stroke="#E6DCC8" strokeWidth="0.6" />
-                  <circle cx="0" cy="0" r="7.5" fill="#FFFFFF" stroke="#E6DCC8" strokeWidth="0.6" />
-                  <circle cx="0" cy="0" r="3.2" fill="#D4AF37" />
+                {/* Deep Teal Eucalyptus Leaves with Gold Veins */}
+                <ellipse cx="-45" cy="-25" rx="15" ry="7.5" transform="rotate(-25, -45, -25)" fill="#35667A" opacity="0.95" />
+                <path d="M-55 -28 L-35 -22" stroke="#FFDF78" strokeWidth="0.6" strokeOpacity="0.7" />
+                <ellipse cx="-68" cy="-35" rx="13" ry="6.5" transform="rotate(-40, -68, -35)" fill="#254F60" opacity="0.95" />
+                <path d="M-76 -38 L-60 -32" stroke="#FFDF78" strokeWidth="0.6" strokeOpacity="0.7" />
+                
+                {/* Gold Metallic Botanical Sprigs & Pearls */}
+                <path d="M-85 -42 Q-50 -26 -18 -5" stroke="url(#goldLeafGrad)" strokeWidth="1.8" fill="none" />
+                <circle cx="-80" cy="-40" r="3.5" fill="url(#goldLeafGrad)" filter="drop-shadow(0 0 4px #FFD700)" />
+                <circle cx="-60" cy="-30" r="3.8" fill="url(#goldLeafGrad)" filter="drop-shadow(0 0 4px #FFD700)" />
+                <circle cx="-38" cy="-18" r="3.5" fill="url(#goldLeafGrad)" filter="drop-shadow(0 0 4px #FFD700)" />
+                
+                {/* Gold Acanthus Foliage */}
+                <path d="M-42 -16 Q-54 -32 -38 -38 Q-26 -26 -42 -16" fill="url(#goldLeafGrad)" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.35))" />
+                <path d="M-22 -6 Q-32 -22 -16 -28 Q-6 -16 -22 -6" fill="url(#goldLeafGrad)" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.35))" />
+                
+                {/* Grand White Layered Blossom 1 */}
+                <g transform="translate(-48, -13)">
+                  <circle cx="-7" cy="-7" r="7" fill="#FBF9F4" stroke="#DED4C0" strokeWidth="0.7" />
+                  <circle cx="7" cy="-7" r="7" fill="#FBF9F4" stroke="#DED4C0" strokeWidth="0.7" />
+                  <circle cx="-7" cy="7" r="7" fill="#FBF9F4" stroke="#DED4C0" strokeWidth="0.7" />
+                  <circle cx="7" cy="7" r="7" fill="#FBF9F4" stroke="#DED4C0" strokeWidth="0.7" />
+                  <circle cx="0" cy="0" r="8" fill="#FFFFFF" stroke="#DED4C0" strokeWidth="0.7" filter="drop-shadow(0 1px 3px rgba(0,0,0,0.25))" />
+                  <circle cx="0" cy="0" r="3.5" fill="url(#goldLeafGrad)" />
+                  <circle cx="0" cy="0" r="1.5" fill="#FFFBE6" />
                 </g>
-                {/* White Layered Blossom 2 */}
+                
+                {/* Grand White Layered Blossom 2 */}
                 <g transform="translate(-20, 2) scale(0.85)">
-                  <circle cx="-6" cy="-6" r="5.5" fill="#FFFDF8" stroke="#E6DCC8" strokeWidth="0.6" />
-                  <circle cx="6" cy="-6" r="5.5" fill="#FFFDF8" stroke="#E6DCC8" strokeWidth="0.6" />
-                  <circle cx="-6" cy="6" r="5.5" fill="#FFFDF8" stroke="#E6DCC8" strokeWidth="0.6" />
-                  <circle cx="6" cy="6" r="5.5" fill="#FFFDF8" stroke="#E6DCC8" strokeWidth="0.6" />
-                  <circle cx="0" cy="0" r="6.5" fill="#FFFFFF" stroke="#E6DCC8" strokeWidth="0.6" />
-                  <circle cx="0" cy="0" r="2.8" fill="#D4AF37" />
+                  <circle cx="-6" cy="-6" r="6" fill="#FBF9F4" stroke="#DED4C0" strokeWidth="0.7" />
+                  <circle cx="6" cy="-6" r="6" fill="#FBF9F4" stroke="#DED4C0" strokeWidth="0.7" />
+                  <circle cx="-6" cy="6" r="6" fill="#FBF9F4" stroke="#DED4C0" strokeWidth="0.7" />
+                  <circle cx="6" cy="6" r="6" fill="#FBF9F4" stroke="#DED4C0" strokeWidth="0.7" />
+                  <circle cx="0" cy="0" r="7" fill="#FFFFFF" stroke="#DED4C0" strokeWidth="0.7" />
+                  <circle cx="0" cy="0" r="3" fill="url(#goldLeafGrad)" />
                 </g>
               </g>
 
-              {/* RIGHT BOTANICAL CLUSTER (Mirrored Symmetry) */}
+              {/* RIGHT GRAND BOTANICAL CLUSTER (Mirrored Symmetry) */}
               <g transform="translate(270, 95) scale(-1, 1)">
-                {/* Teal Eucalyptus Foliage */}
-                <ellipse cx="-45" cy="-25" rx="14" ry="7" transform="rotate(-25, -45, -25)" fill="#35667A" opacity="0.9" />
-                <ellipse cx="-65" cy="-35" rx="12" ry="6" transform="rotate(-40, -65, -35)" fill="#254F60" opacity="0.9" />
-                {/* Gold Metallic Botanical Sprigs */}
-                <path d="M-80 -40 Q-50 -25 -20 -5" stroke="url(#goldLeafGrad)" strokeWidth="1.6" fill="none" />
-                <circle cx="-75" cy="-38" r="3.2" fill="url(#goldLeafGrad)" />
-                <circle cx="-55" cy="-28" r="3.5" fill="url(#goldLeafGrad)" />
-                <circle cx="-35" cy="-18" r="3.2" fill="url(#goldLeafGrad)" />
-                {/* Gold Foliage Leaves */}
-                <path d="M-40 -15 Q-50 -30 -35 -35 Q-25 -25 -40 -15" fill="url(#goldLeafGrad)" filter="drop-shadow(0 1px 2px rgba(0,0,0,0.3))" />
-                <path d="M-20 -5 Q-30 -20 -15 -25 Q-5 -15 -20 -5" fill="url(#goldLeafGrad)" filter="drop-shadow(0 1px 2px rgba(0,0,0,0.3))" />
-                {/* White Layered Blossom 1 */}
-                <g transform="translate(-45, -12)">
-                  <circle cx="-7" cy="-7" r="6.5" fill="#FFFDF8" stroke="#E6DCC8" strokeWidth="0.6" />
-                  <circle cx="7" cy="-7" r="6.5" fill="#FFFDF8" stroke="#E6DCC8" strokeWidth="0.6" />
-                  <circle cx="-7" cy="7" r="6.5" fill="#FFFDF8" stroke="#E6DCC8" strokeWidth="0.6" />
-                  <circle cx="7" cy="7" r="6.5" fill="#FFFDF8" stroke="#E6DCC8" strokeWidth="0.6" />
-                  <circle cx="0" cy="0" r="7.5" fill="#FFFFFF" stroke="#E6DCC8" strokeWidth="0.6" />
-                  <circle cx="0" cy="0" r="3.2" fill="#D4AF37" />
+                {/* Deep Teal Eucalyptus Leaves with Gold Veins */}
+                <ellipse cx="-45" cy="-25" rx="15" ry="7.5" transform="rotate(-25, -45, -25)" fill="#35667A" opacity="0.95" />
+                <path d="M-55 -28 L-35 -22" stroke="#FFDF78" strokeWidth="0.6" strokeOpacity="0.7" />
+                <ellipse cx="-68" cy="-35" rx="13" ry="6.5" transform="rotate(-40, -68, -35)" fill="#254F60" opacity="0.95" />
+                <path d="M-76 -38 L-60 -32" stroke="#FFDF78" strokeWidth="0.6" strokeOpacity="0.7" />
+                
+                {/* Gold Metallic Botanical Sprigs & Pearls */}
+                <path d="M-85 -42 Q-50 -26 -18 -5" stroke="url(#goldLeafGrad)" strokeWidth="1.8" fill="none" />
+                <circle cx="-80" cy="-40" r="3.5" fill="url(#goldLeafGrad)" filter="drop-shadow(0 0 4px #FFD700)" />
+                <circle cx="-60" cy="-30" r="3.8" fill="url(#goldLeafGrad)" filter="drop-shadow(0 0 4px #FFD700)" />
+                <circle cx="-38" cy="-18" r="3.5" fill="url(#goldLeafGrad)" filter="drop-shadow(0 0 4px #FFD700)" />
+                
+                {/* Gold Acanthus Foliage */}
+                <path d="M-42 -16 Q-54 -32 -38 -38 Q-26 -26 -42 -16" fill="url(#goldLeafGrad)" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.35))" />
+                <path d="M-22 -6 Q-32 -22 -16 -28 Q-6 -16 -22 -6" fill="url(#goldLeafGrad)" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.35))" />
+                
+                {/* Grand White Layered Blossom 1 */}
+                <g transform="translate(-48, -13)">
+                  <circle cx="-7" cy="-7" r="7" fill="#FBF9F4" stroke="#DED4C0" strokeWidth="0.7" />
+                  <circle cx="7" cy="-7" r="7" fill="#FBF9F4" stroke="#DED4C0" strokeWidth="0.7" />
+                  <circle cx="-7" cy="7" r="7" fill="#FBF9F4" stroke="#DED4C0" strokeWidth="0.7" />
+                  <circle cx="7" cy="7" r="7" fill="#FBF9F4" stroke="#DED4C0" strokeWidth="0.7" />
+                  <circle cx="0" cy="0" r="8" fill="#FFFFFF" stroke="#DED4C0" strokeWidth="0.7" filter="drop-shadow(0 1px 3px rgba(0,0,0,0.25))" />
+                  <circle cx="0" cy="0" r="3.5" fill="url(#goldLeafGrad)" />
+                  <circle cx="0" cy="0" r="1.5" fill="#FFFBE6" />
                 </g>
-                {/* White Layered Blossom 2 */}
+                
+                {/* Grand White Layered Blossom 2 */}
                 <g transform="translate(-20, 2) scale(0.85)">
-                  <circle cx="-6" cy="-6" r="5.5" fill="#FFFDF8" stroke="#E6DCC8" strokeWidth="0.6" />
-                  <circle cx="6" cy="-6" r="5.5" fill="#FFFDF8" stroke="#E6DCC8" strokeWidth="0.6" />
-                  <circle cx="-6" cy="6" r="5.5" fill="#FFFDF8" stroke="#E6DCC8" strokeWidth="0.6" />
-                  <circle cx="6" cy="6" r="5.5" fill="#FFFDF8" stroke="#E6DCC8" strokeWidth="0.6" />
-                  <circle cx="0" cy="0" r="6.5" fill="#FFFFFF" stroke="#E6DCC8" strokeWidth="0.6" />
-                  <circle cx="0" cy="0" r="2.8" fill="#D4AF37" />
+                  <circle cx="-6" cy="-6" r="6" fill="#FBF9F4" stroke="#DED4C0" strokeWidth="0.7" />
+                  <circle cx="6" cy="-6" r="6" fill="#FBF9F4" stroke="#DED4C0" strokeWidth="0.7" />
+                  <circle cx="-6" cy="6" r="6" fill="#FBF9F4" stroke="#DED4C0" strokeWidth="0.7" />
+                  <circle cx="6" cy="6" r="6" fill="#FBF9F4" stroke="#DED4C0" strokeWidth="0.7" />
+                  <circle cx="0" cy="0" r="7" fill="#FFFFFF" stroke="#DED4C0" strokeWidth="0.7" />
+                  <circle cx="0" cy="0" r="3" fill="url(#goldLeafGrad)" />
                 </g>
               </g>
 
-              {/* CENTER CIRCULAR WAX SEAL */}
+              {/* GRAND 3D CIRCULAR WAX SEAL */}
               <g transform="translate(200, 105)">
-                <circle cx="0" cy="0" r="27" fill="url(#tealSealGrad)" stroke="#42788F" strokeWidth="1.2" filter="drop-shadow(0 4px 10px rgba(0,0,0,0.5))" />
-                <circle cx="0" cy="0" r="22" fill="none" stroke="url(#goldRimGrad)" strokeWidth="1.2" strokeDasharray="2 2" opacity="0.85" />
-                <circle cx="0" cy="0" r="18" fill="#132E3A" stroke="#0A1C24" strokeWidth="1" />
-                {/* Gold Botanical Leaf Emblem */}
-                <path d="M0 -11 C-7 -5, -7 5, 0 11 C7 5, 7 -5, 0 -11 Z" fill="url(#goldLeafGrad)" />
-                <path d="M-6 -2 C-10 -7, -4 -9, 0 -5" stroke="#FFF5CC" strokeWidth="0.8" fill="none" />
-                <path d="M6 -2 C10 -7, 4 -9, 0 -5" stroke="#FFF5CC" strokeWidth="0.8" fill="none" />
+                {/* Outer Beveled Wax Rim with Cast Shadow */}
+                <circle cx="0" cy="0" r="28" fill="url(#tealSealGrad)" stroke="#4A849C" strokeWidth="1.5" filter="drop-shadow(0 6px 14px rgba(0,0,0,0.6))" />
+                {/* Gold Inner Concentric Ring */}
+                <circle cx="0" cy="0" r="23" fill="none" stroke="url(#goldRimGrad)" strokeWidth="1.4" strokeDasharray="2.5 2" opacity="0.9" />
+                <circle cx="0" cy="0" r="19" fill="#112933" stroke="#08171E" strokeWidth="1.2" />
+                {/* 3D Gold Botanical Leaf Emblem */}
+                <path d="M0 -12 C-8 -6, -8 6, 0 12 C8 6, 8 -6, 0 -12 Z" fill="url(#goldLeafGrad)" filter="drop-shadow(0 1px 2px rgba(0,0,0,0.5))" />
+                <path d="M-6 -2 C-10 -7, -4 -9, 0 -5" stroke="#FFF7D6" strokeWidth="1" fill="none" />
+                <path d="M6 -2 C10 -7, 4 -9, 0 -5" stroke="#FFF7D6" strokeWidth="1" fill="none" />
+                <circle cx="0" cy="0" r="2" fill="#FFFDF0" />
               </g>
             </svg>
 
-            {/* 4. UPPER FLAP (3D Hinge: Folds DOWN to touch wax seal when closed, Rotates UPWARD 180° when open) */}
+            {/* GRAND UPPER FLAP (Folds DOWN to wax seal when closed, Rotates UPWARD 180° when open) */}
             <div 
               className={`absolute top-0 inset-x-0 h-[115px] cursor-pointer transition-transform duration-[1200ms] ease-out ${
                 isMailboxFlapOpen ? 'z-15 pointer-events-none' : 'z-35 pointer-events-auto'
@@ -496,27 +514,28 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
               onClick={handleOpenMailbox}
               onTouchEnd={handleOpenMailbox}
             >
-              {/* FRONT FACE (Closed Flap: Points DOWN to the wax seal!) */}
+              {/* FRONT FACE (Closed Flap: Points DOWN to touch wax seal!) */}
               <div 
                 className="absolute inset-0 w-full h-full backface-hidden"
                 style={{
                   clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
-                  background: 'linear-gradient(to bottom, #2B576B 0%, #1B4353 50%, #12323F 100%)',
+                  background: 'linear-gradient(to bottom, #2C5A6E 0%, #1B4556 50%, #102F3C 100%)',
                   backfaceVisibility: 'hidden',
                   WebkitBackfaceVisibility: 'hidden',
                 }}
               >
                 <svg className="w-full h-full" viewBox="0 0 400 115" preserveAspectRatio="none">
-                  <path d="M 0 0 L 200 115 L 400 0" fill="none" stroke="url(#goldRimGrad)" strokeWidth="2.8" />
+                  <path d="M 0 0 L 200 115 L 400 0" fill="none" stroke="url(#goldRimGrad)" strokeWidth="3" />
+                  <path d="M 6 4 L 200 110 L 394 4" fill="none" stroke="#FFDF78" strokeWidth="0.8" strokeDasharray="2 2" opacity="0.6" />
                 </svg>
                 
-                {/* Central Gold Tip Emblem touching seal */}
+                {/* Central Gold Tip Seal Tab */}
                 <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full border border-[#D4AF37] bg-[#143542] flex items-center justify-center shadow-lg">
                   <span className="text-[#FFDF78] text-[10px] font-serif font-bold">P &amp; V</span>
                 </div>
               </div>
 
-              {/* BACK FACE (Open Flap: Points UPWARD, displaying dark teal botanical jaali lining) */}
+              {/* BACK FACE (Open Flap: Points UPWARD displaying dark teal botanical jaali lining) */}
               <div 
                 className="absolute inset-0 w-full h-full backface-hidden"
                 style={{
@@ -527,11 +546,11 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
                   WebkitBackfaceVisibility: 'hidden',
                 }}
               >
-                <div className="absolute inset-0 opacity-25 bg-[radial-gradient(#D4AF37_1.5px,transparent_1.5px)] [background-size:14px_14px]" />
+                <div className="absolute inset-0 opacity-30 bg-[radial-gradient(#D4AF37_1.5px,transparent_1.5px)] [background-size:14px_14px]" />
                 <svg className="w-full h-full" viewBox="0 0 400 115" preserveAspectRatio="none">
-                  <path d="M 0 0 L 200 115 L 400 0" fill="none" stroke="#D4AF37" strokeWidth="2" />
+                  <path d="M 0 0 L 200 115 L 400 0" fill="none" stroke="#D4AF37" strokeWidth="2.2" />
                 </svg>
-                <div className="absolute bottom-2 inset-x-0 text-center">
+                <div className="absolute bottom-2.5 inset-x-0 text-center">
                   <span className="font-serif italic text-[10px] text-[#D4AF37] tracking-widest">&#10022; With Love &amp; Blessings &#10022;</span>
                 </div>
               </div>
