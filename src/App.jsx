@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { PalaceDoorOpening } from './components/PalaceDoorOpening';
-import { EnvelopeAnimation } from './components/EnvelopeAnimation';
+import { RoyalOpeningExperience } from './components/RoyalOpeningExperience';
 import { PalaceInvitation } from './components/PalaceInvitation';
 import { CoupleIntroduction } from './components/CoupleIntroduction';
 import { SaveTheDate } from './components/SaveTheDate';
@@ -12,40 +11,57 @@ import { ClosingScreen } from './components/ClosingScreen';
 import { MusicControl } from './components/MusicControl';
 import { NavigationDrawer } from './components/NavigationDrawer';
 import { RsvpModal } from './components/RsvpModal';
+import { BrassDeepam } from './components/decorations/GoldOrnaments';
+import { TraditionalToran } from './components/decorations/IndianOrnaments';
 
 export const App = () => {
   // Screen sequence states: 
-  // 'doors' (Grand Palace Door Opening) -> 'envelope' (3D Traditional Envelope Opening) -> 'main' (Sequential Invitation Screens)
-  const [screenState, setScreenState] = useState('doors');
+  // 'opening' (Cinematic Royal Ceremonial Courtyard & 3D Traditional Letterbox Opening) 
+  // -> 'main' (Sequential Royal Wedding Journey)
+  const [screenState, setScreenState] = useState('opening');
   const [isRsvpOpen, setIsRsvpOpen] = useState(false);
   const [musicAutoplayTrigger, setMusicAutoplayTrigger] = useState(false);
 
-  // Palace doors finish opening & courtyard revealed -> transition to Envelope
-  const handleDoorsComplete = () => {
-    setScreenState('envelope');
-    setMusicAutoplayTrigger(true);
-  };
-
-  // Envelope finishes or user clicks "Skip Intro" -> transition to Main Sections
-  const handleEnvelopeComplete = () => {
+  // Transition from opening letterbox to main celebration
+  const handleOpeningComplete = () => {
     setScreenState('main');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // User clicks "Replay" on closing screen -> restart from grand palace entrance
+  // Replay experience from closing screen
   const handleReplay = () => {
-    setScreenState('doors');
+    setScreenState('opening');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <div className="min-h-screen bg-[#140104] text-[#FAF4E8] flex justify-center items-center p-0 sm:p-4 select-none">
-      {/* Background Ambient Glow on Desktop */}
-      <div className="fixed inset-0 bg-radial from-[#38020D]/60 via-[#1A0105] to-[#0A0002] pointer-events-none" />
+    <div className="relative min-h-screen bg-[#150105] text-[#FAF4E8] flex justify-center items-center selection:bg-[#D4AF37] selection:text-[#3B020D] overflow-x-hidden">
+      
+      {/* GLOBAL LAYER 1: Deep Royal Maroon Brocade Ambient Texture */}
+      <div className="fixed inset-0 bg-royal-brocade opacity-45 pointer-events-none z-0" />
+
+      {/* GLOBAL LAYER 2: Ambient Ceremonial Lighting Glow Spots */}
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-radial from-[#FFA726]/18 via-[#D4AF37]/8 to-transparent blur-3xl pointer-events-none z-0" />
+      <div className="fixed bottom-0 inset-x-0 h-[250px] bg-gradient-to-t from-[#200108]/90 via-[#3B030E]/30 to-transparent pointer-events-none z-0" />
+
+      {/* DESKTOP ARCHITECTURAL FRAMING: Standing Brass Deepams flanking viewport on wide monitors */}
+      <div className="fixed left-6 bottom-10 hidden 2xl:flex flex-col items-center pointer-events-none z-30 opacity-80">
+        <BrassDeepam height={140} width={52} className="animate-float-slow" />
+        <span className="font-royal text-[9px] tracking-widest text-[#FFDF78]/60 uppercase mt-2">
+          Royal Blessings
+        </span>
+      </div>
+      <div className="fixed right-6 bottom-10 hidden 2xl:flex flex-col items-center pointer-events-none z-30 opacity-80">
+        <BrassDeepam height={140} width={52} className="animate-float-slow" style={{ animationDelay: '1.6s' }} />
+        <span className="font-royal text-[9px] tracking-widest text-[#FFDF78]/60 uppercase mt-2">
+          Shubh Vivah
+        </span>
+      </div>
 
       {/* Floating Global Audio Player & Modal */}
       <MusicControl autoPlayTrigger={musicAutoplayTrigger} />
 
-      {/* Floating Global Navigation Menu Drawer (Active during main screens) */}
+      {/* Floating Global Navigation Menu Drawer (Active during main celebration) */}
       {screenState === 'main' && (
         <NavigationDrawer onOpenRsvp={() => setIsRsvpOpen(true)} />
       )}
@@ -53,24 +69,23 @@ export const App = () => {
       {/* RSVP Modal */}
       <RsvpModal isOpen={isRsvpOpen} onClose={() => setIsRsvpOpen(false)} />
 
-      {/* Central Portrait Mobile Frame (Matches Reference Aspect Ratio ~ 9:16) */}
-      <div className="relative w-full sm:max-w-[420px] min-h-screen sm:min-h-[880px] sm:my-6 sm:rounded-[40px] sm:border-4 sm:border-[#D4AF37]/80 sm:ring-8 sm:ring-[#2B020B] shadow-2xl bg-[#200108] overflow-hidden flex flex-col">
-        
-        {/* STAGE 1: Grand Royal Indian Palace Doors Opening */}
-        {screenState === 'doors' && (
-          <PalaceDoorOpening 
-            onComplete={handleDoorsComplete}
+      {/* STAGE 1: CINEMATIC ROYAL INDIAN OPENING & 3D LETTERBOX REVEAL */}
+      {screenState === 'opening' && (
+        <div className="w-full min-h-screen flex items-center justify-center z-10">
+          <RoyalOpeningExperience 
+            onComplete={handleOpeningComplete}
             onStartMusic={() => setMusicAutoplayTrigger(true)}
           />
-        )}
+        </div>
+      )}
 
-        {/* STAGE 2: 3D Traditional Indian Envelope Opening & Card Reveal */}
-        {screenState === 'envelope' && (
-          <EnvelopeAnimation onComplete={handleEnvelopeComplete} />
-        )}
+      {/* STAGE 2: SEQUENTIAL ROYAL WEDDING INVITATION JOURNEY */}
+      {screenState === 'main' && (
+        <div className="relative w-full max-w-4xl min-h-screen my-0 sm:my-8 sm:rounded-[44px] sm:border-2 sm:border-[#D4AF37]/85 shadow-2xl bg-[#1F0107] overflow-hidden flex flex-col z-10 transition-all duration-700">
+          
+          {/* Top Decorative Toran on Main Pavilion */}
+          <TraditionalToran className="z-25" />
 
-        {/* STAGE 3: Sequential Invitation Experience (Screens 3 to 13) */}
-        {screenState === 'main' && (
           <main className="w-full flex flex-col">
             {/* Screen 3: Main Invitation Announcement Card */}
             <PalaceInvitation />
@@ -93,11 +108,11 @@ export const App = () => {
             {/* Screen 10: Venue Details */}
             <VenueDetails />
 
-            {/* Screens 11, 12, 13: Hanging Lanterns, Thank You & Replay, Closing Vignette */}
+            {/* Screens 11, 12, 13: Hanging Lanterns, Thank You & Replay */}
             <ClosingScreen onReplay={handleReplay} />
           </main>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

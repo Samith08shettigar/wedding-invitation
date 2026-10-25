@@ -1,49 +1,111 @@
-/* Gold Gradients & Shimmer */
+/* ============================================================
+   ROYAL INDIAN WEDDING LUXURY DESIGN SYSTEM & UTILITIES
+   Rich palettes, gold foil, brocades, jaali & 3D transforms
+   ============================================================ */
+
+/* Gold Foil Typography & Shimmer Gradients */
 .text-gold-gradient {
-  background: linear-gradient(135deg, #FFF6D6 0%, #E6CA65 25%, #D4AF37 50%, #AA7C11 75%, #F5DE88 100%);
+  background: linear-gradient(135deg, #FFF6D6 0%, #F5DE88 20%, #D4AF37 45%, #AA7C11 75%, #F5DE88 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .text-gold-shimmer {
-  background: linear-gradient(90deg, #D4AF37 0%, #FFF3B0 25%, #D4AF37 50%, #996515 75%, #D4AF37 100%);
+  background: linear-gradient(90deg, #D4AF37 0%, #FFF4D0 25%, #E2BA4D 50%, #A67B1E 75%, #D4AF37 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shimmer 6s linear infinite;
 }
 
+.text-maroon-gradient {
+  background: linear-gradient(135deg, #781124 0%, #540917 50%, #3B030E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-amber-glow {
+  color: #FFDF78;
+  text-shadow: 0 0 12px rgba(255, 179, 0, 0.6), 0 0 24px rgba(212, 175, 55, 0.4);
+}
+
+/* Background Gradients */
 .bg-gold-gradient {
-  background: linear-gradient(135deg, #ECC45F 0%, #D4AF37 40%, #B8860B 80%, #E7C972 100%);
+  background: linear-gradient(135deg, #F3D78A 0%, #D4AF37 40%, #B8860B 80%, #ECC45F 100%);
 }
 
 .bg-burgundy-radial {
-  background: radial-gradient(circle at center, #4A0A16 0%, #2A020B 70%, #150005 100%);
+  background: radial-gradient(circle at center, #4A0A16 0%, #2A020B 65%, #150005 100%);
 }
 
-/* Luxury Paper Texture */
-.bg-cream-parchment {
-  background-color: #FAF5EB;
-  background-image: radial-gradient(#d4af3715 0.75px, transparent 0.75px), radial-gradient(#d4af3715 0.75px, #FAF5EB 0.75px);
+.bg-royal-velvet {
+  background: radial-gradient(circle at 50% 20%, #4D0917 0%, #2D020B 50%, #150105 100%);
+}
+
+/* Luxury Silk Brocade Texture (Deep Royal Maroon with Gold Jacquard Weave) */
+.bg-royal-brocade {
+  background-color: #2B030A;
+  background-image: 
+    radial-gradient(#D4AF371c 1px, transparent 1px),
+    radial-gradient(#D4AF3714 1.2px, #200107 1.2px);
   background-size: 24px 24px;
   background-position: 0 0, 12px 12px;
 }
 
-/* Borders and Shadows */
+/* Luxury Indian Jaali (Lattice) Architectural Texture */
+.bg-royal-jaali {
+  background-color: #220106;
+  background-image: 
+    linear-gradient(45deg, #D4AF370e 25%, transparent 25%), 
+    linear-gradient(-45deg, #D4AF370e 25%, transparent 25%), 
+    linear-gradient(45deg, transparent 75%, #D4AF370e 75%), 
+    linear-gradient(-45deg, transparent 75%, #D4AF370e 75%);
+  background-size: 28px 28px;
+}
+
+/* Luxury Cream & Ivory Handmade Parchment Texture with Gold Flecks */
+.bg-cream-parchment {
+  background-color: #FAF5EB;
+  background-image: 
+    radial-gradient(#AA7C1114 0.75px, transparent 0.75px), 
+    radial-gradient(#AA7C110e 0.75px, #FAF5EB 0.75px);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+}
+
+/* Borders, Halos and Shadows */
 .border-gold {
   border-color: #D4AF37;
 }
 
-.shadow-royal {
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(212, 175, 55, 0.25);
+.border-gold-light {
+  border-color: #FFDF78;
+}
+
+.shadow-royal-envelope {
+  box-shadow: 
+    0 25px 60px -10px rgba(0, 0, 0, 0.85),
+    0 0 35px rgba(212, 175, 55, 0.25),
+    inset 0 1px 2px rgba(255, 223, 120, 0.3);
+}
+
+.shadow-royal-card {
+  box-shadow: 
+    0 20px 50px -10px rgba(0, 0, 0, 0.7),
+    0 0 30px rgba(212, 175, 55, 0.2),
+    inset 0 0 20px rgba(250, 245, 235, 0.5);
 }
 
 .box-gold-glow {
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.45), inset 0 0 15px rgba(212, 175, 55, 0.2);
 }
 
-/* 3D Envelope Animation Classes */
-.perspective-1000 {
+.box-amber-candle {
+  box-shadow: 0 0 45px rgba(255, 160, 0, 0.4);
+}
+
+/* 3D Envelope & Card Animation Utilities */
+.perspective-1200 {
   perspective: 1200px;
 }
 
@@ -51,22 +113,18 @@
   transform-style: preserve-3d;
 }
 
-.envelope-flap {
-  transform-origin: top;
-  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-.envelope-flap.open {
-  transform: rotateX(180deg);
-}
-
-/* Custom Scrollbar for Phone Container */
+/* Custom Scrollbar for Royal Experience */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1A0105;
+  background: #140104;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -75,10 +133,14 @@
   border: 1px solid #D4AF37;
 }
 
-/* Hide scrollbar when desired */
+::-webkit-scrollbar-thumb:hover {
+  background: #6A1022;
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;

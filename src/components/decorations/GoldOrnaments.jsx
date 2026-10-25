@@ -1,6 +1,7 @@
 import React from 'react';
+import { GoldLotus } from './IndianOrnaments';
 
-// Horizontal Gold Ornamental Divider with central fleuron
+// Horizontal Gold Ornamental Divider with central fleuron rosette
 export const GoldDivider = ({ className = "my-4", width = "160px" }) => (
   <div className={`flex items-center justify-center ${className}`}>
     <svg width={width} height="18" viewBox="0 0 160 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -72,7 +73,7 @@ export const GoldCorner = ({ position = "top-left", className = "" }) => {
   );
 };
 
-// Vector Floral Corner Bouquet with soft pink, coral, burgundy roses & gold foliage
+// Vector Floral Corner Bouquet with soft roses & gold foliage
 export const FloralCornerBouquet = ({ position = "top-left", className = "" }) => {
   const transform = {
     "top-left": "",
@@ -99,167 +100,152 @@ export const FloralCornerBouquet = ({ position = "top-left", className = "" }) =
             <stop offset="50%" stopColor="#FA8F75" />
             <stop offset="100%" stopColor="#B34A32" />
           </linearGradient>
-          <linearGradient id="roseBurgundy" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#C93B58" />
-            <stop offset="60%" stopColor="#781124" />
-            <stop offset="100%" stopColor="#4A0512" />
-          </linearGradient>
         </defs>
 
-        {/* Golden Vines and Leaves */}
-        <path d="M4 4 C30 18 45 35 60 75 C64 85 75 95 90 100" stroke="#C59B27" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M22 14 C35 10 44 22 38 30 C32 38 22 28 22 14 Z" fill="url(#leafGrad)" fillOpacity="0.6" stroke="#D4AF37" strokeWidth="0.8" />
-        <path d="M12 28 C8 42 20 48 26 40 C32 32 24 24 12 28 Z" fill="url(#leafGrad)" fillOpacity="0.6" stroke="#D4AF37" strokeWidth="0.8" />
-        <path d="M48 36 C62 30 68 42 60 50 C52 58 40 48 48 36 Z" fill="url(#leafGrad)" fillOpacity="0.6" stroke="#D4AF37" strokeWidth="0.8" />
-        <path d="M36 65 C50 62 56 75 46 84 C36 93 28 80 36 65 Z" fill="url(#leafGrad)" fillOpacity="0.6" stroke="#D4AF37" strokeWidth="0.8" />
+        {/* Delicate Golden Vines */}
+        <path d="M10 110 C20 70 45 45 110 10" stroke="url(#leafGrad)" strokeWidth="1.2" strokeLinecap="round" />
+        <path d="M15 90 C35 65 65 35 90 15" stroke="url(#leafGrad)" strokeWidth="0.8" strokeLinecap="round" />
 
-        {/* Gold Bud Accents */}
-        <circle cx="72" cy="48" r="3.5" fill="#D4AF37" />
-        <circle cx="85" cy="62" r="4" fill="#FFDF78" />
-        <circle cx="58" cy="88" r="3.5" fill="#D4AF37" />
+        {/* Golden Leaves */}
+        <path d="M30 65 C25 55 35 45 42 50 C45 60 38 68 30 65 Z" fill="url(#leafGrad)" />
+        <path d="M55 40 C50 30 60 20 67 25 C70 35 63 43 55 40 Z" fill="url(#leafGrad)" />
+        <path d="M22 80 C15 72 22 62 30 67 C32 75 28 82 22 80 Z" fill="url(#leafGrad)" />
 
-        {/* Layered Rose 1 (Top Left Pink) */}
-        <g transform="translate(24, 24)">
-          <circle cx="0" cy="0" r="16" fill="url(#rosePink)" />
-          <path d="M-12 -5 C-14 6 -5 14 6 12 C17 10 16 -5 7 -11 C-2 -17 -10 -15 -12 -5 Z" fill="#D9536F" />
-          <path d="M-9 -3 C-10 4 -3 10 5 8 C13 6 12 -3 5 -8 C-2 -13 -7 -10 -9 -3 Z" fill="#FFAAB8" />
-          <path d="M-5 0 C-5 4 0 7 4 5 C8 4 7 0 3 -3 C-1 -6 -5 -4 -5 0 Z" fill="#FFF0F3" />
-        </g>
+        {/* Small Golden Berries */}
+        <circle cx="48" cy="52" r="2.5" fill="#FFE082" />
+        <circle cx="72" cy="28" r="2" fill="#FFE082" />
+        <circle cx="28" cy="88" r="2" fill="#FFE082" />
+        <circle cx="40" cy="74" r="1.5" fill="#FFD54F" />
 
-        {/* Layered Rose 2 (Outer Peach) */}
-        <g transform="translate(54, 28)">
-          <circle cx="0" cy="0" r="13" fill="url(#rosePeach)" />
-          <path d="M-9 -4 C-11 4 -4 10 4 9 C11 7 10 -4 5 -8 C0 -12 -6 -12 -9 -4 Z" fill="#F07C60" />
-          <path d="M-6 -2 C-7 3 -1 7 4 6 C9 4 8 -2 4 -5 C0 -8 -5 -8 -6 -2 Z" fill="#FFD2C2" />
-          <circle cx="0" cy="0" r="3.5" fill="#FFF5F0" />
-        </g>
+        {/* Large Central Burgundy Rose */}
+        <circle cx="34" cy="34" r="16" fill="url(#rosePink)" />
+        <circle cx="34" cy="34" r="12" fill="#781124" />
+        <path d="M26 34 C26 28 34 26 38 30 C42 34 38 40 32 40 C28 40 26 36 26 34 Z" fill="url(#rosePink)" />
+        <circle cx="34" cy="34" r="4" fill="#FFAAB8" />
 
-        {/* Layered Rose 3 (Lower Burgundy) */}
-        <g transform="translate(28, 56)">
-          <circle cx="0" cy="0" r="14" fill="url(#roseBurgundy)" />
-          <path d="M-10 -4 C-12 5 -4 12 5 10 C14 8 13 -4 6 -9 C0 -14 -8 -13 -10 -4 Z" fill="#991D34" />
-          <path d="M-7 -2 C-8 4 -2 9 4 7 C10 5 9 -2 4 -6 C-1 -10 -6 -8 -7 -2 Z" fill="#C93B58" />
-          <circle cx="0" cy="0" r="3" fill="#FFC2D0" />
-        </g>
+        {/* Secondary Peach Rose Accent */}
+        <circle cx="58" cy="26" r="11" fill="url(#rosePeach)" />
+        <circle cx="58" cy="26" r="7" fill="#8C2A3E" />
+        <circle cx="58" cy="26" r="3" fill="#FFE0D6" />
+
+        {/* Small Bud Left */}
+        <circle cx="20" cy="52" r="8" fill="url(#rosePink)" />
+        <circle cx="20" cy="52" r="4" fill="#6A0C1D" />
       </svg>
     </div>
   );
 };
 
-// Intricate Gold Monogram Medallion
-export const MedallionMonogram = ({ monogram = "P & A", className = "" }) => (
-  <div className={`relative flex items-center justify-center ${className}`}>
-    <svg width="200" height="200" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="medallionBg" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#4A0A16" />
-          <stop offset="70%" stopColor="#2A020B" />
-          <stop offset="100%" stopColor="#150005" />
-        </radialGradient>
-        <linearGradient id="medallionGold" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#FFF6D6" />
-          <stop offset="30%" stopColor="#D4AF37" />
-          <stop offset="70%" stopColor="#AA7C11" />
-          <stop offset="100%" stopColor="#F5DE88" />
-        </linearGradient>
-        <filter id="goldDrop" x="-10%" y="-10%" width="120%" height="120%">
-          <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#000000" floodOpacity="0.6" />
-        </filter>
-      </defs>
-
-      {/* Outer Halo */}
-      <circle cx="90" cy="90" r="82" fill="none" stroke="url(#medallionGold)" strokeWidth="0.8" strokeOpacity="0.5" />
-      
-      {/* Scalloped Floral Outer Frame (16 cusps) */}
-      <path
-        d="M90 6 C96 16 104 16 114 10 C122 18 130 18 142 16 C146 26 154 30 162 36 C162 48 168 54 172 66 C168 76 170 84 174 90 C170 96 168 104 172 114 C168 126 162 132 162 144 C154 150 146 154 142 164 C130 162 122 162 114 170 C104 164 96 164 90 174 C84 164 76 164 66 170 C58 162 50 162 38 164 C34 154 26 150 18 144 C18 132 12 126 8 114 C12 104 10 96 6 90 C10 84 12 76 8 66 C12 54 18 48 18 36 C26 30 34 26 38 16 C50 18 58 18 66 10 C76 16 84 16 90 6 Z"
-        fill="url(#medallionBg)"
-        stroke="url(#medallionGold)"
-        strokeWidth="2.2"
-        filter="url(#goldDrop)"
-      />
-
-      {/* Inner Decorative Beaded Rings */}
-      <circle cx="90" cy="90" r="68" fill="none" stroke="url(#medallionGold)" strokeWidth="1.2" />
-      <circle cx="90" cy="90" r="63" fill="none" stroke="url(#medallionGold)" strokeWidth="0.8" strokeDasharray="3 3" />
-      <circle cx="90" cy="90" r="54" fill="none" stroke="url(#medallionGold)" strokeWidth="1.5" />
-
-      {/* 8 Ornamental Lotus Petals */}
-      {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
-        <g key={i} transform={`rotate(${angle} 90 90)`}>
-          <path d="M90 28 C93 35 95 40 90 44 C85 40 87 35 90 28 Z" fill="url(#medallionGold)" />
-          <circle cx="90" cy="25" r="1.5" fill="url(#medallionGold)" />
-        </g>
-      ))}
-    </svg>
-
-    {/* Center Typography */}
-    <div className="absolute inset-0 flex flex-col items-center justify-center text-center select-none">
-      <span className="font-royal text-3xl sm:text-4xl font-semibold tracking-wider text-gold-shimmer drop-shadow-md">
-        {monogram}
-      </span>
-    </div>
-  </div>
-);
-
-// 3D Realistic Gold Wax Seal with initials
+// 3D Realistic Gold Wax Seal with Lotus Motif & Initials
 export const WaxSeal = ({ initials = "P & A", className = "", size = 76 }) => (
-  <div className={`relative flex items-center justify-center ${className}`} style={{ width: size, height: size }}>
+  <div className={`relative flex items-center justify-center select-none ${className}`} style={{ width: size, height: size }}>
     <svg width={size} height={size} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <radialGradient id="waxBase" cx="40%" cy="35%" r="60%">
-          <stop offset="0%" stopColor="#FFF2B2" />
-          <stop offset="25%" stopColor="#E2BA4D" />
-          <stop offset="65%" stopColor="#C49326" />
-          <stop offset="85%" stopColor="#8C610F" />
-          <stop offset="100%" stopColor="#5E3F05" />
+        <radialGradient id="waxBaseGrad" cx="38%" cy="32%" r="65%">
+          <stop offset="0%" stopColor="#FFF4D0" />
+          <stop offset="20%" stopColor="#F5D77F" />
+          <stop offset="55%" stopColor="#D4AF37" />
+          <stop offset="80%" stopColor="#8C610F" />
+          <stop offset="100%" stopColor="#4A3105" />
         </radialGradient>
-        <radialGradient id="waxIndent" cx="45%" cy="40%" r="50%">
+        <radialGradient id="waxIndentGrad" cx="44%" cy="38%" r="52%">
           <stop offset="0%" stopColor="#7E560B" />
-          <stop offset="40%" stopColor="#A67B1E" />
-          <stop offset="85%" stopColor="#D4AF37" />
-          <stop offset="100%" stopColor="#ECC45F" />
+          <stop offset="35%" stopColor="#AA7C11" />
+          <stop offset="75%" stopColor="#D4AF37" />
+          <stop offset="100%" stopColor="#FFDF78" />
         </radialGradient>
-        <filter id="waxShadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="4" stdDeviation="4" floodColor="#000000" floodOpacity="0.55" />
+        <filter id="waxShadowFilter" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="5" stdDeviation="5" floodColor="#000000" floodOpacity="0.65" />
         </filter>
       </defs>
 
-      {/* Irregular Organic Wax Pool Rim */}
+      {/* Irregular Organic Melted Wax Pool Rim */}
       <path
-        d="M50 4 C62 3 74 8 83 17 C92 26 97 38 96 50 C95 63 90 75 81 84 C72 93 59 97 47 96 C34 95 23 89 15 80 C7 71 3 59 4 47 C5 34 11 23 20 15 C29 7 40 3 50 4 Z"
-        fill="url(#waxBase)"
-        filter="url(#waxShadow)"
+        d="M50 3 C64 2 77 7 86 16 C95 25 99 38 97 51 C95 64 89 76 80 85 C70 94 57 98 44 97 C31 96 19 89 12 79 C4 69 1 56 3 43 C5 30 13 18 23 11 C32 4 41 3 50 3 Z"
+        fill="url(#waxBaseGrad)"
+        filter="url(#waxShadowFilter)"
       />
 
       {/* Stamped Recessed Impression */}
-      <circle cx="50" cy="50" r="34" fill="url(#waxIndent)" />
-      <circle cx="50" cy="50" r="33" fill="none" stroke="#604005" strokeWidth="1.2" strokeOpacity="0.6" />
-      <circle cx="50" cy="50" r="31" fill="none" stroke="#FFF2B2" strokeWidth="0.8" strokeOpacity="0.7" />
-      <circle cx="50" cy="50" r="28" fill="none" stroke="#604005" strokeWidth="0.8" strokeDasharray="2 2" strokeOpacity="0.5" />
+      <circle cx="50" cy="50" r="35" fill="url(#waxIndentGrad)" />
+      <circle cx="50" cy="50" r="33.5" fill="none" stroke="#523605" strokeWidth="1.2" strokeOpacity="0.7" />
+      <circle cx="50" cy="50" r="31" fill="none" stroke="#FFF2B2" strokeWidth="0.8" strokeOpacity="0.8" />
+      <circle cx="50" cy="50" r="28" fill="none" stroke="#523605" strokeWidth="0.8" strokeDasharray="2 2" strokeOpacity="0.6" />
+
+      {/* Embossed Lotus Accent at Top of Seal */}
+      <g transform="translate(50, 36) scale(0.4) translate(-20, -15)">
+        <path d="M20 2 C22 10 24 16 20 24 C16 16 18 10 20 2 Z" fill="#FFF2B2" />
+        <path d="M19 6 C13 11 11 18 17 25 C13 18 15 11 19 6 Z" fill="#FFF2B2" fillOpacity="0.85" />
+        <path d="M21 6 C27 11 29 18 23 25 C27 18 25 11 21 6 Z" fill="#FFF2B2" fillOpacity="0.85" />
+      </g>
     </svg>
 
-    {/* Embossed Text in Wax */}
-    <div className="absolute inset-0 flex items-center justify-center select-none">
-      <span className="font-royal text-sm sm:text-base font-bold tracking-widest text-[#FFF9E6] drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]">
+    {/* Embossed Monogram Initials in Wax */}
+    <div className="absolute inset-0 flex items-center justify-center pt-3 select-none pointer-events-none">
+      <span className="font-royal text-sm sm:text-base font-bold tracking-widest text-[#FFFDF7] drop-shadow-[0_2px_3px_rgba(0,0,0,0.85)]">
         {initials}
       </span>
     </div>
   </div>
 );
 
-// Hanging Moroccan / Indian Gold Lantern with Candle Flame Glow
-export const HangingLantern = ({ className = "", height = 120, lanternWidth = 36 }) => (
+// Traditional Brass Standing Diya / Deepam with Animated Flickering Flame
+export const BrassDeepam = ({ className = "", height = 110, width = 44 }) => (
+  <div className={`relative flex flex-col items-center pointer-events-none select-none ${className}`}>
+    <svg width={width} height={height} viewBox="0 0 44 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="deepamFlameHalo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#FFFFFF" />
+          <stop offset="30%" stopColor="#FFF2A3" />
+          <stop offset="65%" stopColor="#FF9900" />
+          <stop offset="100%" stopColor="#D84315" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id="brassColumnGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#8C6616" />
+          <stop offset="35%" stopColor="#F5D77F" />
+          <stop offset="65%" stopColor="#D4AF37" />
+          <stop offset="100%" stopColor="#6E4C0C" />
+        </linearGradient>
+      </defs>
+
+      {/* Flame Glow Halo */}
+      <circle cx="22" cy="14" r="14" fill="url(#deepamFlameHalo)" className="animate-flame" />
+      
+      {/* Flame Wick */}
+      <ellipse cx="22" cy="14" rx="3.5" ry="7" fill="#FFFBE6" className="animate-flame" />
+      <ellipse cx="22" cy="15" rx="1.5" ry="3.5" fill="#FFFFFF" />
+
+      {/* Oil Basin */}
+      <path d="M10 22 C10 28 34 28 34 22 H10 Z" fill="url(#brassColumnGrad)" stroke="#523605" strokeWidth="0.8" />
+      
+      {/* Tiered Brass Column */}
+      <rect x="20" y="28" width="4" height="24" fill="url(#brassColumnGrad)" />
+      <ellipse cx="22" cy="38" rx="8" ry="3" fill="url(#brassColumnGrad)" />
+      
+      {/* Mid Basin */}
+      <path d="M13 52 C13 56 31 56 31 52 H13 Z" fill="url(#brassColumnGrad)" />
+      <rect x="20" y="56" width="4" height="28" fill="url(#brassColumnGrad)" />
+      <ellipse cx="22" cy="68" rx="10" ry="3.5" fill="url(#brassColumnGrad)" />
+
+      {/* Fluted Base */}
+      <path d="M12 84 L6 104 H38 L32 84 H12 Z" fill="url(#brassColumnGrad)" stroke="#523605" strokeWidth="0.8" />
+      <rect x="4" y="104" width="36" height="5" rx="1" fill="url(#brassColumnGrad)" />
+    </svg>
+  </div>
+);
+
+// Hanging Moroccan / Royal Indian Gold Lantern with Candle Flame
+export const HangingLantern = ({ className = "", height = 130, lanternWidth = 36 }) => (
   <div className={`relative flex flex-col items-center select-none ${className}`}>
     <svg width={lanternWidth} height={height} viewBox="0 0 40 140" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <radialGradient id="candleFlameGlow" cx="50%" cy="50%" r="50%">
+        <radialGradient id="lanternFlameGlow" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="#FFF9D2" />
           <stop offset="35%" stopColor="#FFC83B" />
           <stop offset="70%" stopColor="#FF7700" stopOpacity="0.6" />
           <stop offset="100%" stopColor="#FF4500" stopOpacity="0" />
         </radialGradient>
-        <linearGradient id="lanternBrass" x1="0%" y1="0%" x2="100%" y2="0%">
+        <linearGradient id="lanternBrassGrad" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="#AA7C11" />
           <stop offset="50%" stopColor="#FFF2B2" />
           <stop offset="100%" stopColor="#996515" />
@@ -267,158 +253,145 @@ export const HangingLantern = ({ className = "", height = 120, lanternWidth = 36
       </defs>
 
       {/* Hanging Chain */}
-      <line x1="20" y1="0" x2="20" y2="40" stroke="url(#lanternBrass)" strokeWidth="1.5" strokeDasharray="3 2" />
-      <circle cx="20" cy="40" r="3" fill="url(#lanternBrass)" />
+      <line x1="20" y1="0" x2="20" y2="40" stroke="url(#lanternBrassGrad)" strokeWidth="1.5" strokeDasharray="3 2" />
+      <circle cx="20" cy="40" r="3" fill="url(#lanternBrassGrad)" />
 
       {/* Lantern Cap / Dome */}
-      <path d="M10 52 L20 44 L30 52 Z" fill="url(#lanternBrass)" />
-      <rect x="8" y="52" width="24" height="4" rx="1" fill="url(#lanternBrass)" />
+      <path d="M10 52 L20 44 L30 52 Z" fill="url(#lanternBrassGrad)" />
+      <rect x="8" y="52" width="24" height="4" rx="1" fill="url(#lanternBrassGrad)" />
 
       {/* Glass Chamber with Candle Flame */}
-      <rect x="10" y="56" width="20" height="32" rx="2" fill="#2E0810" fillOpacity="0.4" stroke="url(#lanternBrass)" strokeWidth="1" />
+      <rect x="10" y="56" width="20" height="32" rx="2" fill="#2E0810" fillOpacity="0.45" stroke="url(#lanternBrassGrad)" strokeWidth="1" />
       
       {/* Candle Flame Glow */}
-      <circle cx="20" cy="72" r="14" fill="url(#candleFlameGlow)" className="animate-pulse" />
+      <circle cx="20" cy="72" r="14" fill="url(#lanternFlameGlow)" className="animate-flame" />
       <ellipse cx="20" cy="73" rx="2.5" ry="4.5" fill="#FFFFFF" />
 
       {/* Filigree Cage Ribs */}
-      <line x1="16" y1="56" x2="16" y2="88" stroke="url(#lanternBrass)" strokeWidth="0.8" />
-      <line x1="24" y1="56" x2="24" y2="88" stroke="url(#lanternBrass)" strokeWidth="0.8" />
+      <line x1="16" y1="56" x2="16" y2="88" stroke="url(#lanternBrassGrad)" strokeWidth="0.8" />
+      <line x1="24" y1="56" x2="24" y2="88" stroke="url(#lanternBrassGrad)" strokeWidth="0.8" />
 
       {/* Bottom Finial */}
-      <rect x="8" y="88" width="24" height="4" rx="1" fill="url(#lanternBrass)" />
-      <path d="M12 92 L20 102 L28 92 Z" fill="url(#lanternBrass)" />
-      <circle cx="20" cy="104" r="2" fill="url(#lanternBrass)" />
+      <rect x="8" y="88" width="24" height="4" rx="1" fill="url(#lanternBrassGrad)" />
+      <path d="M12 92 L20 102 L28 92 Z" fill="url(#lanternBrassGrad)" />
+      <circle cx="20" cy="104" r="2.5" fill="url(#lanternBrassGrad)" />
     </svg>
   </div>
 );
 
-// Code-Rendered Sunset Palace Scene (SVG + CSS Animation)
+// Code-Rendered Sunset Palace Scene (SVG + Water Reflection + Lighting)
 export const SunsetPalaceScene = ({ className = "", showFlowers = true, opacity = 1 }) => (
   <div className={`absolute inset-0 overflow-hidden pointer-events-none select-none ${className}`} style={{ opacity }}>
     {/* Sky Gradient: Rich Pink to Peach to Golden Sunset */}
     <div className="absolute inset-0 bg-gradient-to-b from-[#781B38] via-[#B83E38] via-[#DF6B35] via-[#E88C43] to-[#FCD27B]" />
 
     {/* Sun Glow / Dusk Horizon */}
-    <div className="absolute top-[18%] left-1/2 -translate-x-1/2 w-80 h-80 bg-radial from-[#FFF3D1]/80 via-[#FFA726]/40 to-transparent rounded-full blur-3xl" />
+    <div className="absolute top-[18%] left-1/2 -translate-x-1/2 w-96 h-96 bg-radial from-[#FFF3D1]/85 via-[#FFA726]/45 to-transparent rounded-full blur-3xl pointer-events-none" />
 
-    {/* Majestic SVG Palace Architecture Silhouette with Illuminated Warm Windows */}
-    <div className="absolute top-[10%] inset-x-0 h-[48%] flex items-end justify-center">
-      <svg className="w-full h-full" viewBox="0 0 420 220" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* Majestic SVG Palace Architecture Silhouette with Warm Lit Windows */}
+    <div className="absolute top-[8%] inset-x-0 h-[52%] flex items-end justify-center">
+      <svg className="w-full h-full" viewBox="0 0 1000 240" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="palaceBody" x1="0%" y1="0%" x2="0%" y2="100%">
+          <linearGradient id="palaceBodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="#4D0E1D" />
             <stop offset="40%" stopColor="#3B0814" />
             <stop offset="100%" stopColor="#1E0208" />
           </linearGradient>
-          <radialGradient id="windowGlow" cx="50%" cy="50%" r="50%">
+          <radialGradient id="palaceWinGlow" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stopColor="#FFFFFF" />
             <stop offset="40%" stopColor="#FFE066" />
             <stop offset="80%" stopColor="#FF9900" />
             <stop offset="100%" stopColor="#E65100" />
           </radialGradient>
-          <filter id="warmGlow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="2" result="blur" />
-            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-          </filter>
         </defs>
 
-        {/* Far Background Wings */}
-        <rect x="10" y="110" width="400" height="110" fill="url(#palaceBody)" />
+        {/* Wings spanning full width */}
+        <rect x="0" y="120" width="1000" height="120" fill="url(#palaceBodyGrad)" />
 
-        {/* Left Chattri Pavilion */}
-        <path d="M40 90 C40 70 58 55 70 45 C82 55 100 70 100 90 Z" fill="url(#palaceBody)" />
-        <rect x="69" y="32" width="2" height="13" fill="#FFC83B" />
-        <circle cx="70" cy="30" r="2.5" fill="#FFF2B2" />
-        {/* Chattri Pillars */}
-        <rect x="44" y="90" width="4" height="30" fill="url(#palaceBody)" />
-        <rect x="60" y="90" width="4" height="30" fill="url(#palaceBody)" />
-        <rect x="76" y="90" width="4" height="30" fill="url(#palaceBody)" />
-        <rect x="92" y="90" width="4" height="30" fill="url(#palaceBody)" />
-
-        {/* Right Chattri Pavilion */}
-        <path d="M320 90 C320 70 338 55 350 45 C362 55 380 70 380 90 Z" fill="url(#palaceBody)" />
-        <rect x="349" y="32" width="2" height="13" fill="#FFC83B" />
-        <circle cx="350" cy="30" r="2.5" fill="#FFF2B2" />
-        {/* Chattri Pillars */}
-        <rect x="324" y="90" width="4" height="30" fill="url(#palaceBody)" />
-        <rect x="340" y="90" width="4" height="30" fill="url(#palaceBody)" />
-        <rect x="356" y="90" width="4" height="30" fill="url(#palaceBody)" />
-        <rect x="372" y="90" width="4" height="30" fill="url(#palaceBody)" />
-
-        {/* Main Central Grand Onion Dome (Towers High in the Sunset Sky) */}
-        <path
-          d="M160 80 C160 50 185 24 210 6 C235 24 260 50 260 80 H160 Z"
-          fill="url(#palaceBody)"
-        />
-        {/* Grand Finial on Central Dome */}
-        <line x1="210" y1="0" x2="210" y2="7" stroke="#FFD700" strokeWidth="3" />
-        <circle cx="210" cy="0" r="3.5" fill="#FFF2B2" />
-
-        {/* Flanking Secondary Domes */}
-        <path d="M120 95 C120 75 138 60 150 50 C162 60 180 75 180 95 Z" fill="url(#palaceBody)" />
-        <path d="M240 95 C240 75 258 60 270 50 C282 60 300 75 300 95 Z" fill="url(#palaceBody)" />
-
-        {/* Central Multi-Story Arch Facade */}
-        <rect x="130" y="80" width="160" height="140" fill="url(#palaceBody)" />
-        
-        {/* Grand Center Jharokha Arch with Golden Illumination */}
-        <path d="M188 150 C188 120 232 120 232 150 V220 H188 Z" fill="#140104" />
-        <path d="M190 152 C190 125 230 125 230 152 V220 H190 Z" fill="url(#windowGlow)" opacity="0.95" filter="url(#warmGlow)" />
-
-        {/* Illuminated Warm Arched Windows (Upper & Lower Tiers) */}
-        {[
-          { x: 30, y: 130 }, { x: 50, y: 130 }, { x: 75, y: 130 }, { x: 95, y: 130 },
-          { x: 140, y: 105 }, { x: 160, y: 105 }, { x: 250, y: 105 }, { x: 270, y: 105 },
-          { x: 315, y: 130 }, { x: 335, y: 130 }, { x: 360, y: 130 }, { x: 380, y: 130 },
-          { x: 140, y: 155 }, { x: 160, y: 155 }, { x: 250, y: 155 }, { x: 270, y: 155 },
-          { x: 40, y: 165 }, { x: 80, y: 165 }, { x: 330, y: 165 }, { x: 370, y: 165 },
-        ].map((win, i) => (
-          <g key={i}>
-            <rect x={win.x} y={win.y} width="12" height="20" rx="6" fill="url(#windowGlow)" opacity="0.95" filter="url(#warmGlow)" />
-            <path d={`M${win.x + 1} ${win.y + 8} H${win.x + 11}`} stroke="#3B030D" strokeWidth="0.8" />
+        {/* Left Side Chattris */}
+        {[80, 220].map((cx, i) => (
+          <g key={`lchat-${i}`}>
+            <path d={`M${cx - 30} 100 C${cx - 30} 75 ${cx - 15} 55 ${cx} 42 C${cx + 15} 55 ${cx + 30} 75 ${cx + 30} 100 Z`} fill="url(#palaceBodyGrad)" />
+            <line x1={cx} y1="30" x2={cx} y2="42" stroke="#FFC83B" strokeWidth="2" />
+            <circle cx={cx} cy="28" r="3" fill="#FFF2B2" />
+            <rect x={cx - 24} y="100" width="4" height="30" fill="url(#palaceBodyGrad)" />
+            <rect x={cx - 8} y="100" width="4" height="30" fill="url(#palaceBodyGrad)" />
+            <rect x={cx + 8} y="100" width="4" height="30" fill="url(#palaceBodyGrad)" />
+            <rect x={cx + 24} y="100" width="4" height="30" fill="url(#palaceBodyGrad)" />
           </g>
         ))}
 
-        {/* Water Edge Stone Balustrade */}
-        <rect x="0" y="210" width="420" height="10" fill="#150005" />
+        {/* Right Side Chattris */}
+        {[780, 920].map((cx, i) => (
+          <g key={`rchat-${i}`}>
+            <path d={`M${cx - 30} 100 C${cx - 30} 75 ${cx - 15} 55 ${cx} 42 C${cx + 15} 55 ${cx + 30} 75 ${cx + 30} 100 Z`} fill="url(#palaceBodyGrad)" />
+            <line x1={cx} y1="30" x2={cx} y2="42" stroke="#FFC83B" strokeWidth="2" />
+            <circle cx={cx} cy="28" r="3" fill="#FFF2B2" />
+            <rect x={cx - 24} y="100" width="4" height="30" fill="url(#palaceBodyGrad)" />
+            <rect x={cx - 8} y="100" width="4" height="30" fill="url(#palaceBodyGrad)" />
+            <rect x={cx + 8} y="100" width="4" height="30" fill="url(#palaceBodyGrad)" />
+            <rect x={cx + 24} y="100" width="4" height="30" fill="url(#palaceBodyGrad)" />
+          </g>
+        ))}
+
+        {/* Secondary Domes */}
+        <path d="M350 100 C350 72 375 52 400 40 C425 52 450 72 450 100 Z" fill="url(#palaceBodyGrad)" />
+        <path d="M550 100 C550 72 575 52 600 40 C625 52 650 72 650 100 Z" fill="url(#palaceBodyGrad)" />
+
+        {/* Grand Central Onion Dome */}
+        <path
+          d="M440 90 C440 50 470 20 500 2 C530 20 560 50 560 90 H440 Z"
+          fill="url(#palaceBodyGrad)"
+        />
+        <line x1="500" y1="-8" x2="500" y2="2" stroke="#FFD700" strokeWidth="3" />
+        <circle cx="500" cy="-10" r="4" fill="#FFF2B2" />
+
+        {/* Central Facade & Grand Arch */}
+        <rect x="420" y="90" width="160" height="150" fill="url(#palaceBodyGrad)" />
+        <path d="M480 150 C480 120 520 120 520 150 V240 H480 Z" fill="url(#palaceWinGlow)" opacity="0.95" />
+
+        {/* Illuminated Arched Windows */}
+        {[
+          50, 100, 150, 200, 250, 300, 350,
+          650, 700, 750, 800, 850, 900, 950,
+          440, 560,
+        ].map((x, i) => (
+          <rect key={`win-${i}`} x={x} y="140" width="14" height="24" rx="7" fill="url(#palaceWinGlow)" opacity="0.9" />
+        ))}
       </svg>
     </div>
 
-    {/* Lake Water Surface with Reflections & Ripple Animations */}
+    {/* Lake Water Surface with Reflections & Animated Ripples */}
     <div className="absolute top-[58%] inset-x-0 bottom-0 bg-gradient-to-b from-[#2B050E] via-[#3D0A16] to-[#150005]">
-      {/* Reflected Palace Glow in Water */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-36 bg-gradient-to-b from-[#FFA726]/50 via-[#FF7043]/30 to-transparent blur-xl" />
+      {/* Reflected Palace Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-80 h-40 bg-gradient-to-b from-[#FFA726]/40 via-[#FF7043]/20 to-transparent blur-2xl" />
       
-      {/* Animated Water Ripples */}
-      <div className="absolute inset-x-0 top-3 h-[1.5px] bg-gradient-to-r from-transparent via-[#FFD54F]/60 to-transparent animate-pulse" />
-      <div className="absolute inset-x-0 top-10 h-[1px] bg-gradient-to-r from-transparent via-[#FFB74D]/40 to-transparent" style={{ animationDelay: '1s' }} />
-      <div className="absolute inset-x-0 top-18 h-[1px] bg-gradient-to-r from-transparent via-[#FF8A65]/30 to-transparent" style={{ animationDelay: '2s' }} />
+      {/* Ripples */}
+      <div className="absolute inset-x-0 top-3 h-[1.5px] bg-gradient-to-r from-transparent via-[#FFD54F]/50 to-transparent animate-pulse" />
+      <div className="absolute inset-x-0 top-10 h-[1px] bg-gradient-to-r from-transparent via-[#FFB74D]/35 to-transparent" />
+      <div className="absolute inset-x-0 top-18 h-[1px] bg-gradient-to-r from-transparent via-[#FF8A65]/25 to-transparent" />
 
-      {/* Floating Lotus Flowers & Diyas on the Water */}
-      <div className="absolute inset-x-0 bottom-6 flex justify-between px-6 items-end">
-        {/* Floating Diya Left */}
+      {/* Floating Lotus & Diya details */}
+      <div className="absolute inset-x-0 bottom-6 flex justify-between px-8 items-end pointer-events-none">
         <div className="flex flex-col items-center animate-bounce-slow">
           <div className="w-3 h-4 bg-gradient-to-t from-[#FF6F00] via-[#FFD54F] to-white rounded-full blur-[0.5px] animate-pulse" />
           <div className="w-7 h-2.5 bg-[#8C5512] rounded-full shadow-lg -mt-0.5" />
         </div>
 
-        {/* Floating Lotus Blossom Center */}
         <div className="text-2xl filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] animate-pulse">
           🪷
         </div>
 
-        {/* Floating Diya Right */}
-        <div className="flex flex-col items-center animate-bounce-slow" style={{ animationDelay: '1.2s' }}>
+        <div className="flex flex-col items-center animate-bounce-slow" style={{ animationDelay: '1.4s' }}>
           <div className="w-3 h-4 bg-gradient-to-t from-[#FF6F00] via-[#FFD54F] to-white rounded-full blur-[0.5px] animate-pulse" />
           <div className="w-7 h-2.5 bg-[#8C5512] rounded-full shadow-lg -mt-0.5" />
         </div>
       </div>
     </div>
 
-    {/* Foreground Garden Blossoms across bottom edge */}
+    {/* Optional Corner Bouquets */}
     {showFlowers && (
-      <div className="absolute bottom-0 inset-x-0 h-16 flex items-end justify-between px-1 pointer-events-none">
+      <div className="absolute bottom-0 inset-x-0 h-16 flex items-end justify-between px-2 pointer-events-none">
         <FloralCornerBouquet position="bottom-left" className="w-28 h-28 -mb-3 -ml-3" />
         <FloralCornerBouquet position="bottom-right" className="w-28 h-28 -mb-3 -mr-3" />
       </div>
@@ -426,13 +399,12 @@ export const SunsetPalaceScene = ({ className = "", showFlowers = true, opacity 
   </div>
 );
 
-// Event Timeline Badges (Mehendi, Ceremony, Reception)
+// Event Timeline Badges
 export const ScheduleBadge = ({ type = "ceremony", className = "" }) => {
   return (
     <div className={`relative flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-[#FAF5EB] via-[#F3E5C8] to-[#E2CA92] border-2 border-[#D4AF37] shadow-md select-none shrink-0 ${className}`}>
       {type === "mehendi" && (
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#781124" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          {/* Henna Hand / Paisley */}
           <path d="M18 11V6a2 2 0 0 0-4 0v4M14 10V4a2 2 0 0 0-4 0v6M10 10.5V6a2 2 0 0 0-4 0v7" />
           <path d="M6 13a4 4 0 0 0-2 3.5V18a4 4 0 0 0 4 4h7a5 5 0 0 0 5-5v-5a2 2 0 0 0-4 0" />
           <circle cx="12" cy="16" r="1" fill="#781124" />
@@ -441,7 +413,6 @@ export const ScheduleBadge = ({ type = "ceremony", className = "" }) => {
 
       {type === "ceremony" && (
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#781124" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          {/* Sacred Mandap / Havan Fire */}
           <path d="M4 20h16M6 20v-5M18 20v-5M8 15h8" />
           <path d="M12 4c1.5 2.5 3 4 3 6a3 3 0 1 1-6 0c0-2 1.5-3.5 3-6Z" fill="#D4AF37" />
           <path d="M12 8c.5 1 1 1.5 1 2a1 1 0 1 1-2 0c0-.5.5-1 1-2Z" fill="#FAF5EB" />
@@ -450,7 +421,6 @@ export const ScheduleBadge = ({ type = "ceremony", className = "" }) => {
 
       {type === "reception" && (
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#781124" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          {/* Royal Garland / Rings */}
           <circle cx="9" cy="12" r="5" />
           <circle cx="15" cy="12" r="5" />
           <path d="M12 7l1.5-3h-3L12 7Z" fill="#D4AF37" stroke="#781124" strokeWidth="1" />
