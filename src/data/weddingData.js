@@ -25,21 +25,22 @@ export const weddingData = {
   time: "5:00 pm",
 
   // Venue & Location
-  venueName: "The Gulmohar Palace",
-  venueCity: "Jaipur, Rajasthan",
+  venueName: "B.SANJEEVA SHETTY SABHAGRAHA",
+  venueCity: "Bajpe, Mangalore",
   venueEvent: "Wedding & Reception",
-  venueAddress: "The Gulmohar Palace, Jaipur, Rajasthan, India",
-  googleMapsUrl: "https://maps.google.com/?q=The+Gulmohar+Palace+Jaipur",
+  venueAddress: "B.SANJEEVA SHETTY SABHAGRAHA , Bajpe, Mangalore",
+  googleMapsUrl: "https://maps.app.goo.gl/uiKpchKoLxMSvEDo6?g_st=ac",
+  locationQrCode: "/images/locationqr.webp",
 
   // Parents
   parents: {
     bride: {
-      mother: "Mrs Meera Sharma",
-      father: "Mr Rajesh Sharma",
+      mother: "Smt. ",
+      father: "Shri. Sathish Shetty",
     },
     groom: {
-      mother: "Mrs Kavita Kapoor",
-      father: "Mr Sanjay Kapoor",
+      mother: "Smt. Kavitha Shetty",
+      father: "Shri. Sathish Shetty",
     },
   },
 

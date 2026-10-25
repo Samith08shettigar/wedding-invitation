@@ -38,16 +38,32 @@ export const VenueCard = () => {
         </p>
 
         {/* Time */}
-        <p className="font-serif italic text-sm text-[#8C132B] mt-1 mb-8">
+        <p className="font-serif italic text-sm text-[#8C132B] mt-1 mb-6">
           {weddingData.time}
         </p>
+
+        {/* Scan for Location QR Code */}
+        {weddingData.locationQrCode && (
+          <div className="mb-6 flex flex-col items-center">
+            <div className="p-2.5 bg-white rounded-2xl border-2 border-[#D4AF37]/60 shadow-[0_4px_15px_rgba(0,0,0,0.06)]">
+              <img 
+                src={weddingData.locationQrCode} 
+                alt="Scan for Venue Location" 
+                className="w-24 h-24 sm:w-28 sm:h-28 object-contain rounded-lg"
+              />
+            </div>
+            <span className="font-serif italic text-[10px] sm:text-xs text-[#8C132B] mt-1.5 font-medium tracking-wide">
+              Scan QR code for venue map
+            </span>
+          </div>
+        )}
 
         {/* View Location Button with Arrow */}
         <a 
           href={weddingData.googleMapsUrl}
           target="_blank" 
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-6 py-2.5 border border-[#3B0612]/70 rounded-md text-[#3B0612] font-royal text-[10px] sm:text-xs tracking-[0.25em] uppercase font-semibold hover:bg-[#3B0612] hover:text-[#FFF8EE] transition-all cursor-pointer"
+          className="inline-flex items-center gap-2 px-6 py-2.5 border border-[#3B0612]/70 rounded-md text-[#3B0612] font-royal text-[10px] sm:text-xs tracking-[0.25em] uppercase font-semibold hover:bg-[#3B0612] hover:text-[#FFF8EE] transition-all cursor-pointer shadow-sm hover:shadow-md"
         >
           <span>View Location</span>
           <ExternalLink className="w-3.5 h-3.5" />
