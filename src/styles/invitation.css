@@ -3,14 +3,22 @@
    Matching Reference Video Specification
    ============================================================ */
 
-/* Luxury Ivory Damask Paper Texture (Sections 2 - 6 background from video) */
+/* Luxury Ivory Damask Paper Texture (Sections 2 - 5 background from video) */
 .bg-luxury-damask {
   background-color: #FAF7F2;
-  background-image: 
-    radial-gradient(#AA7C1112 1px, transparent 1px),
-    radial-gradient(#7811240c 1.5px, #FAF7F2 1.5px);
-  background-size: 24px 24px;
-  background-position: 0 0, 12px 12px;
+  background-image: url('/images/background2.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Luxury Closing Paper Texture with Heart Ribbons (Section 6 background from video) */
+.bg-closing-hearts {
+  background-color: #FAF7F2;
+  background-image: url('/images/background3.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* Deep Crimson Velvet Carved Bas-Relief Texture (Envelope Flaps from frame_00s) */

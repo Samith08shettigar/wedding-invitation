@@ -23,7 +23,7 @@ export const ClosingHearts = ({ onReplay }) => {
   };
 
   return (
-    <section id="closing" className="relative w-full py-20 sm:py-28 px-6 bg-luxury-damask text-[#3B0612] flex flex-col items-center text-center select-none border-t border-[#AA7C11]/20">
+    <section id="closing" className="relative w-full py-20 sm:py-28 px-6 bg-closing-hearts text-[#3B0612] flex flex-col items-center text-center select-none border-t border-[#AA7C11]/20">
       
       {/* Container */}
       <div className="max-w-md mx-auto flex flex-col items-center">

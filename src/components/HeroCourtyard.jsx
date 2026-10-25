@@ -1,38 +1,36 @@
 import React, { useState } from 'react';
 import { weddingData } from '../data/weddingData';
 import { WeddingCourtyardScene } from './decorations/WeddingCourtyardScene';
-import { CarvedFlapArt, CarvedSideFlapArt, CarvedWaxSeal } from './decorations/CarvedEnvelopeArtwork';
+import { CarvedWaxSeal } from './decorations/CarvedEnvelopeArtwork';
 import { ChevronDown } from 'lucide-react';
+import openingWebp from '../assets/opening.webp';
+import openingPng from '../../IMG/opening.png';
 
 /**
- * HERO COURTYARD & 4-FLAP CARVED ENVELOPE (Matches user screenshot exactly)
- * Sealed bas-relief crimson envelope with the exact lotus & climbing bud vines pattern.
- * When tapped: top flap folds up, revealing the royal courtyard with floral arch & mandap.
- * Bottom flap with carved pattern and 'Skip opening ↗' button anchors the bottom foreground.
+ * HERO COURTYARD & 4-PETAL CARVED ENVELOPE (Matches reference video)
+ * Uses high-resolution carved crimson velvet envelope asset (opening.webp).
+ * When tapped: all 4 petals unfold outward in 3D, revealing the magnificent
+ * royal palace courtyard (background1.webp), mandap, and couple announcement.
  */
 export const HeroCourtyard = ({ onStartMusic, onOpenComplete }) => {
-  // Step: 0 = sealed, 1 = top petal open, 2 = all petals unfolding, 3 = fully opened
-  const [openStep, setOpenStep] = useState(0);
+  // State: 'sealed' | 'opening' | 'opened'
+  const [openState, setOpenState] = useState('sealed');
 
   const handleOpen = () => {
-    if (openStep > 0) return;
+    if (openState !== 'sealed') return;
     if (onStartMusic) onStartMusic();
-    setOpenStep(1); // Stage 1: Top petal folds upward
+    setOpenState('opening');
 
     setTimeout(() => {
-      setOpenStep(2); // Stage 2: Left, right & bottom petals unfold outward
-    }, 850);
-
-    setTimeout(() => {
-      setOpenStep(3); // Stage 3: Flaps dissolve, full palace revealed, text fades in
+      setOpenState('opened');
       if (onOpenComplete) onOpenComplete();
-    }, 2000);
+    }, 1200);
   };
 
   const handleSkip = (e) => {
     e.stopPropagation();
     if (onStartMusic) onStartMusic();
-    setOpenStep(3);
+    setOpenState('opened');
     if (onOpenComplete) onOpenComplete();
     const target = document.getElementById('scratch-date');
     if (target) {
@@ -40,136 +38,145 @@ export const HeroCourtyard = ({ onStartMusic, onOpenComplete }) => {
     }
   };
 
-  const isTextVisible = openStep >= 2;
+  const isOpened = openState === 'opened';
+  const isOpening = openState === 'opening' || isOpened;
 
   return (
-    <section className="relative w-full min-h-screen flex flex-col items-center justify-between overflow-hidden select-none bg-[#1F0107]">
+    <section className="relative w-full min-h-screen flex flex-col items-center justify-between overflow-hidden select-none">
       
-      {/* 1. COURTYARD BACKGROUND (background1.png) */}
+      {/* 1. COURTYARD BACKGROUND (background1.webp / png) */}
       <WeddingCourtyardScene />
 
       {/* 2. COURTYARD HERO TEXT (Floats cleanly inside the upper archway) */}
       <div 
-        className={`relative z-20 pt-16 sm:pt-20 px-6 max-w-lg mx-auto text-center flex flex-col items-center transition-all duration-1000 ${
-          isTextVisible ? 'opacity-100 translate-y-0 delay-300' : 'opacity-0 translate-y-8'
+        className={`relative z-20 pt-14 sm:pt-20 px-6 max-w-lg mx-auto text-center flex flex-col items-center transition-all duration-1000 ${
+          isOpening ? 'opacity-100 translate-y-0 delay-300' : 'opacity-0 translate-y-6 pointer-events-none'
         }`}
       >
         {/* Sacred Opening Verse */}
-        <p className="font-serif italic text-xs sm:text-sm text-[#4A0A16] tracking-wider leading-relaxed max-w-sm mb-4 font-medium drop-shadow-sm">
+        <p className="font-serif italic text-xs sm:text-sm text-[#FFF5EB] tracking-wider leading-relaxed max-w-sm mb-3 font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
           {weddingData.openingBlessing}
         </p>
 
         {/* Couple Names (Priya & Varun) */}
         <div className="flex items-center justify-center gap-2 sm:gap-3 my-1">
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-[#3B0612] tracking-wide font-normal drop-shadow-[0_1px_3px_rgba(255,255,255,0.7)]">
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-[#FFFDF8] tracking-wide font-normal drop-shadow-[0_3px_10px_rgba(0,0,0,0.95)]">
             {weddingData.brideFirstName}
           </h1>
-          <span className="font-serif italic text-2xl sm:text-3xl text-[#AA7C11]">&amp;</span>
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-[#3B0612] tracking-wide font-normal drop-shadow-[0_1px_3px_rgba(255,255,255,0.7)]">
+          <span className="font-serif italic text-2xl sm:text-3xl text-[#FFDF78] drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">&amp;</span>
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-[#FFFDF8] tracking-wide font-normal drop-shadow-[0_3px_10px_rgba(0,0,0,0.95)]">
             {weddingData.groomFirstName}
           </h1>
         </div>
 
         {/* Seven Promises Tagline */}
-        <p className="font-serif italic text-xs sm:text-sm text-[#6E1225] tracking-wide mt-3 font-medium">
+        <p className="font-serif italic text-xs sm:text-sm text-[#FFE8B8] tracking-wide mt-2 font-medium drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
           {weddingData.openingTagline}
         </p>
       </div>
 
       {/* Down Chevron / Scroll Prompt (Visible once opened) */}
-      {openStep >= 2 && (
+      {isOpened && (
         <div className="relative z-20 pb-20 flex flex-col items-center animate-bounce-slow">
           <a
             href="#scratch-date"
-            className="flex flex-col items-center gap-1 text-[#3B0612] hover:text-[#781124] transition-colors p-2"
+            className="flex flex-col items-center gap-1.5 text-[#FFF8EE] hover:text-[#FFDF78] transition-colors p-2"
             aria-label="Scroll to Save The Date"
           >
-            <span className="font-serif italic text-xs tracking-widest text-[#4A0A16] font-medium drop-shadow-sm">
+            <span className="font-serif italic text-xs tracking-widest text-[#FFF8EE] font-medium drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
               Scroll to Explore
             </span>
-            <div className="w-8 h-8 rounded-full border border-[#AA7C11] bg-[#FFF8EE]/90 flex items-center justify-center shadow">
-              <ChevronDown className="w-4 h-4 text-[#781124]" />
+            <div className="w-8 h-8 rounded-full border border-[#D4AF37] bg-[#2A050E]/85 backdrop-blur-md flex items-center justify-center shadow-lg">
+              <ChevronDown className="w-4 h-4 text-[#FFDF78]" />
             </div>
           </a>
         </div>
       )}
 
-      {/* 3. 4-PETAL CARVED ENVELOPE (Unfolds in 3D when tapped) */}
-      <div 
-        className={`absolute inset-0 z-30 perspective-1600 transition-opacity duration-700 ${
-          openStep >= 3 ? 'opacity-0 pointer-events-none' : 'opacity-100'
-        }`}
-      >
-        
-        {/* TOP PETAL: Folds 180deg upward around top screen edge */}
+      {/* 3. 4-PETAL CARVED ENVELOPE (Smoothly unfolds and completely disappears when opened) */}
+      {!isOpened && (
         <div 
-          className="absolute top-0 inset-x-0 h-1/2 bg-carved-crimson preserve-3d transition-all duration-900 ease-in-out border-b border-[#C44D68]/40 overflow-hidden flex flex-col items-center justify-center pointer-events-auto cursor-pointer"
+          className={`absolute inset-0 z-30 perspective-1600 transition-opacity duration-1000 ${
+            isOpening ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'
+          }`}
           onClick={handleOpen}
-          style={{
-            clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
-            transformOrigin: 'top center',
-            transform: openStep >= 1 ? 'rotateX(180deg)' : 'rotateX(0deg)',
-          }}
         >
-          <CarvedFlapArt flipY={true} />
-        </div>
+          {/* TOP PETAL */}
+          <div 
+            className="absolute top-0 inset-x-0 h-1/2 overflow-hidden cursor-pointer transition-all duration-1000 ease-in-out"
+            style={{
+              clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
+              transformOrigin: 'top center',
+              transform: isOpening ? 'rotateX(110deg) translateY(-80%) scaleY(0.4)' : 'none',
+              opacity: isOpening ? 0 : 1,
+            }}
+          >
+            <picture>
+              <source srcSet={openingWebp} type="image/webp" />
+              <img src={openingPng} alt="Envelope Top" className="w-full h-[200%] object-cover object-top pointer-events-none" />
+            </picture>
+          </div>
 
-        {/* LEFT PETAL: Folds 180deg outward to the left */}
-        <div 
-          className="absolute inset-y-0 left-0 w-1/2 bg-carved-crimson preserve-3d transition-all duration-1000 ease-in-out border-r border-[#C44D68]/30 overflow-hidden flex items-center pl-2 pointer-events-auto cursor-pointer"
-          onClick={handleOpen}
-          style={{
-            clipPath: 'polygon(0 0, 100% 50%, 0 100%)',
-            transformOrigin: 'left center',
-            transform: openStep >= 2 ? 'rotateY(-180deg)' : 'rotateY(0deg)',
-          }}
-        >
-          <CarvedSideFlapArt />
-        </div>
+          {/* LEFT PETAL */}
+          <div 
+            className="absolute inset-y-0 left-0 w-1/2 overflow-hidden cursor-pointer transition-all duration-1000 ease-in-out"
+            style={{
+              clipPath: 'polygon(0 0, 100% 50%, 0 100%)',
+              transformOrigin: 'left center',
+              transform: isOpening ? 'rotateY(-110deg) translateX(-80%) scaleX(0.4)' : 'none',
+              opacity: isOpening ? 0 : 1,
+            }}
+          >
+            <picture>
+              <source srcSet={openingWebp} type="image/webp" />
+              <img src={openingPng} alt="Envelope Left" className="w-[200%] h-full object-cover object-left pointer-events-none max-w-none" />
+            </picture>
+          </div>
 
-        {/* RIGHT PETAL: Folds 180deg outward to the right */}
-        <div 
-          className="absolute inset-y-0 right-0 w-1/2 bg-carved-crimson preserve-3d transition-all duration-1000 ease-in-out border-l border-[#C44D68]/30 overflow-hidden flex items-center justify-end pr-2 pointer-events-auto cursor-pointer"
-          onClick={handleOpen}
-          style={{
-            clipPath: 'polygon(100% 0, 0 50%, 100% 100%)',
-            transformOrigin: 'right center',
-            transform: openStep >= 2 ? 'rotateY(180deg)' : 'rotateY(0deg)',
-          }}
-        >
-          <CarvedSideFlapArt isRight={true} />
-        </div>
+          {/* RIGHT PETAL */}
+          <div 
+            className="absolute inset-y-0 right-0 w-1/2 overflow-hidden cursor-pointer transition-all duration-1000 ease-in-out"
+            style={{
+              clipPath: 'polygon(100% 0, 0 50%, 100% 100%)',
+              transformOrigin: 'right center',
+              transform: isOpening ? 'rotateY(110deg) translateX(80%) scaleX(0.4)' : 'none',
+              opacity: isOpening ? 0 : 1,
+            }}
+          >
+            <picture>
+              <source srcSet={openingWebp} type="image/webp" />
+              <img src={openingPng} alt="Envelope Right" className="w-[200%] h-full object-cover object-right pointer-events-none max-w-none -ml-[100%]" />
+            </picture>
+          </div>
 
-        {/* BOTTOM PETAL: THE EXACT PATTERN CIRCLED IN USER SCREENSHOT */}
-        {/* Folds 180deg downward around bottom edge */}
-        <div 
-          className="absolute bottom-0 inset-x-0 h-1/2 bg-carved-crimson preserve-3d transition-all duration-1000 ease-in-out overflow-hidden flex flex-col items-center justify-end pb-2 pointer-events-auto cursor-pointer shadow-[0_-5px_25px_rgba(0,0,0,0.7)]"
-          onClick={handleOpen}
-          style={{
-            clipPath: 'polygon(0 100%, 50% 0, 100% 100%)',
-            transformOrigin: 'bottom center',
-            transform: openStep >= 2 ? 'rotateX(-180deg)' : 'rotateX(0deg)',
-          }}
-        >
-          {/* Exact Carved Lotus, Vines, and Florets Pattern with illuminated fold edges */}
-          <CarvedFlapArt showGoldEdges={true} />
+          {/* BOTTOM PETAL */}
+          <div 
+            className="absolute bottom-0 inset-x-0 h-1/2 overflow-hidden cursor-pointer transition-all duration-1000 ease-in-out"
+            style={{
+              clipPath: 'polygon(0 100%, 50% 0, 100% 100%)',
+              transformOrigin: 'bottom center',
+              transform: isOpening ? 'rotateX(-110deg) translateY(80%) scaleY(0.4)' : 'none',
+              opacity: isOpening ? 0 : 1,
+            }}
+          >
+            <picture>
+              <source srcSet={openingWebp} type="image/webp" />
+              <img src={openingPng} alt="Envelope Bottom" className="w-full h-[200%] object-cover object-bottom pointer-events-none -mt-[100%]" />
+            </picture>
+          </div>
 
-          {/* Text when sealed: "You are invited" + "TAP THE SEAL TO OPEN" */}
-          {openStep === 0 && (
-            <div className="absolute top-16 inset-x-0 flex flex-col items-center text-center px-4 pointer-events-none">
-              <p className="font-serif italic text-2xl sm:text-3xl text-[#FFE6EE] tracking-wide drop-shadow-md mb-0.5">
-                You are invited
-              </p>
-              <span className="font-royal text-[9px] sm:text-[10px] tracking-[0.3em] text-[#FFDF78]/90 uppercase font-semibold mt-1">
-                Tap the seal to open
-              </span>
-            </div>
-          )}
-        </div>
+          {/* Sealed Invitation Text */}
+          <div className={`absolute top-16 inset-x-0 flex flex-col items-center text-center px-4 pointer-events-none transition-opacity duration-400 ${isOpening ? 'opacity-0' : 'opacity-100'}`}>
+            <p className="font-serif italic text-2xl sm:text-3xl text-[#FFE6EE] tracking-wide drop-shadow-md mb-0.5">
+              You are invited
+            </p>
+            <span className="font-royal text-[9px] sm:text-[10px] tracking-[0.3em] text-[#FFDF78]/90 uppercase font-semibold mt-1">
+              Tap the seal to open
+            </span>
+          </div>
 
-        {/* CENTRAL RED WAX SEAL WITH "P & V" (Positioned at apex of petals) */}
-        {openStep === 0 && (
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-auto">
+          {/* Central Red Wax Seal */}
+          <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-auto transition-all duration-400 ${isOpening ? 'scale-0 opacity-0' : 'scale-100 opacity-100'}`}>
             <CarvedWaxSeal 
               monogram={weddingData.monogram} 
               size={90} 
@@ -177,9 +184,9 @@ export const HeroCourtyard = ({ onStartMusic, onOpenComplete }) => {
               onClick={handleOpen} 
             />
           </div>
-        )}
 
-      </div>
+        </div>
+      )}
 
       {/* SKIP OPENING PILL BUTTON (Permanently in lower right corner matching video) */}
       <button
@@ -194,3 +201,4 @@ export const HeroCourtyard = ({ onStartMusic, onOpenComplete }) => {
     </section>
   );
 };
+
