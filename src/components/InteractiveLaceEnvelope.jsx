@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { weddingData } from '../data/weddingData';
+import mailPocketWebp from '../assets/mail_front_pocket.webp';
 
 /**
  * INTERACTIVE PULL-OUT MAILBOX ENVELOPE (Matching mail.png design)
@@ -81,52 +82,16 @@ export const InteractiveLaceEnvelope = () => {
           </div>
         </div>
 
-        {/* 2. TEAL-BLUE ENVELOPE FRONT POCKET (Matching mail.png with gold borders, white flowers, and teal seal) */}
+        {/* 2. TEAL-BLUE ENVELOPE FRONT POCKET (Authentic mail.png with 3D flowers, gold leaves & wax seal) */}
         <div 
           onClick={togglePull}
-          className="relative w-full h-[280px] sm:h-[320px] rounded-b-2xl bg-gradient-to-t from-[#142C38] via-[#224C5F] to-[#34667C] border-2 border-[#D4AF37] shadow-2xl overflow-hidden z-20 cursor-pointer"
+          className="relative w-full h-[300px] sm:h-[350px] overflow-hidden z-20 cursor-pointer"
         >
-          {/* Subtle Damask Texture */}
-          <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#FFF_1px,transparent_1px)] [background-size:12px_12px] pointer-events-none" />
-
-          {/* V-Cut Front Flap Shading with Gold Filigree Line */}
-          <div 
-            className="absolute inset-0 bg-gradient-to-b from-[#3D7188]/90 to-[#183544] border-t-2 border-[#D4AF37]"
-            style={{
-              clipPath: 'polygon(0 0, 50% 60%, 100% 0, 100% 100%, 0 100%)',
-            }}
+          <img 
+            src={mailPocketWebp} 
+            alt="Envelope Front Pocket with Flowers and Seal"
+            className="w-full h-full object-cover object-bottom select-none pointer-events-none drop-shadow-2xl"
           />
-
-          {/* Gold Filigree Line along V-rim */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path d="M 0 0 L 50 60 L 100 0" fill="none" stroke="#FFDF78" strokeWidth="1.2" strokeOpacity="0.9" />
-          </svg>
-
-          {/* White Blossoms and Gold Botanical Sprigs Flanking the Seal */}
-          <div className="absolute top-2 inset-x-6 flex items-center justify-between pointer-events-none">
-            <div className="flex items-center gap-1 -rotate-12 opacity-95">
-              <span className="text-[#FFFDF8] text-base drop-shadow">&#10047;</span>
-              <span className="text-[#FFDF78] text-xs drop-shadow">&#10048;</span>
-              <span className="text-[#FFFDF8] text-xs drop-shadow">&#9679;</span>
-            </div>
-            <div className="flex items-center gap-1 rotate-12 opacity-95">
-              <span className="text-[#FFFDF8] text-xs drop-shadow">&#9679;</span>
-              <span className="text-[#FFDF78] text-xs drop-shadow">&#10048;</span>
-              <span className="text-[#FFFDF8] text-base drop-shadow">&#10047;</span>
-            </div>
-          </div>
-
-          {/* Central Dark Teal Wax Seal with Gold Botanical Monogram */}
-          <div className="relative z-10 flex flex-col items-center justify-center pt-10 text-center px-4">
-            <div className="w-16 h-16 rounded-full border-2 border-[#D4AF37] bg-gradient-to-br from-[#2D5A6E] via-[#1A3D4D] to-[#0E2530] flex items-center justify-center shadow-xl">
-              <span className="text-[#FFDF78] text-xl font-serif font-bold">P &amp; V</span>
-            </div>
-
-            <span className="font-royal text-[9px] tracking-[0.3em] text-[#FFDF78] uppercase mt-2 font-semibold drop-shadow">
-              Together, With You
-            </span>
-          </div>
-
         </div>
 
       </div>

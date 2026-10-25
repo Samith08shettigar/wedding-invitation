@@ -3,6 +3,8 @@ import { weddingData } from '../data/weddingData';
 import { ChevronDown } from 'lucide-react';
 import mainWebp from '../assets/main.webp';
 import mailWebp from '../assets/mail.webp';
+import mailClosedWebp from '../assets/mail_closed.webp';
+import mailPocketWebp from '../assets/mail_front_pocket.webp';
 
 // Fluttering Golden Butterflies Configuration (Disperses across viewport)
 const BUTTERFLIES_CONFIG = [
@@ -35,18 +37,21 @@ const GLITTER_PARTICLES = [
   { id: 16, angle: 300, dist: 280, size: 14, char: '✦', delay: '0.3s' },
 ];
 
-// Royal Golden Butterfly with dual flapping 3D wings
-const RoyalButterfly = ({ targetX, targetY, scale = 1, rot = 0, flapSpeed = '0.3s', isFly, delay = '0s' }) => {
+// Royal Golden Butterfly with dual flapping 3D wings (Originating from wax seal circle at top: 63%, left: 50%)
+const RoyalButterfly = ({ targetX, targetY, scale = 1, rot = 0, flapSpeed = '0.3s', isFly, isDisappear, delay = '0s' }) => {
   return (
     <div
-      className="absolute top-1/2 left-1/2 pointer-events-none z-50 transition-all ease-out"
+      className="absolute pointer-events-none z-50 transition-all ease-out"
       style={{
+        top: '63%',
+        left: '50%',
         transform: isFly
           ? `translate(calc(-50% + ${targetX}), calc(-50% + ${targetY})) scale(${scale}) rotate(${rot}deg)`
           : 'translate(-50%, -50%) scale(0) rotate(0deg)',
-        opacity: isFly ? 1 : 0,
-        transitionDuration: isFly ? '2400ms' : '400ms',
-        transitionDelay: isFly ? delay : '0s',
+        opacity: !isFly ? 0 : (isDisappear ? 0 : 1),
+        transitionProperty: 'transform, opacity',
+        transitionDuration: isDisappear ? '700ms' : (isFly ? '2000ms' : '300ms'),
+        transitionDelay: isDisappear ? '0s' : (isFly ? delay : '0s'),
         transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
         willChange: 'transform, opacity',
       }}
@@ -54,7 +59,7 @@ const RoyalButterfly = ({ targetX, targetY, scale = 1, rot = 0, flapSpeed = '0.3
       <div 
         className="relative flex items-center justify-center filter drop-shadow-[0_2px_10px_rgba(255,215,0,0.7)]"
         style={{
-          animation: isFly ? 'gentleFloat 3s ease-in-out infinite alternate' : 'none',
+          animation: isFly && !isDisappear ? 'gentleFloat 3s ease-in-out infinite alternate' : 'none',
           animationDelay: delay,
         }}
       >
@@ -117,6 +122,9 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
   // Mailbox animation state: 'closed' | 'opening' | 'card-up'
   const [mailboxPhase, setMailboxPhase] = useState('closed');
 
+  // Butterflies disappearance state: true after spread out
+  const [butterfliesDisappear, setButterfliesDisappear] = useState(false);
+
   // Lock document scroll completely while overlay is active
   useEffect(() => {
     const originalBodyOverflow = document.body.style.overflow;
@@ -132,7 +140,6 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
   }, []);
 
   // Step 1: Trigger 4-petal entrance opening
-  // Mailbox is ALREADY mounted underneath, eliminating any blank gap!
   const handleOpenEntrance = (e) => {
     if (e && e.type === 'touchend') e.preventDefault();
     if (entrancePhase !== 'sealed') return;
@@ -140,20 +147,25 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
 
     setEntrancePhase('petals-opening');
 
-    // As petals unfold outward revealing the mailbox, start opening the mailbox flap at 900ms
+    // Mailbox opens at 900ms as petals sweep outward
     setTimeout(() => {
       setMailboxPhase('opening');
     }, 900);
 
-    // Switch scene to mailbox at 1500ms to free up interaction
+    // Switch scene to mailbox at 1400ms to free up interaction
     setTimeout(() => {
       setScene('mailbox');
-    }, 1500);
+    }, 1400);
 
-    // Slide invitation card gracefully upward at 1700ms
+    // Slide card gracefully upward from inside pocket at 1600ms
     setTimeout(() => {
       setMailboxPhase('card-up');
-    }, 1700);
+    }, 1600);
+
+    // Butterflies spread across screen and disappear cleanly at 2200ms
+    setTimeout(() => {
+      setButterfliesDisappear(true);
+    }, 2200);
   };
 
   // Step 2: Trigger mailbox flap opening manually if tapped
@@ -163,7 +175,10 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
       setMailboxPhase('opening');
       setTimeout(() => {
         setMailboxPhase('card-up');
-      }, 1100);
+      }, 700);
+      setTimeout(() => {
+        setButterfliesDisappear(true);
+      }, 1600);
     }
   };
 
@@ -249,28 +264,39 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
           ))}
         </div>
 
-        {/* MAILBOX STAGE CONTAINER (Constrained to max-w-[430px] preserving proportions) */}
-        <div className="relative w-full max-w-[430px] h-full max-h-[100dvh] flex flex-col items-center justify-center px-4">
+        {/* MAILBOX STAGE CONTAINER (Centered, preserving authentic mail.png 941x1672 aspect ratio) */}
+        <div className="relative w-full max-w-[420px] sm:max-w-[460px] h-full max-h-[100dvh] flex flex-col items-center justify-center px-2 sm:px-4">
           
-          {/* THE ENVELOPE BOX CONTAINER */}
-          <div className="relative w-full aspect-[941/1400] max-h-[84dvh] flex items-end justify-center perspective-1600">
+          <div className="relative w-full aspect-[941/1672] max-h-[92dvh] flex items-center justify-center overflow-visible">
             
-            {/* 1. ENVELOPE INTERIOR BACK (Dark Teal with Gold Botanical Jaali) */}
-            <div className="absolute inset-x-3 bottom-0 h-[65%] rounded-2xl bg-gradient-to-b from-[#0F222C] to-[#183442] border-2 border-[#D4AF37]/50 shadow-inner overflow-hidden z-10 pointer-events-none">
-              <div className="absolute inset-0 opacity-25 bg-[radial-gradient(#D4AF37_1.5px,transparent_1.5px)] [background-size:16px_16px]" />
-              <div className="absolute top-8 inset-x-0 flex flex-col items-center text-center opacity-40">
-                <span className="font-serif italic text-xs text-[#E5C158] tracking-widest">&#10022; With Love &amp; Blessings &#10022;</span>
-              </div>
-            </div>
+            {/* LAYER 1: CLOSED ENVELOPE (Visible when closed, flap folded down to circle) */}
+            <img 
+              src={mailClosedWebp} 
+              alt="Closed Royal Mailbox"
+              className={`absolute inset-0 w-full h-full object-contain pointer-events-none transition-opacity duration-700 ease-out z-10 ${
+                isMailboxFlapOpen ? 'opacity-0' : 'opacity-100'
+              }`}
+              loading="eager"
+            />
 
-            {/* 2. LARGE IVORY INVITATION CARD (Glides upward from inside the envelope pocket) */}
+            {/* LAYER 2: OPEN ENVELOPE BASE (Visible when open, flap open upward with botanical lining) */}
+            <img 
+              src={mailWebp} 
+              alt="Open Royal Mailbox"
+              className={`absolute inset-0 w-full h-full object-contain pointer-events-none transition-opacity duration-700 ease-out z-10 ${
+                isMailboxFlapOpen ? 'opacity-100' : 'opacity-0'
+              }`}
+              loading="eager"
+            />
+
+            {/* LAYER 3: LARGE IVORY INVITATION CARD (Sliding smoothly UP from INSIDE the envelope pocket!) */}
             <div 
               onClick={isCardUp ? handleEnterWebsite : undefined}
               onTouchEnd={isCardUp ? handleEnterWebsite : undefined}
-              className={`absolute inset-x-4 top-2 h-[82%] rounded-2xl bg-[#FFFDF8] border-2 border-[#D4AF37] p-5 sm:p-7 shadow-[0_25px_60px_rgba(0,0,0,0.85)] flex flex-col items-center justify-between text-center select-none z-20 transition-all duration-[1500ms] ease-out ${
+              className={`absolute inset-x-[7%] top-[34%] h-[58%] rounded-xl bg-[#FFFDF8] border-2 border-[#D4AF37] p-4 sm:p-6 shadow-[0_25px_60px_rgba(0,0,0,0.85)] flex flex-col items-center justify-between text-center select-none z-20 transition-all duration-[1400ms] ease-out ${
                 isCardUp 
-                  ? '-translate-y-36 sm:-translate-y-44 scale-100 opacity-100 cursor-pointer hover:shadow-[0_25px_70px_rgba(212,175,55,0.45)]' 
-                  : 'translate-y-20 scale-95 opacity-0 pointer-events-none'
+                  ? '-translate-y-44 sm:-translate-y-52 scale-100 opacity-100 cursor-pointer hover:shadow-[0_25px_70px_rgba(212,175,55,0.45)]' 
+                  : 'translate-y-10 scale-95 opacity-0 pointer-events-none'
               }`}
               style={{
                 transitionTimingFunction: 'cubic-bezier(0.25, 1, 0.4, 1)',
@@ -278,8 +304,8 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
               }}
             >
               {/* Double Gold Ornate Filigree Border with Corner Flourishes (matching mail.png) */}
-              <div className="absolute inset-2 border border-[#D4AF37]/60 rounded-xl pointer-events-none">
-                <div className="absolute inset-1 border border-dashed border-[#AA7C11]/35 rounded-lg" />
+              <div className="absolute inset-2 border border-[#D4AF37]/60 rounded-lg pointer-events-none">
+                <div className="absolute inset-1 border border-dashed border-[#AA7C11]/35 rounded-md" />
                 {/* 4 Corner Gold Flourishes */}
                 <span className="absolute top-1 left-1.5 text-[#D4AF37] text-xs font-serif leading-none">&#10087;</span>
                 <span className="absolute top-1 right-1.5 text-[#D4AF37] text-xs font-serif leading-none">&#10087;</span>
@@ -288,139 +314,73 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
               </div>
 
               {/* Sacred Heading */}
-              <div className="flex flex-col items-center pt-1">
-                <span className="text-[#AA7C11] text-xs font-serif italic tracking-widest">
+              <div className="flex flex-col items-center pt-0.5">
+                <span className="text-[#AA7C11] text-[10px] sm:text-xs font-serif italic tracking-widest">
                   &#10022; || Shree Ganeshay Namah || &#10022;
                 </span>
-                <p className="font-serif italic text-xs sm:text-sm text-[#244654] leading-relaxed max-w-xs mt-3 font-medium">
+                <p className="font-serif italic text-xs sm:text-sm text-[#244654] leading-relaxed max-w-xs mt-2 font-medium">
                   Together with our families, we cordially invite you to celebrate the Wedding of
                 </p>
               </div>
 
               {/* Couple Names in Grand Royal Calligraphy */}
-              <div className="my-2 flex flex-col items-center">
+              <div className="my-1 flex flex-col items-center">
                 <h2 className="font-cursive text-4xl sm:text-5xl text-[#1B3D4D] tracking-wide my-0.5 drop-shadow-sm font-normal">
                   {weddingData.brideFirstName}
                 </h2>
-                <span className="font-serif italic text-xl text-[#AA7C11] my-0.5">&amp;</span>
+                <span className="font-serif italic text-lg sm:text-xl text-[#AA7C11] my-0.5">&amp;</span>
                 <h2 className="font-cursive text-4xl sm:text-5xl text-[#1B3D4D] tracking-wide my-0.5 drop-shadow-sm font-normal">
                   {weddingData.groomFirstName}
                 </h2>
               </div>
 
               {/* Date & Venue Box */}
-              <div className="w-full py-2.5 border-y border-[#AA7C11]/30 my-1 flex flex-col items-center bg-[#FAF7F0]/60 rounded-md">
+              <div className="w-full py-2 border-y border-[#AA7C11]/30 my-0.5 flex flex-col items-center bg-[#FAF7F0]/60 rounded-md">
                 <p className="font-royal text-sm sm:text-base text-[#183644] font-bold tracking-widest">
                   {weddingData.displayDate}
                 </p>
-                <p className="font-serif text-xs text-[#2A5265] tracking-wide mt-0.5 font-medium">
+                <p className="font-serif text-[11px] sm:text-xs text-[#2A5265] tracking-wide mt-0.5 font-medium">
                   {weddingData.venueName} &bull; {weddingData.venueCity}
                 </p>
               </div>
 
               {/* Tap To Enter Button */}
-              <div className="flex flex-col items-center mt-2 pb-1">
+              <div className="flex flex-col items-center mt-1 pb-0.5">
                 <button
                   onClick={handleEnterWebsite}
                   onTouchEnd={handleEnterWebsite}
-                  className="px-7 py-2.5 rounded-full bg-gradient-to-r from-[#183D4C] via-[#24596F] to-[#12303D] text-[#FFFDF8] border-2 border-[#D4AF37] font-royal text-[11px] sm:text-xs tracking-[0.2em] uppercase font-bold shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer animate-pulse"
+                  className="px-6 py-2.5 rounded-full bg-gradient-to-r from-[#183D4C] via-[#24596F] to-[#12303D] text-[#FFFDF8] border-2 border-[#D4AF37] font-royal text-[11px] sm:text-xs tracking-[0.2em] uppercase font-bold shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer animate-pulse"
                 >
                   <span>Tap to Enter Celebration</span>
                   <span className="text-[13px]">&#8599;</span>
                 </button>
-                <span className="font-serif italic text-[11px] text-[#244654]/85 mt-1.5 flex items-center gap-1 font-medium">
+                <span className="font-serif italic text-[11px] text-[#244654]/85 mt-1 flex items-center gap-1 font-medium">
                   View ceremony timings, schedule &amp; venue details
                   <ChevronDown className="w-3.5 h-3.5 inline animate-bounce text-[#D4AF37]" />
                 </span>
               </div>
             </div>
 
-            {/* 3. TEAL-BLUE ENVELOPE FRONT POCKET (Covers the card with V-rim and floral bouquets) */}
-            <div className="relative w-full h-[46%] rounded-b-2xl bg-gradient-to-t from-[#142C38] via-[#254C5E] to-[#36687F] border-2 border-[#D4AF37] shadow-2xl overflow-hidden z-25 pointer-events-none">
-              {/* Fine Embossed Texture */}
-              <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#FFF_1px,transparent_1px)] [background-size:12px_12px]" />
+            {/* LAYER 4: AUTHENTIC FRONT POCKET OVERLAY (Cuts off card bottom with real 3D flowers, leaves & wax seal!) */}
+            <img 
+              src={mailPocketWebp} 
+              alt="Front Pocket with Flowers"
+              className="absolute inset-0 w-full h-full object-contain pointer-events-none z-30 select-none"
+              loading="eager"
+            />
 
-              {/* V-Cut Front Flap Shading with Gold Filigree Line */}
+            {/* INTERACTIVE TAP HOTSPOT ON WAX SEAL WHEN CLOSED */}
+            {!isMailboxFlapOpen && (
               <div 
-                className="absolute inset-0 bg-gradient-to-b from-[#41768E]/90 to-[#183544] border-t-2 border-[#D4AF37]"
-                style={{
-                  clipPath: 'polygon(0 0, 50% 68%, 100% 0, 100% 100%, 0 100%)',
-                }}
-              />
-
-              {/* Gold Filigree Line along V-rim */}
-              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path d="M 0 0 L 50 68 L 100 0" fill="none" stroke="#FFDF78" strokeWidth="1.2" strokeOpacity="0.9" />
-              </svg>
-
-              {/* White Blossoms and Gold Botanical Sprigs Flanking the Seal (matching mail.png) */}
-              <div className="absolute top-2 inset-x-6 flex items-center justify-between pointer-events-none">
-                {/* Left Floral Cluster */}
-                <div className="flex items-center gap-1 -rotate-12 opacity-95">
-                  <span className="text-[#FFFDF8] text-base drop-shadow">&#10047;</span>
-                  <span className="text-[#FFDF78] text-xs drop-shadow">&#10048;</span>
-                  <span className="text-[#FFFDF8] text-xs drop-shadow">&#9679;</span>
-                </div>
-                {/* Right Floral Cluster */}
-                <div className="flex items-center gap-1 rotate-12 opacity-95">
-                  <span className="text-[#FFFDF8] text-xs drop-shadow">&#9679;</span>
-                  <span className="text-[#FFDF78] text-xs drop-shadow">&#10048;</span>
-                  <span className="text-[#FFFDF8] text-base drop-shadow">&#10047;</span>
-                </div>
-              </div>
-
-              {/* Dark Teal Wax Seal with Gold Botanical Leaf Emblem on Pocket */}
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full border-2 border-[#D4AF37] bg-gradient-to-br from-[#2D5A6E] via-[#1A3D4D] to-[#0E2530] flex items-center justify-center shadow-xl">
-                <span className="text-[#FFDF78] text-lg font-serif">&#9830;</span>
-              </div>
-            </div>
-
-            {/* 4. UPPER TEAL FLAP (Rotates backward in 3D around top hinge when opening) */}
-            <div 
-              className={`absolute top-[35%] inset-x-0 h-[30%] overflow-hidden cursor-pointer transition-transform duration-[1600ms] ease-in-out ${
-                isMailboxFlapOpen ? 'z-15 pointer-events-none' : 'z-30 pointer-events-auto'
-              }`}
-              style={{
-                transformOrigin: 'top center',
-                transformStyle: 'preserve-3d',
-                transform: isMailboxFlapOpen ? 'rotateX(180deg)' : 'rotateX(0deg)',
-                transitionTimingFunction: 'cubic-bezier(0.25, 1, 0.4, 1)',
-                willChange: 'transform',
-              }}
-              onClick={handleOpenMailbox}
-              onTouchEnd={handleOpenMailbox}
-            >
-              {/* FRONT FACE: Closed Teal Flap (Points DOWN to center) */}
-              <div 
-                className="absolute inset-0 w-full h-full bg-gradient-to-b from-[#2B5467] via-[#204454] to-[#142E3B] border-b-2 border-[#D4AF37] shadow-xl flex items-center justify-center backface-hidden"
-                style={{
-                  clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
-                  backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden',
-                }}
+                onClick={handleOpenMailbox}
+                onTouchEnd={handleOpenMailbox}
+                className="absolute top-[60%] left-1/2 -translate-x-1/2 w-20 h-20 rounded-full z-35 cursor-pointer flex items-center justify-center group"
+                aria-label="Tap seal to open envelope"
               >
-                <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#FFF_1px,transparent_1px)] [background-size:12px_12px]" />
-                
-                {/* Central Teal Wax Seal holding flap */}
-                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full border-2 border-[#D4AF37] bg-gradient-to-br from-[#2D5A6E] via-[#1A3D4D] to-[#0E2530] flex items-center justify-center shadow-2xl animate-pulse">
-                  <span className="text-[#FFDF78] text-sm font-serif font-bold">P &amp; V</span>
-                </div>
+                <div className="w-16 h-16 rounded-full border-2 border-[#FFDF78]/70 animate-ping opacity-30" />
+                <div className="absolute w-14 h-14 rounded-full bg-[#FFD700]/10 border border-[#FFDF78]/50 shadow-[0_0_15px_#FFD700]" />
               </div>
-
-              {/* BACK FACE: Underside of Flap (Dark Teal Botanical Lining) */}
-              <div 
-                className="absolute inset-0 w-full h-full bg-[#10232B] border-b-2 border-[#D4AF37] shadow-lg flex items-center justify-center backface-hidden"
-                style={{
-                  clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
-                  transform: 'rotateX(180deg)',
-                  backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden',
-                }}
-              >
-                <div className="absolute inset-0 opacity-30 bg-[radial-gradient(#D4AF37_1.5px,transparent_1.5px)] [background-size:14px_14px]" />
-                <span className="text-[#D4AF37] text-xs font-serif italic tracking-widest">&#10022; Priya &amp; Varun &#10022;</span>
-              </div>
-            </div>
+            )}
 
           </div>
         </div>
@@ -651,10 +611,11 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
           flapSpeed={b.flapSpeed}
           delay={b.delay}
           isFly={isPetalsOpening}
+          isDisappear={butterfliesDisappear}
         />
       ))}
 
-      {/* Sparkling Glitter Stars & Dust Constellation */}
+      {/* Sparkling Glitter Stars & Dust Constellation (Originating from wax seal at top: 63%, left: 50%) */}
       <div className="absolute inset-0 pointer-events-none z-45 overflow-hidden">
         {GLITTER_PARTICLES.map((p) => {
           const rad = (p.angle * Math.PI) / 180;
@@ -664,17 +625,20 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
           return (
             <div
               key={p.id}
-              className="absolute top-1/2 left-1/2 text-[#FFF2B2] select-none transition-all ease-out"
+              className="absolute text-[#FFF2B2] select-none transition-all ease-out"
               style={{
+                top: '63%',
+                left: '50%',
                 transform: isPetalsOpening
                   ? `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) scale(1)`
                   : 'translate(-50%, -50%) scale(0)',
-                opacity: isPetalsOpening ? 0.95 : 0,
+                opacity: !isPetalsOpening ? 0 : (butterfliesDisappear ? 0 : 0.95),
                 fontSize: `${p.size}px`,
-                transitionDuration: isPetalsOpening ? '2200ms' : '400ms',
-                transitionDelay: isPetalsOpening ? p.delay : '0s',
+                transitionProperty: 'transform, opacity',
+                transitionDuration: butterfliesDisappear ? '600ms' : (isPetalsOpening ? '2200ms' : '400ms'),
+                transitionDelay: butterfliesDisappear ? '0s' : (isPetalsOpening ? p.delay : '0s'),
                 transitionTimingFunction: 'cubic-bezier(0.25, 1, 0.4, 1)',
-                animation: isPetalsOpening ? 'glitterTwinkle 2.2s ease-in-out infinite alternate' : 'none',
+                animation: isPetalsOpening && !butterfliesDisappear ? 'glitterTwinkle 2.2s ease-in-out infinite alternate' : 'none',
                 animationDelay: p.delay,
                 textShadow: '0 0 10px #FFD700, 0 0 20px #FFA500',
                 willChange: 'transform, opacity',
