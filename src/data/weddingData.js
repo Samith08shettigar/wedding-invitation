@@ -16,13 +16,13 @@ export const weddingData = {
   subtitle: "Two souls, seven promises, a lifetime of love.",
 
   // Dates & Times
-  weddingDate: "2026-12-12T17:00:00+05:30",
-  displayDate: "12 December 2026",
-  saveTheDateDay: "12",
-  saveTheDateMonth: "December",
-  saveTheDateYear: "2026",
-  dayOfWeek: "Saturday",
-  time: "5:00 pm",
+  weddingDate: "2027-02-24T22:15:00+05:30",
+  displayDate: "24 February 2027",
+  saveTheDateDay: "24",
+  saveTheDateMonth: "February",
+  saveTheDateYear: "2027",
+  dayOfWeek: "Wednesday",
+  time: "10:15 pm",
 
   // Venue & Location
   venueName: "B.SANJEEVA SHETTY SABHAGRAHA",
@@ -35,12 +35,12 @@ export const weddingData = {
   // Parents
   parents: {
     bride: {
-      mother: "Smt. ",
-      father: "Shri. Sathish Shetty",
+      mother: "Smt. Lolakshi Shettigar",
+      father: "Shri. Ganesh Shettigar",
     },
     groom: {
-      mother: "Smt. Kavitha Shetty",
-      father: "Shri. Sathish Shetty",
+      mother: "Smt. Vasanthi",
+      father: "Shri. Tharanath",
     },
   },
 
@@ -64,21 +64,21 @@ export const weddingData = {
       id: "haldi-mehendi",
       title: "Haldi & Mehendi",
       description: "Turmeric, henna & a little sunshine",
-      date: "11 December 2026",
+      date: "23 February 2027",
       time: "4:00 PM",
     },
     {
       id: "wedding-ceremony",
       title: "Wedding Ceremony",
       description: "The sacred pheras & blessings",
-      date: "12 December 2026",
-      time: "10:30 AM",
+      date: "24 February 2027",
+      time: "10:15 PM",
     },
     {
       id: "reception",
       title: "Reception Dinner",
       description: "Dinner, dance & celebration",
-      date: "12 December 2026",
+      date: "24 February 2027",
       time: "7:00 PM",
     },
   ],

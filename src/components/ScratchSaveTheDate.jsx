@@ -179,8 +179,11 @@ export const ScratchSaveTheDate = () => {
     const title = encodeURIComponent(`Wedding of ${weddingData.brideFirstName} & ${weddingData.groomFirstName}`);
     const details = encodeURIComponent(`Wedding Celebration at ${weddingData.venueName}, ${weddingData.venueCity}`);
     const location = encodeURIComponent(weddingData.venueAddress);
-    // 12 December 2026: 20261212T113000Z to 20261212T173000Z
-    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&dates=20261212T113000Z/20261212T173000Z`;
+    // Dynamic date based on weddingData.weddingDate (4 hour duration)
+    const start = new Date(weddingData.weddingDate);
+    const end = new Date(start.getTime() + 4 * 60 * 60 * 1000);
+    const formatCalDate = (d) => d.toISOString().replace(/-|:|\.\d\d\d/g, '');
+    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&dates=${formatCalDate(start)}/${formatCalDate(end)}`;
     window.open(googleCalendarUrl, '_blank');
   };
 
