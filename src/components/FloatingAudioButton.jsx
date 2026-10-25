@@ -52,7 +52,7 @@ export const FloatingAudioButton = ({ autoPlayTrigger = false }) => {
       <button
         onClick={togglePlayback}
         aria-label="Toggle Background Music"
-        className="fixed bottom-6 right-5 z-50 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#3B0712] border border-[#D4AF37]/70 text-[#FFDF78] shadow-2xl flex items-center justify-center gap-[3px] p-2 hover:scale-110 active:scale-95 transition-all cursor-pointer backdrop-blur-md"
+        className="fixed top-5 right-5 z-50 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#3B0712]/90 border border-[#D4AF37]/80 text-[#FFDF78] shadow-2xl flex items-center justify-center gap-[3px] p-2 hover:scale-110 active:scale-95 transition-all cursor-pointer backdrop-blur-md"
         style={{
           boxShadow: '0 8px 24px rgba(0,0,0,0.7), 0 0 15px rgba(212,175,55,0.4)',
         }}

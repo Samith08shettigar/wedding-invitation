@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { weddingData } from '../data/weddingData';
 import { WeddingCourtyardScene } from './decorations/WeddingCourtyardScene';
-import { CarvedFlapArt, CarvedWaxSeal } from './decorations/CarvedEnvelopeArtwork';
+import { CarvedFlapArt, CarvedSideFlapArt, CarvedWaxSeal } from './decorations/CarvedEnvelopeArtwork';
 import { ChevronDown } from 'lucide-react';
 
 /**
@@ -98,30 +98,24 @@ export const HeroCourtyard = ({ onStartMusic, onOpenComplete }) => {
           <CarvedFlapArt flipY={true} />
         </div>
 
-        {/* LEFT FLAP: Triangular side flap with carved pattern */}
+        {/* LEFT FLAP: Triangular side flap with carved climbing vine */}
         <div 
-          className="absolute inset-y-0 left-0 w-1/2 bg-carved-crimson preserve-3d transition-transform duration-1000 ease-in-out border-r border-[#C44D68]/40 overflow-hidden flex items-center pl-2 pointer-events-auto cursor-pointer"
-          onClick={handleOpen}
+          className="absolute inset-y-0 left-0 w-1/2 bg-carved-crimson border-r border-[#C44D68]/30 overflow-hidden flex items-center pl-2 pointer-events-auto"
           style={{
             clipPath: 'polygon(0 0, 100% 50%, 0 100%)',
-            transformOrigin: 'left center',
-            transform: isOpen ? 'rotateY(-180deg)' : 'rotateY(0deg)',
           }}
         >
-          <CarvedFlapArt rotate={90} />
+          <CarvedSideFlapArt />
         </div>
 
-        {/* RIGHT FLAP: Triangular side flap with carved pattern */}
+        {/* RIGHT FLAP: Triangular side flap with carved climbing vine */}
         <div 
-          className="absolute inset-y-0 right-0 w-1/2 bg-carved-crimson preserve-3d transition-transform duration-1000 ease-in-out border-l border-[#C44D68]/40 overflow-hidden flex items-center justify-end pr-2 pointer-events-auto cursor-pointer"
-          onClick={handleOpen}
+          className="absolute inset-y-0 right-0 w-1/2 bg-carved-crimson border-l border-[#C44D68]/30 overflow-hidden flex items-center justify-end pr-2 pointer-events-auto"
           style={{
             clipPath: 'polygon(100% 0, 0 50%, 100% 100%)',
-            transformOrigin: 'right center',
-            transform: isOpen ? 'rotateY(180deg)' : 'rotateY(0deg)',
           }}
         >
-          <CarvedFlapArt rotate={-90} />
+          <CarvedSideFlapArt isRight={true} />
         </div>
 
         {/* BOTTOM FLAP: THE EXACT PATTERN CIRCLED IN USER'S SCREENSHOT */}

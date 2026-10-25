@@ -172,111 +172,95 @@ export const WeddingCourtyardScene = ({ className = "" }) => {
       <div className="absolute inset-0 pointer-events-none z-10 flex flex-col justify-between">
         <svg className="w-full h-full" viewBox="0 0 1000 1600" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="scallopArchGold" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#F5D77F" />
-              <stop offset="30%" stopColor="#D4AF37" />
-              <stop offset="70%" stopColor="#AA7C11" />
-              <stop offset="100%" stopColor="#7E560B" />
+            <linearGradient id="scallopArchGold" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#E69138" />
+              <stop offset="30%" stopColor="#C26B1E" />
+              <stop offset="70%" stopColor="#9E4E10" />
+              <stop offset="100%" stopColor="#783407" />
             </linearGradient>
             <linearGradient id="spandrelWall" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#EAD8BE" />
-              <stop offset="50%" stopColor="#D8C09E" />
-              <stop offset="100%" stopColor="#C4A880" />
+              <stop offset="0%" stopColor="#E59367" />
+              <stop offset="40%" stopColor="#D97736" />
+              <stop offset="100%" stopColor="#B45309" />
             </linearGradient>
-            <radialGradient id="roseGarlandRed" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#E53935" />
-              <stop offset="50%" stopColor="#C2185B" />
-              <stop offset="100%" stopColor="#5C001E" />
-            </radialGradient>
+            <linearGradient id="innerArchGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#FFE8D6" />
+              <stop offset="100%" stopColor="#FDBA74" />
+            </linearGradient>
+            <filter id="archShad" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="8" stdDeviation="10" floodColor="#451A03" floodOpacity="0.6" />
+            </filter>
           </defs>
 
-          {/* Arch Header Profile with Scallops */}
-          {/* Spandrels: Left & Right Top Walls */}
+          {/* Golden Sandstone Spandrel Walls Framing Upper Scene */}
           <path
-            d="M0 0 H1000 V750 
-               C920 700 880 620 840 500
-               C800 380 760 280 700 200
-               C640 120 580 80 500 70
-               C420 80 360 120 300 200
-               C240 280 200 380 160 500
-               C120 620 80 700 0 750 Z"
+            d="M0 0 H1000 V520
+               Q900 480 840 400
+               Q760 300 680 220
+               Q590 140 500 120
+               Q410 140 320 220
+               Q240 300 160 400
+               Q100 480 0 520 Z"
             fill="url(#spandrelWall)"
-            opacity="0.95"
+            filter="url(#archShad)"
           />
 
-          {/* Main Scalloped Arch Foliations (11 Cusps) */}
-          <path
-            d="M0 750
-               C30 720 50 670 70 630
-               C90 590 110 540 130 500
-               C150 460 180 420 210 370
-               C240 320 270 270 310 230
-               C350 190 390 160 440 130
-               C470 115 485 100 500 90
-               C515 100 530 115 560 130
-               C610 160 650 190 690 230
-               C730 270 760 320 790 370
-               C820 420 850 460 870 500
-               C890 540 910 590 930 630
-               C950 670 970 720 1000 750"
-            stroke="url(#scallopArchGold)"
-            strokeWidth="12"
-            fill="none"
-          />
-          <path
-            d="M0 770
-               C30 740 50 690 70 650
-               C90 610 110 560 130 520
-               C150 480 180 440 210 390
-               C240 340 270 290 310 250
-               C350 210 390 180 440 150
-               C470 135 485 120 500 110
-               C515 120 530 135 560 150
-               C610 180 650 210 690 250
-               C730 290 760 340 790 390
-               C820 440 850 480 870 520
-               C890 560 910 610 930 650
-               C950 690 970 740 1000 770"
-            stroke="#FFF2B2"
-            strokeWidth="3"
-            strokeDasharray="6 4"
-            fill="none"
-          />
+          {/* Carved Multi-Cusped Scalloped Arch Foliations (Rajasthan Jharokha Cusps) */}
+          <g filter="url(#archShad)">
+            {/* Outer Warm Amber Band */}
+            <path
+              d="M100 560
+                 C130 510 170 470 210 425
+                 C240 390 280 340 330 295
+                 C370 255 420 215 470 175
+                 C485 160 495 145 500 135
+                 C505 145 515 160 530 175
+                 C580 215 630 255 670 295
+                 C720 340 760 390 790 425
+                 C830 470 870 510 900 560"
+              stroke="url(#scallopArchGold)"
+              strokeWidth="28"
+              strokeLinecap="round"
+              fill="none"
+            />
 
-          {/* Heavy Climbing Crimson Rose Garlands Flanking the Arch Curve */}
-          {[
-            [60, 680], [100, 580], [140, 480], [190, 390], [250, 310], [330, 240], [420, 180],
-            [500, 140],
-            [580, 180], [670, 240], [750, 310], [810, 390], [860, 480], [900, 580], [940, 680]
-          ].map(([x, y], i) => (
-            <g key={`rose-${i}`}>
-              {/* Green Leaves */}
-              <circle cx={x - 8} cy={y + 6} r="12" fill="#2E7D32" />
-              <circle cx={x + 8} cy={y - 6} r="12" fill="#1B5E20" />
-              {/* Full Rose Bloom */}
-              <circle cx={x} cy={y} r="16" fill="url(#roseGarlandRed)" />
-              <circle cx={x} cy={y} r="10" fill="#880E4F" />
-              <circle cx={x} cy={y} r="4" fill="#F48FB1" />
-            </g>
-          ))}
+            {/* Inner Golden Cusp Scallops */}
+            <path
+              d="M110 550
+                 Q140 520 180 500
+                 Q220 460 260 420
+                 Q300 370 340 330
+                 Q380 280 430 240
+                 Q465 200 500 155
+                 Q535 200 570 240
+                 Q620 280 660 330
+                 Q700 370 740 420
+                 Q780 460 820 500
+                 Q860 520 890 550"
+              stroke="#FFF3C4"
+              strokeWidth="10"
+              fill="none"
+            />
 
-          {/* Left Vertical Pillar Garland */}
-          {[820, 920, 1020, 1120, 1220, 1320, 1420].map((y, i) => (
-            <g key={`lpil-${i}`}>
-              <circle cx="50" cy={y} r="18" fill="url(#roseGarlandRed)" />
-              <circle cx="50" cy={y} r="10" fill="#4A0014" />
-              <circle cx="35" cy={y - 10} r="10" fill="#2E7D32" />
-            </g>
-          ))}
-
-          {/* Right Vertical Pillar Garland */}
-          {[820, 920, 1020, 1120, 1220, 1320, 1420].map((y, i) => (
-            <g key={`rpil-${i}`}>
-              <circle cx="950" cy={y} r="18" fill="url(#roseGarlandRed)" />
-              <circle cx="950" cy={y} r="10" fill="#4A0014" />
-              <circle cx="965" cy={y - 10} r="10" fill="#2E7D32" />
-            </g>
-          ))}
+            {/* Delicate Inner Highlight Line */}
+            <path
+              d="M120 540
+                 Q150 510 190 490
+                 Q230 450 270 410
+                 Q310 360 350 320
+                 Q390 270 440 230
+                 Q470 190 500 150
+                 Q530 190 560 230
+                 Q610 270 650 320
+                 Q690 360 730 410
+                 Q770 450 810 490
+                 Q850 510 880 540"
+              stroke="#FFDF78"
+              strokeWidth="3"
+              strokeDasharray="6 4"
+              fill="none"
+            />
+          </g>
         </svg>
       </div>
 
