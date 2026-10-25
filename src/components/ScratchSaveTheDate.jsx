@@ -185,7 +185,7 @@ export const ScratchSaveTheDate = () => {
   };
 
   return (
-    <section id="scratch-date" className="relative w-full py-16 sm:py-24 px-4 bg-luxury-damask text-[#3B0612] flex flex-col items-center text-center select-none">
+    <section id="scratch-date" className="relative w-full pt-20 sm:pt-28 pb-14 sm:pb-20 px-4 sm:px-8 bg-transparent text-[#3B0612] flex flex-col items-center text-center select-none">
       
       {/* Section Header */}
       <div className="max-w-md mx-auto mb-8">

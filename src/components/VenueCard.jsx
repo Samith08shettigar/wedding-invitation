@@ -8,7 +8,7 @@ import { ExternalLink } from 'lucide-react';
  */
 export const VenueCard = () => {
   return (
-    <section id="venue" className="relative w-full py-16 sm:py-24 px-4 bg-luxury-damask text-[#3B0612] flex flex-col items-center text-center select-none">
+    <section id="venue" className="relative w-full py-10 sm:py-16 px-4 bg-transparent text-[#3B0612] flex flex-col items-center text-center select-none">
       
       {/* Arched Venue Card matching frame_46s */}
       <div 
@@ -68,6 +68,13 @@ export const VenueCard = () => {
           <span>View Location</span>
           <ExternalLink className="w-3.5 h-3.5" />
         </a>
+      </div>
+
+      {/* Soft Golden Fleuron Transition to Closing Message */}
+      <div className="mt-10 flex items-center justify-center gap-2 pointer-events-none opacity-60">
+        <div className="w-12 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
+        <div className="w-1.5 h-1.5 rotate-45 bg-[#D4AF37]" />
+        <div className="w-12 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
       </div>
 
     </section>

@@ -55,7 +55,7 @@ export const InteractiveLaceEnvelope = () => {
     <section 
       ref={sectionRef}
       id="invitation-letter" 
-      className="relative w-full py-16 sm:py-24 px-4 bg-luxury-damask text-[#3B0612] flex flex-col items-center text-center select-none overflow-hidden"
+      className="relative w-full py-14 sm:py-20 px-4 bg-transparent text-[#3B0612] flex flex-col items-center text-center select-none overflow-hidden"
     >
       
       {/* Section Header - Clean and unhindered */}

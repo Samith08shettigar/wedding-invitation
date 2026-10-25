@@ -23,8 +23,15 @@ export const ClosingHearts = ({ onReplay }) => {
   };
 
   return (
-    <section id="closing" className="relative w-full py-20 sm:py-28 px-6 bg-closing-hearts text-[#3B0612] flex flex-col items-center text-center select-none border-t border-[#AA7C11]/20">
+    <section id="closing" className="relative w-full pt-8 pb-28 sm:pb-36 px-6 bg-transparent text-[#3B0612] flex flex-col items-center text-center select-none">
       
+      {/* Delicate Golden Heart Ribbon Accent */}
+      <div className="absolute top-2 right-6 pointer-events-none opacity-40">
+        <svg width="48" height="32" viewBox="0 0 48 32" fill="none">
+          <path d="M10 24 C10 16, 24 8, 36 6 C42 5, 45 10, 41 15 C37 19, 28 25, 26 27 C24 29, 20 28, 22 24 C24 18, 32 14, 38 17" stroke="#D4AF37" strokeWidth="1.2" strokeLinecap="round" />
+        </svg>
+      </div>
+
       {/* Container */}
       <div className="max-w-md mx-auto flex flex-col items-center">
         

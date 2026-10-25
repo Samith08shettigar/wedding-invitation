@@ -3,22 +3,25 @@
    Matching Reference Video Specification
    ============================================================ */
 
-/* Luxury Ivory Damask Paper Texture (Sections 2 - 5 background from video) */
-.bg-luxury-damask {
-  background-color: #FAF7F2;
-  background-image: url('/images/background2.webp');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+/* Luxury Ivory Damask Parchment Texture - Unified & Seamless across all sections */
+.bg-luxury-parchment {
+  background-color: #FAF5EB;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 10% 30%, rgba(212, 175, 55, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 90% 70%, rgba(212, 175, 55, 0.03) 0%, transparent 40%),
+    url('/images/parchment_seamless.webp');
+  background-repeat: repeat;
+  background-size: 380px 380px;
 }
 
-/* Luxury Closing Paper Texture with Heart Ribbons (Section 6 background from video) */
+/* Fallback damask & closing classes - transparent to preserve continuous royal frame */
+.bg-luxury-damask {
+  background: transparent;
+}
+
 .bg-closing-hearts {
-  background-color: #FAF7F2;
-  background-image: url('/images/background3.webp');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background: transparent;
 }
 
 /* Deep Crimson Velvet Carved Bas-Relief Texture (Envelope Flaps from frame_00s) */

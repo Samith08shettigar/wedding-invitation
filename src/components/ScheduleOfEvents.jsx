@@ -8,7 +8,7 @@ import { weddingData } from '../data/weddingData';
  */
 export const ScheduleOfEvents = () => {
   return (
-    <section id="schedule" className="relative w-full py-16 sm:py-24 px-4 bg-luxury-damask text-[#3B0612] flex flex-col items-center text-center select-none">
+    <section id="schedule" className="relative w-full py-12 sm:py-16 px-4 bg-transparent text-[#3B0612] flex flex-col items-center text-center select-none">
       
       {/* Header */}
       <div className="max-w-md mx-auto mb-12">
@@ -69,6 +69,13 @@ export const ScheduleOfEvents = () => {
               </div>
             );
           })}
+        </div>
+
+        {/* Soft Golden Fleuron Transition to Venue Card */}
+        <div className="mt-8 flex items-center justify-center gap-2 pointer-events-none opacity-60">
+          <div className="w-12 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
+          <div className="w-1.5 h-1.5 rotate-45 bg-[#D4AF37]" />
+          <div className="w-12 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
         </div>
 
       </div>

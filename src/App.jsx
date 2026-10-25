@@ -8,6 +8,7 @@ import { VenueCard } from './components/VenueCard';
 import { ClosingHearts } from './components/ClosingHearts';
 import { FloatingAudioButton } from './components/FloatingAudioButton';
 import { ScrollToTop } from './components/ScrollToTop';
+import { RoyalScrollFrame } from './components/decorations/RoyalScrollFrame';
 
 export const App = () => {
   const [audioTrigger, setAudioTrigger] = useState(false);
@@ -57,20 +58,23 @@ export const App = () => {
         {/* SECTION 1: Royal Palace Pavilion Courtyard (frame_00s - frame_12s) */}
         <HeroCourtyard />
 
-        {/* SECTION 2: Scratch-to-Reveal Save The Date & Live Countdown (frame_16s - frame_22s) */}
-        <ScratchSaveTheDate />
+        {/* UNBROKEN ROYAL SCROLL FRAME: Sections 2 through 6 in one continuous royal parchment card */}
+        <RoyalScrollFrame>
+          {/* SECTION 2: Scratch-to-Reveal Save The Date & Live Countdown (frame_16s - frame_22s) */}
+          <ScratchSaveTheDate />
 
-        {/* SECTION 3: Interactive Pull-Out Letter inside Lace Envelope (frame_28s - frame_36s) */}
-        <InteractiveLaceEnvelope />
+          {/* SECTION 3: Interactive Pull-Out Letter inside Lace Envelope (frame_28s - frame_36s) */}
+          <InteractiveLaceEnvelope />
 
-        {/* SECTION 4: Schedule of Events Timeline (frame_40s) */}
-        <ScheduleOfEvents />
+          {/* SECTION 4: Schedule of Events Timeline (frame_40s) */}
+          <ScheduleOfEvents />
 
-        {/* SECTION 5: Venue Details Arched Card (frame_46s) */}
-        <VenueCard />
+          {/* SECTION 5: Venue Details Arched Card (frame_46s) */}
+          <VenueCard />
 
-        {/* SECTION 6: Closing Hearts Message & Replay (frame_48s) */}
-        <ClosingHearts onReplay={handleReplay} />
+          {/* SECTION 6: Closing Hearts Message & Replay (frame_48s) */}
+          <ClosingHearts onReplay={handleReplay} />
+        </RoyalScrollFrame>
 
       </div>
     </div>
