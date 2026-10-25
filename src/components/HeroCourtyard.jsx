@@ -1,51 +1,45 @@
 import React, { useState } from 'react';
 import { weddingData } from '../data/weddingData';
 import { WeddingCourtyardScene } from './decorations/WeddingCourtyardScene';
-import { CarvedLotusMotif, CarvedFoliageVine, CarvedWaxSeal } from './decorations/CarvedEnvelopeArtwork';
+import { CarvedFlapArt, CarvedWaxSeal } from './decorations/CarvedEnvelopeArtwork';
 import { ChevronDown } from 'lucide-react';
 
 /**
- * HERO COURTYARD & 4-FLAP ENVELOPE OPENING (frame_00s - frame_12s)
- * Sealed bas-relief crimson envelope -> Tap seal -> 3D Flaps unfold ->
- * Royal Indian Wedding Courtyard with floral arch, mandap, and couple announcement.
+ * HERO COURTYARD & 4-FLAP CARVED ENVELOPE (Matches user screenshot exactly)
+ * Sealed bas-relief crimson envelope with the exact lotus & climbing bud vines pattern.
+ * When tapped: top flap folds up, revealing the royal courtyard with floral arch & mandap.
+ * Bottom flap with carved pattern and 'Skip opening ↗' button anchors the bottom foreground.
  */
 export const HeroCourtyard = ({ onStartMusic, onOpenComplete }) => {
-  // State: 'sealed' -> 'unfolding' -> 'opened'
-  const [envelopeState, setEnvelopeState] = useState('sealed');
+  // State: 'sealed' -> 'unfolded'
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => {
-    if (envelopeState !== 'sealed') return;
+    if (isOpen) return;
     if (onStartMusic) onStartMusic();
-    setEnvelopeState('unfolding');
-
-    setTimeout(() => {
-      setEnvelopeState('opened');
-      if (onOpenComplete) onOpenComplete();
-    }, 1200);
+    setIsOpen(true);
+    if (onOpenComplete) onOpenComplete();
   };
 
-  const isUnfolded = envelopeState === 'unfolding' || envelopeState === 'opened';
+  const handleSkip = (e) => {
+    e.stopPropagation();
+    handleOpen();
+    const target = document.getElementById('scratch-date');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
-    <section className="relative w-full min-h-screen flex flex-col items-center justify-between overflow-hidden select-none">
+    <section className="relative w-full min-h-screen flex flex-col items-center justify-between overflow-hidden select-none bg-[#1F0107]">
       
       {/* 1. COURTYARD BACKGROUND (Revealed behind the envelope) */}
       <WeddingCourtyardScene />
 
-      {/* Skip Opening Button */}
-      {!isUnfolded && (
-        <button
-          onClick={handleOpen}
-          className="fixed top-5 right-5 z-50 px-4 py-1.5 rounded-full bg-[#3B0712]/90 border border-[#D4AF37]/80 text-xs font-serif italic text-[#FFDF78] tracking-widest backdrop-blur-md shadow-lg hover:bg-[#5C0E1E] transition-all cursor-pointer"
-        >
-          Skip opening &gt;
-        </button>
-      )}
-
       {/* 2. COURTYARD HERO TEXT (Floats cleanly inside the upper archway) */}
       <div 
         className={`relative z-20 pt-16 sm:pt-20 px-6 max-w-lg mx-auto text-center flex flex-col items-center transition-all duration-1000 ${
-          isUnfolded ? 'opacity-100 translate-y-0 delay-300' : 'opacity-0 translate-y-8'
+          isOpen ? 'opacity-100 translate-y-0 delay-300' : 'opacity-0 translate-y-8'
         }`}
       >
         {/* Sacred Opening Verse */}
@@ -71,8 +65,8 @@ export const HeroCourtyard = ({ onStartMusic, onOpenComplete }) => {
       </div>
 
       {/* Down Chevron / Scroll Prompt (Visible once opened) */}
-      {isUnfolded && (
-        <div className="relative z-20 pb-8 flex flex-col items-center animate-bounce-slow">
+      {isOpen && (
+        <div className="relative z-20 pb-20 flex flex-col items-center animate-bounce-slow">
           <a
             href="#scratch-date"
             className="flex flex-col items-center gap-1 text-[#3B0612] hover:text-[#781124] transition-colors p-2"
@@ -88,90 +82,94 @@ export const HeroCourtyard = ({ onStartMusic, onOpenComplete }) => {
         </div>
       )}
 
-      {/* 3. 4-FLAP CARVED BAS-RELIEF ENVELOPE (Full-screen overlay when sealed) */}
-      <div 
-        className={`fixed inset-0 z-40 perspective-1600 transition-opacity duration-1000 ${
-          envelopeState === 'opened' ? 'pointer-events-none opacity-0' : 'opacity-100'
-        }`}
-      >
-        <div className="relative w-full h-full preserve-3d">
-          
-          {/* TOP FLAP: Folds 180deg upward around top screen edge */}
-          <div 
-            className="absolute top-0 inset-x-0 h-1/2 bg-carved-crimson preserve-3d transition-transform duration-1000 ease-in-out border-b border-[#C44D68]/40 overflow-hidden flex flex-col items-center justify-center"
-            style={{
-              clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
-              transformOrigin: 'top center',
-              transform: isUnfolded ? 'rotateX(180deg)' : 'rotateX(0deg)',
-            }}
-          >
-            <div className="absolute top-4">
-              <CarvedLotusMotif size={130} />
-            </div>
-            <div className="absolute inset-0 opacity-40">
-              <CarvedFoliageVine />
-            </div>
-          </div>
+      {/* 3. CARVED BAS-RELIEF ENVELOPE FLAPS (Matching user screenshot) */}
+      <div className="absolute inset-0 z-30 perspective-1600 pointer-events-none">
+        
+        {/* TOP FLAP: Folds 180deg upward around top screen edge */}
+        <div 
+          className="absolute top-0 inset-x-0 h-1/2 bg-carved-crimson preserve-3d transition-transform duration-1000 ease-in-out border-b border-[#C44D68]/40 overflow-hidden flex flex-col items-center justify-center pointer-events-auto cursor-pointer"
+          onClick={handleOpen}
+          style={{
+            clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
+            transformOrigin: 'top center',
+            transform: isOpen ? 'rotateX(180deg)' : 'rotateX(0deg)',
+          }}
+        >
+          <CarvedFlapArt flipY={true} />
+        </div>
 
-          {/* BOTTOM FLAP: Carved lotus, 'You are invited', 'TAP THE SEAL TO OPEN' */}
-          <div 
-            className="absolute bottom-0 inset-x-0 h-1/2 bg-carved-crimson preserve-3d transition-transform duration-1000 ease-in-out border-t border-[#C44D68]/40 overflow-hidden flex flex-col items-center justify-end pb-8"
-            style={{
-              clipPath: 'polygon(0 100%, 50% 0, 100% 100%)',
-              transformOrigin: 'bottom center',
-              transform: isUnfolded ? 'rotateX(-180deg)' : 'rotateX(0deg)',
-            }}
-          >
-            <div className="relative z-10 flex flex-col items-center text-center px-4">
-              <p className="font-serif italic text-2xl sm:text-3xl text-[#FFE6EE] tracking-wide drop-shadow mb-1">
+        {/* LEFT FLAP: Triangular side flap with carved pattern */}
+        <div 
+          className="absolute inset-y-0 left-0 w-1/2 bg-carved-crimson preserve-3d transition-transform duration-1000 ease-in-out border-r border-[#C44D68]/40 overflow-hidden flex items-center pl-2 pointer-events-auto cursor-pointer"
+          onClick={handleOpen}
+          style={{
+            clipPath: 'polygon(0 0, 100% 50%, 0 100%)',
+            transformOrigin: 'left center',
+            transform: isOpen ? 'rotateY(-180deg)' : 'rotateY(0deg)',
+          }}
+        >
+          <CarvedFlapArt rotate={90} />
+        </div>
+
+        {/* RIGHT FLAP: Triangular side flap with carved pattern */}
+        <div 
+          className="absolute inset-y-0 right-0 w-1/2 bg-carved-crimson preserve-3d transition-transform duration-1000 ease-in-out border-l border-[#C44D68]/40 overflow-hidden flex items-center justify-end pr-2 pointer-events-auto cursor-pointer"
+          onClick={handleOpen}
+          style={{
+            clipPath: 'polygon(100% 0, 0 50%, 100% 100%)',
+            transformOrigin: 'right center',
+            transform: isOpen ? 'rotateY(180deg)' : 'rotateY(0deg)',
+          }}
+        >
+          <CarvedFlapArt rotate={-90} />
+        </div>
+
+        {/* BOTTOM FLAP: THE EXACT PATTERN CIRCLED IN USER'S SCREENSHOT */}
+        {/* Anchored at bottom of screen with carved lotus, climbing bud vines, and Skip opening button */}
+        <div 
+          className="absolute bottom-0 inset-x-0 h-[50%] sm:h-[50%] bg-carved-crimson overflow-hidden flex flex-col items-center justify-end pb-2 pointer-events-auto shadow-[0_-5px_25px_rgba(0,0,0,0.7)]"
+          style={{
+            clipPath: 'polygon(0 100%, 50% 0, 100% 100%)',
+          }}
+        >
+          {/* Exact Carved Lotus, Vines, and Florets Pattern with illuminated fold edges */}
+          <CarvedFlapArt showGoldEdges={true} />
+
+          {/* Text when sealed: "You are invited" + "TAP THE SEAL TO OPEN" */}
+          {!isOpen && (
+            <div className="absolute top-16 inset-x-0 flex flex-col items-center text-center px-4 pointer-events-none">
+              <p className="font-serif italic text-2xl sm:text-3xl text-[#FFE6EE] tracking-wide drop-shadow-md mb-0.5">
                 You are invited
               </p>
-              <CarvedLotusMotif size={70} className="my-1 opacity-90" />
               <span className="font-royal text-[9px] sm:text-[10px] tracking-[0.3em] text-[#FFDF78]/90 uppercase font-semibold mt-1">
                 Tap the seal to open
               </span>
             </div>
-            <div className="absolute inset-0 opacity-35">
-              <CarvedFoliageVine />
-            </div>
-          </div>
-
-          {/* LEFT FLAP: Folds outward to the left */}
-          <div 
-            className="absolute inset-y-0 left-0 w-1/2 bg-carved-crimson preserve-3d transition-transform duration-1000 ease-in-out border-r border-[#C44D68]/40 overflow-hidden flex items-center pl-4"
-            style={{
-              clipPath: 'polygon(0 0, 100% 50%, 0 100%)',
-              transformOrigin: 'left center',
-              transform: isUnfolded ? 'rotateY(-180deg)' : 'rotateY(0deg)',
-            }}
-          >
-            <CarvedLotusMotif size={90} className="opacity-80" />
-          </div>
-
-          {/* RIGHT FLAP: Folds outward to the right */}
-          <div 
-            className="absolute inset-y-0 right-0 w-1/2 bg-carved-crimson preserve-3d transition-transform duration-1000 ease-in-out border-l border-[#C44D68]/40 overflow-hidden flex items-center justify-end pr-4"
-            style={{
-              clipPath: 'polygon(100% 0, 0 50%, 100% 100%)',
-              transformOrigin: 'right center',
-              transform: isUnfolded ? 'rotateY(180deg)' : 'rotateY(0deg)',
-            }}
-          >
-            <CarvedLotusMotif size={90} className="opacity-80" />
-          </div>
-
-          {/* CENTRAL RED WAX SEAL WITH "P & V" */}
-          {!isUnfolded && (
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
-              <CarvedWaxSeal 
-                monogram={weddingData.monogram} 
-                size={90} 
-                isPulsing={true}
-                onClick={handleOpen} 
-              />
-            </div>
           )}
+
+          {/* Skip opening button matching user's green circle */}
+          <button
+            onClick={handleSkip}
+            className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 px-3.5 py-1.5 rounded-full bg-[#4A0A16]/85 border border-[#E06B85]/60 text-[#FFE6EE] font-serif italic text-xs tracking-wider backdrop-blur-md shadow-lg hover:bg-[#680F22] hover:border-[#FFAAB8] transition-all flex items-center gap-1.5 cursor-pointer active:scale-95"
+            aria-label="Skip opening to explore invitation"
+          >
+            <span>Skip opening</span>
+            <span className="text-[12px] font-sans leading-none">&#8599;</span>
+          </button>
         </div>
+
+        {/* CENTRAL RED WAX SEAL WITH "P & V" (Positioned at apex of flaps) */}
+        {!isOpen && (
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-auto">
+            <CarvedWaxSeal 
+              monogram={weddingData.monogram} 
+              size={90} 
+              isPulsing={true}
+              onClick={handleOpen} 
+            />
+          </div>
+        )}
+
       </div>
     </section>
   );
