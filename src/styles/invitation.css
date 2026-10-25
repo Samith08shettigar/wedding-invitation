@@ -1,7 +1,23 @@
 /* ============================================================
-   ROYAL INDIAN WEDDING LUXURY DESIGN SYSTEM & UTILITIES
-   Rich palettes, gold foil, brocades, jaali & 3D transforms
+   ROYAL INDIAN WEDDING LUXURY DESIGN SYSTEM
+   Matching Reference Video Specification
    ============================================================ */
+
+/* Luxury Ivory Damask Paper Texture (Sections 2 - 6 background from video) */
+.bg-luxury-damask {
+  background-color: #FAF7F2;
+  background-image: 
+    radial-gradient(#AA7C1112 1px, transparent 1px),
+    radial-gradient(#7811240c 1.5px, #FAF7F2 1.5px);
+  background-size: 24px 24px;
+  background-position: 0 0, 12px 12px;
+}
+
+/* Deep Crimson Velvet Carved Bas-Relief Texture (Envelope Flaps from frame_00s) */
+.bg-carved-crimson {
+  background: radial-gradient(circle at 50% 40%, #5C0E1E 0%, #3D0612 60%, #200107 100%);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.7);
+}
 
 /* Gold Foil Typography & Shimmer Gradients */
 .text-gold-gradient {
@@ -18,95 +34,22 @@
   animation: shimmer 6s linear infinite;
 }
 
-.text-maroon-gradient {
-  background: linear-gradient(135deg, #781124 0%, #540917 50%, #3B030E 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Deep Burgundy Text */
+.text-burgundy {
+  color: #4A0815;
 }
 
-.text-amber-glow {
-  color: #FFDF78;
-  text-shadow: 0 0 12px rgba(255, 179, 0, 0.6), 0 0 24px rgba(212, 175, 55, 0.4);
+.text-burgundy-light {
+  color: #6B1123;
 }
 
-/* Background Gradients */
-.bg-gold-gradient {
-  background: linear-gradient(135deg, #F3D78A 0%, #D4AF37 40%, #B8860B 80%, #ECC45F 100%);
-}
-
-.bg-burgundy-radial {
-  background: radial-gradient(circle at center, #4A0A16 0%, #2A020B 65%, #150005 100%);
-}
-
-.bg-royal-velvet {
-  background: radial-gradient(circle at 50% 20%, #4D0917 0%, #2D020B 50%, #150105 100%);
-}
-
-/* Luxury Silk Brocade Texture (Deep Royal Maroon with Gold Jacquard Weave) */
-.bg-royal-brocade {
-  background-color: #2B030A;
-  background-image: 
-    radial-gradient(#D4AF371c 1px, transparent 1px),
-    radial-gradient(#D4AF3714 1.2px, #200107 1.2px);
-  background-size: 24px 24px;
-  background-position: 0 0, 12px 12px;
-}
-
-/* Luxury Indian Jaali (Lattice) Architectural Texture */
-.bg-royal-jaali {
-  background-color: #220106;
-  background-image: 
-    linear-gradient(45deg, #D4AF370e 25%, transparent 25%), 
-    linear-gradient(-45deg, #D4AF370e 25%, transparent 25%), 
-    linear-gradient(45deg, transparent 75%, #D4AF370e 75%), 
-    linear-gradient(-45deg, transparent 75%, #D4AF370e 75%);
-  background-size: 28px 28px;
-}
-
-/* Luxury Cream & Ivory Handmade Parchment Texture with Gold Flecks */
-.bg-cream-parchment {
-  background-color: #FAF5EB;
-  background-image: 
-    radial-gradient(#AA7C1114 0.75px, transparent 0.75px), 
-    radial-gradient(#AA7C110e 0.75px, #FAF5EB 0.75px);
-  background-size: 20px 20px;
-  background-position: 0 0, 10px 10px;
-}
-
-/* Borders, Halos and Shadows */
-.border-gold {
-  border-color: #D4AF37;
-}
-
-.border-gold-light {
-  border-color: #FFDF78;
-}
-
-.shadow-royal-envelope {
-  box-shadow: 
-    0 25px 60px -10px rgba(0, 0, 0, 0.85),
-    0 0 35px rgba(212, 175, 55, 0.25),
-    inset 0 1px 2px rgba(255, 223, 120, 0.3);
-}
-
-.shadow-royal-card {
-  box-shadow: 
-    0 20px 50px -10px rgba(0, 0, 0, 0.7),
-    0 0 30px rgba(212, 175, 55, 0.2),
-    inset 0 0 20px rgba(250, 245, 235, 0.5);
-}
-
-.box-gold-glow {
-  box-shadow: 0 0 25px rgba(212, 175, 55, 0.45), inset 0 0 15px rgba(212, 175, 55, 0.2);
-}
-
-.box-amber-candle {
-  box-shadow: 0 0 45px rgba(255, 160, 0, 0.4);
-}
-
-/* 3D Envelope & Card Animation Utilities */
+/* 3D Perspective & Folding Utilities */
 .perspective-1200 {
   perspective: 1200px;
+}
+
+.perspective-1600 {
+  perspective: 1600px;
 }
 
 .preserve-3d {
@@ -118,30 +61,35 @@
   -webkit-backface-visibility: hidden;
 }
 
-/* Custom Scrollbar for Royal Experience */
+/* Sound Wave Equalizer Animation */
+@keyframes soundWave {
+  0%, 100% {
+    height: 6px;
+  }
+  50% {
+    height: 18px;
+  }
+}
+
+.sound-bar-1 { animation: soundWave 0.8s ease-in-out infinite; }
+.sound-bar-2 { animation: soundWave 0.6s ease-in-out infinite 0.2s; }
+.sound-bar-3 { animation: soundWave 1.0s ease-in-out infinite 0.4s; }
+.sound-bar-4 { animation: soundWave 0.7s ease-in-out infinite 0.1s; }
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #140104;
+  background: #F5EFEB;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #4A0A16;
+  background: #781124;
   border-radius: 4px;
-  border: 1px solid #D4AF37;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #6A1022;
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  background: #9E1A34;
 }

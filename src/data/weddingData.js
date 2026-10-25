@@ -1,111 +1,90 @@
 /**
- * CENTRALIZED WEDDING DATA CONFIGURATION
- * 
- * To customize this wedding invitation with real details:
- * 1. Update the names, date, venue, family details, and events below.
- * 2. Only real photographs are used for:
- *    - Bride photo
- *    - Groom photo
- *    - Optional Couple photo
- *    - Venue photo
- * 3. All other ornamental borders, envelope, wax seal, sunset palace, arches, and lanterns
- *    are code-rendered with pure HTML, CSS, and SVG!
+ * WEDDING DATA SPECIFICATION MATCHING REFERENCE VIDEO
+ * Bride: Priya (Daughter of Mrs Meera Sharma and Mr Rajesh Sharma)
+ * Groom: Varun (Son of Mrs Kavita Kapoor and Mr Sanjay Kapoor)
+ * Date: 12 December 2026
+ * Venue: The Gulmohar Palace, Jaipur, Rajasthan
  */
 
 export const weddingData = {
   // Couple Names & Monogram
   brideName: "Priya Sharma",
   brideFirstName: "Priya",
-  groomName: "Arjun Mehta",
-  groomFirstName: "Arjun",
-  monogram: "P & A",
-  subtitle: "Two hearts, one journey forever",
+  groomName: "Varun Kapoor",
+  groomFirstName: "Varun",
+  monogram: "P & V",
+  subtitle: "Two souls, seven promises, a lifetime of love.",
 
   // Dates & Times
-  weddingDate: "2027-02-15T10:30:00+05:30",
-  displayDate: "15 February 2027",
-  saveTheDateDay: "15",
-  saveTheDateMonth: "Feb",
-  saveTheDateYear: "2027",
+  weddingDate: "2026-12-12T17:00:00+05:30",
+  displayDate: "12 December 2026",
+  saveTheDateDay: "12",
+  saveTheDateMonth: "December",
+  saveTheDateYear: "2026",
+  dayOfWeek: "Saturday",
+  time: "5:00 pm",
 
   // Venue & Location
-  venueName: "The Royal Palace",
-  venueAddress: "Palace Road, Bengaluru, Karnataka, India",
-  googleMapsUrl: "https://maps.google.com/?q=The+Royal+Palace+Bengaluru",
+  venueName: "The Gulmohar Palace",
+  venueCity: "Jaipur, Rajasthan",
+  venueEvent: "Wedding & Reception",
+  venueAddress: "The Gulmohar Palace, Jaipur, Rajasthan, India",
+  googleMapsUrl: "https://maps.google.com/?q=The+Gulmohar+Palace+Jaipur",
 
-  // Formal Invitation Wording
-  invitationIntro: "Together with our families we cordially invite you to the Wedding of",
-  invitationMessage: "With great joy we invite you to be a part of our special day",
-  invitationMessageBody: "Your presence will make our celebration even more special. We look forward to sharing this beautiful journey with you.",
-  invitationClosingFamily: "The Sharma & Mehta Families",
-  closingNote: "We look forward to celebrating our special day, with you!",
-  thankYouMessage: "Thank You for being a part of our journey",
-  endingQuote: "A new beginning of forever",
-
-  // Parents & Family Details
-  familyDetails: {
-    heading: "From Our Families",
-    subheading: "We are delighted to invite you to our wedding ceremony.",
-    brideParents: {
-      title: "Bride's Parents",
-      father: "Mr. Ramesh Sharma",
-      mother: "Mrs. Sunita Sharma",
+  // Parents
+  parents: {
+    bride: {
+      mother: "Mrs Meera Sharma",
+      father: "Mr Rajesh Sharma",
     },
-    groomParents: {
-      title: "Groom's Parents",
-      father: "Mr. Rajesh Mehta",
-      mother: "Mrs. Neha Mehta",
+    groom: {
+      mother: "Mrs Kavita Kapoor",
+      father: "Mr Sanjay Kapoor",
     },
   },
 
-  // Wedding Events Schedule
+  // Opening & Hero Text
+  openingBlessing: "With the blessings of Lord Ganesha, and our families, our forever begins.",
+  openingTagline: "Two souls, seven promises, a lifetime of love.",
+
+  // Letter Text
+  letterTitle: "Dear Friends and Family,",
+  letterParagraph1: "As we prepare to take our seven sacred steps, we're filled with gratitude for the love and blessings that have brought us together.",
+  letterParagraph2: "With the blessings of our families, we begin a beautiful new chapter. We would be honoured to have you by our side as we begin our journey together.",
+
+  // Closing Text
+  closingHeading: "A little space in your hearts",
+  closingText1: "As we step into this beautiful new chapter, having you be a part of our journey would make our happiness even more special.",
+  closingText2: "We look forward to celebrating surrounded by your love, laughter & blessings. Until then, save us a little space in your hearts as we get ready to begin our forever together.",
+
+  // Schedule of Events
   events: [
     {
-      id: "mehendi",
-      title: "Mehendi Ceremony",
-      date: "14 Feb 2027",
-      time: "5:00 PM",
-      displaySchedule: "14 Feb 2027 | 5:00 PM",
-      iconType: "mehendi",
+      id: "haldi-mehendi",
+      title: "Haldi & Mehendi",
+      description: "Turmeric, henna & a little sunshine",
+      date: "11 December 2026",
+      time: "4:00 PM",
     },
     {
-      id: "wedding",
+      id: "wedding-ceremony",
       title: "Wedding Ceremony",
-      date: "15 Feb 2027",
+      description: "The sacred pheras & blessings",
+      date: "12 December 2026",
       time: "10:30 AM",
-      displaySchedule: "15 Feb 2027 | 10:30 AM",
-      iconType: "ceremony",
     },
     {
       id: "reception",
-      title: "Reception",
-      date: "15 Feb 2027",
-      time: "6:30 PM",
-      displaySchedule: "15 Feb 2027 | 6:30 PM",
-      iconType: "reception",
+      title: "Reception Dinner",
+      description: "Dinner, dance & celebration",
+      date: "12 December 2026",
+      time: "7:00 PM",
     },
   ],
-
-  // Photographic Assets ONLY (Local optimized WebP assets)
-  images: {
-    bridePhoto: "/images/couple-bride.webp",
-    groomPhoto: "/images/couple-groom.webp",
-    couplePhoto: "/images/couple-bride.webp",
-    venuePhoto: "/images/venue-palace.webp",
-    weddingRings: "/images/wedding-rings.webp",
-  },
 
   // Audio Configuration
   audio: {
     musicUrl: "/music/audio.mpeg",
-    songTitle: "Royal Wedding Harmony",
-    artist: "Wedding Celebration",
-  },
-
-  // RSVP Configuration
-  rsvp: {
-    deadline: "January 25, 2027",
-    whatsappNumber: "919876543210",
-    dietaryOptions: ["Vegetarian", "Jain", "Non-Vegetarian"],
+    songTitle: "Mangalyam Royal Harmony",
   },
 };
