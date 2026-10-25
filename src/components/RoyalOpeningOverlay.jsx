@@ -264,9 +264,9 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
         </div>
 
         {/* 2. GRAND MAILBOX CONTAINER (Centered with proper alignment and proportions) */}
-        <div className="relative w-full max-w-[390px] sm:max-w-[430px] h-full max-h-[100dvh] flex flex-col items-center justify-center px-3 sm:px-4">
+        <div className="relative w-full max-w-[380px] sm:max-w-[420px] h-full max-h-[100dvh] flex flex-col items-center justify-center px-3 sm:px-4 translate-y-8 sm:translate-y-10">
           
-          <div className="relative w-full h-[270px] sm:h-[290px] flex items-end justify-center perspective-1600">
+          <div className="relative w-full h-[260px] sm:h-[280px] flex items-end justify-center perspective-1600">
             
             {/* ENVELOPE INTERIOR BACK (Deep Royal Midnight Teal with Gold Jaali) */}
             <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-[#0F222C] via-[#142E3B] to-[#1B3E4F] border-2 border-[#D4AF37]/70 shadow-[0_25px_60px_rgba(0,0,0,0.6)] overflow-hidden z-10 pointer-events-none">
@@ -276,75 +276,109 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
               </div>
             </div>
 
-            {/* THE INVITATION CARD (Firmly anchored INSIDE the mailbox, gliding smoothly upward!) */}
+            {/* OPEN FLAP (Points UPWARD behind the card when open, framing it like an authentic royal envelope) */}
             <div 
-              onClick={isCardUp ? handleEnterWebsite : undefined}
-              onTouchEnd={isCardUp ? handleEnterWebsite : undefined}
-              className={`absolute inset-x-3 sm:inset-x-4 top-2 rounded-2xl bg-[#FFFDF8] border-2 border-[#D4AF37] p-5 sm:p-6 shadow-[0_25px_60px_rgba(0,0,0,0.85)] flex flex-col items-center justify-between text-center select-none z-20 transition-all duration-[1400ms] ease-out ${
-                isCardUp 
-                  ? '-translate-y-28 sm:-translate-y-36 scale-100 opacity-100 cursor-pointer hover:shadow-[0_25px_70px_rgba(212,175,55,0.45)]' 
-                  : 'translate-y-14 scale-95 opacity-0 pointer-events-none'
+              className={`absolute top-0 inset-x-0 h-[175px] sm:h-[185px] z-15 pointer-events-none transition-all duration-[1200ms] ease-out ${
+                isMailboxFlapOpen 
+                  ? 'opacity-100 scale-100 -translate-y-full' 
+                  : 'opacity-0 scale-95 translate-y-0'
               }`}
               style={{
-                height: '380px',
+                clipPath: 'polygon(0 100%, 50% 0, 100% 100%)',
+                background: 'linear-gradient(to top, #1A4050 0%, #0F2A36 60%, #091C24 100%)',
                 transitionTimingFunction: 'cubic-bezier(0.25, 1, 0.4, 1)',
-                willChange: 'transform, opacity',
               }}
             >
-              {/* Double Gold Ornate Filigree Border with Corner Flourishes */}
-              <div className="absolute inset-2 border border-[#D4AF37]/60 rounded-xl pointer-events-none">
-                <div className="absolute inset-1 border border-dashed border-[#AA7C11]/35 rounded-lg" />
-                <span className="absolute top-1 left-1.5 text-[#D4AF37] text-xs font-serif leading-none">&#10087;</span>
-                <span className="absolute top-1 right-1.5 text-[#D4AF37] text-xs font-serif leading-none">&#10087;</span>
-                <span className="absolute bottom-1 left-1.5 text-[#D4AF37] text-xs font-serif leading-none">&#10087;</span>
-                <span className="absolute bottom-1 right-1.5 text-[#D4AF37] text-xs font-serif leading-none">&#10087;</span>
+              <div className="absolute inset-0 opacity-30 bg-[radial-gradient(#D4AF37_1.5px,transparent_1.5px)] [background-size:14px_14px]" />
+              <svg className="w-full h-full" viewBox="0 0 400 175" preserveAspectRatio="none">
+                <path d="M 0 175 L 200 0 L 400 175" fill="none" stroke="url(#goldRimGrad)" strokeWidth="3.2" />
+                <path d="M 6 171 L 200 6 L 394 171" fill="none" stroke="#FFDF78" strokeWidth="0.8" strokeDasharray="2.5 2.5" opacity="0.75" />
+              </svg>
+              <div className="absolute bottom-3 inset-x-0 text-center">
+                <span className="font-serif italic text-[10px] text-[#D4AF37] tracking-widest">&#10022; With Love &amp; Blessings &#10022;</span>
               </div>
+            </div>
 
-              {/* Sacred Heading */}
-              <div className="flex flex-col items-center pt-0.5">
-                <span className="text-[#AA7C11] text-[10px] sm:text-xs font-serif italic tracking-widest">
-                  &#10022; || Shree Ganeshay Namah || &#10022;
-                </span>
-                <p className="font-serif italic text-xs sm:text-sm text-[#244654] leading-relaxed max-w-xs mt-2 font-medium">
-                  Together with our families, we cordially invite you to celebrate the Wedding of
-                </p>
-              </div>
+            {/* CARD POCKET SLEEVE & BOTTOM CLIPPING CONTAINER
+                Strictly clips the card at the bottom of the envelope (y = 100%) so that NO card pixel
+                can ever pass under or be visible below the mail cover, while allowing the card to rise
+                infinitely upward into full view! */}
+            <div 
+              className="absolute inset-0 z-20 pointer-events-none"
+              style={{
+                clipPath: 'inset(-800px -60px 0px -60px round 0 0 16px 16px)',
+              }}
+            >
+              {/* THE INVITATION CARD (Firmly anchored INSIDE the mailbox, gliding smoothly upward!) */}
+              <div 
+                onClick={isCardUp ? handleEnterWebsite : undefined}
+                onTouchEnd={isCardUp ? handleEnterWebsite : undefined}
+                className={`absolute inset-x-3 sm:inset-x-4 top-2 rounded-2xl bg-[#FFFDF8] border-2 border-[#D4AF37] px-4 py-3 sm:px-5 sm:py-3.5 shadow-[0_25px_60px_rgba(0,0,0,0.85)] flex flex-col items-center justify-between text-center select-none transition-all duration-[1300ms] ease-out ${
+                  isCardUp 
+                    ? '-translate-y-[185px] sm:-translate-y-[210px] scale-100 opacity-100 pointer-events-auto cursor-pointer hover:shadow-[0_25px_70px_rgba(212,175,55,0.45)]' 
+                    : 'translate-y-2 scale-95 opacity-0 pointer-events-none'
+                }`}
+                style={{
+                  height: '335px',
+                  transitionTimingFunction: 'cubic-bezier(0.25, 1, 0.4, 1)',
+                  willChange: 'transform, opacity',
+                }}
+              >
+                {/* Double Gold Ornate Filigree Border with Corner Flourishes */}
+                <div className="absolute inset-2 border border-[#D4AF37]/60 rounded-xl pointer-events-none">
+                  <div className="absolute inset-1 border border-dashed border-[#AA7C11]/35 rounded-lg" />
+                  <span className="absolute top-1 left-1.5 text-[#D4AF37] text-xs font-serif leading-none">&#10087;</span>
+                  <span className="absolute top-1 right-1.5 text-[#D4AF37] text-xs font-serif leading-none">&#10087;</span>
+                  <span className="absolute bottom-1 left-1.5 text-[#D4AF37] text-xs font-serif leading-none">&#10087;</span>
+                  <span className="absolute bottom-1 right-1.5 text-[#D4AF37] text-xs font-serif leading-none">&#10087;</span>
+                </div>
 
-              {/* Couple Names in Grand Royal Calligraphy */}
-              <div className="my-1 flex flex-col items-center">
-                <h2 className="font-cursive text-4xl sm:text-5xl text-[#1B3D4D] tracking-wide my-0.5 drop-shadow-sm font-normal">
-                  {weddingData.brideFirstName}
-                </h2>
-                <span className="font-serif italic text-lg sm:text-xl text-[#AA7C11] my-0.5">&amp;</span>
-                <h2 className="font-cursive text-4xl sm:text-5xl text-[#1B3D4D] tracking-wide my-0.5 drop-shadow-sm font-normal">
-                  {weddingData.groomFirstName}
-                </h2>
-              </div>
+                {/* Sacred Heading */}
+                <div className="flex flex-col items-center pt-0.5">
+                  <span className="text-[#AA7C11] text-[10px] sm:text-xs font-serif italic tracking-widest">
+                    &#10022; || Shree Ganeshay Namah || &#10022;
+                  </span>
+                  <p className="font-serif italic text-[11px] sm:text-xs text-[#244654] leading-tight max-w-[280px] mt-1 font-medium">
+                    Together with our families, we cordially invite you to celebrate the Wedding of
+                  </p>
+                </div>
 
-              {/* Date & Venue Box */}
-              <div className="w-full py-2 border-y border-[#AA7C11]/30 my-0.5 flex flex-col items-center bg-[#FAF7F0]/60 rounded-md">
-                <p className="font-royal text-sm sm:text-base text-[#183644] font-bold tracking-widest">
-                  {weddingData.displayDate}
-                </p>
-                <p className="font-serif text-[11px] sm:text-xs text-[#2A5265] tracking-wide mt-0.5 font-medium">
-                  {weddingData.venueName} &bull; {weddingData.venueCity}
-                </p>
-              </div>
+                {/* Couple Names in Grand Royal Calligraphy */}
+                <div className="my-0.5 flex flex-col items-center">
+                  <h2 className="font-cursive text-3xl sm:text-4xl text-[#1B3D4D] tracking-wide my-0 drop-shadow-sm font-normal">
+                    {weddingData.brideFirstName}
+                  </h2>
+                  <span className="font-serif italic text-base sm:text-lg text-[#AA7C11] my-0 leading-none">&amp;</span>
+                  <h2 className="font-cursive text-3xl sm:text-4xl text-[#1B3D4D] tracking-wide my-0 drop-shadow-sm font-normal">
+                    {weddingData.groomFirstName}
+                  </h2>
+                </div>
 
-              {/* Tap To Enter Button */}
-              <div className="flex flex-col items-center mt-1 pb-0.5">
-                <button
-                  onClick={handleEnterWebsite}
-                  onTouchEnd={handleEnterWebsite}
-                  className="px-6 py-2.5 rounded-full bg-gradient-to-r from-[#183D4C] via-[#24596F] to-[#12303D] text-[#FFFDF8] border-2 border-[#D4AF37] font-royal text-[11px] sm:text-xs tracking-[0.2em] uppercase font-bold shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer animate-pulse"
-                >
-                  <span>Tap to Enter Celebration</span>
-                  <span className="text-[13px]">&#8599;</span>
-                </button>
-                <span className="font-serif italic text-[11px] text-[#244654]/85 mt-1 flex items-center gap-1 font-medium">
-                  View ceremony timings, schedule &amp; venue details
-                  <ChevronDown className="w-3.5 h-3.5 inline animate-bounce text-[#D4AF37]" />
-                </span>
+                {/* Date & Venue Box */}
+                <div className="w-full py-1.5 border-y border-[#AA7C11]/30 my-0.5 flex flex-col items-center bg-[#FAF7F0]/70 rounded-md">
+                  <p className="font-royal text-xs sm:text-sm text-[#183644] font-bold tracking-widest">
+                    {weddingData.displayDate}
+                  </p>
+                  <p className="font-serif text-[10px] sm:text-[11px] text-[#2A5265] tracking-wide mt-0.5 font-medium">
+                    {weddingData.venueName} &bull; {weddingData.venueCity}
+                  </p>
+                </div>
+
+                {/* Tap To Enter Button (Completely exposed and visible above the front pocket!) */}
+                <div className="flex flex-col items-center mt-0.5 pb-0.5">
+                  <button
+                    onClick={handleEnterWebsite}
+                    onTouchEnd={handleEnterWebsite}
+                    className="px-5 py-2 sm:px-6 sm:py-2.5 rounded-full bg-gradient-to-r from-[#183D4C] via-[#24596F] to-[#12303D] text-[#FFFDF8] border-2 border-[#D4AF37] font-royal text-[10px] sm:text-xs tracking-[0.18em] uppercase font-bold shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer animate-pulse"
+                  >
+                    <span>Tap to Enter Celebration</span>
+                    <span className="text-[12px] sm:text-[13px]">&#8599;</span>
+                  </button>
+                  <span className="font-serif italic text-[10px] sm:text-[11px] text-[#244654]/85 mt-1 flex items-center gap-1 font-medium">
+                    View ceremony timings, schedule &amp; venue details
+                    <ChevronDown className="w-3.5 h-3.5 inline animate-bounce text-[#D4AF37]" />
+                  </span>
+                </div>
               </div>
             </div>
 
@@ -499,60 +533,28 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
               </g>
             </svg>
 
-            {/* GRAND UPPER FLAP (Folds DOWN to wax seal when closed, Rotates UPWARD 180° when open) */}
+            {/* CLOSED UPPER FLAP (Folds DOWN to touch wax seal when closed, hidden when open) */}
             <div 
-              className={`absolute top-0 inset-x-0 h-[115px] cursor-pointer transition-transform duration-[1200ms] ease-out ${
-                isMailboxFlapOpen ? 'z-15 pointer-events-none' : 'z-35 pointer-events-auto'
+              className={`absolute top-0 inset-x-0 h-[175px] sm:h-[185px] cursor-pointer transition-all duration-[1000ms] ease-out ${
+                isMailboxFlapOpen 
+                  ? 'z-15 opacity-0 scale-95 pointer-events-none' 
+                  : 'z-35 opacity-100 scale-100 pointer-events-auto'
               }`}
               style={{
-                transformOrigin: 'top center',
-                transformStyle: 'preserve-3d',
-                transform: isMailboxFlapOpen ? 'rotateX(180deg)' : 'rotateX(0deg)',
-                transitionTimingFunction: 'cubic-bezier(0.25, 1, 0.4, 1)',
-                willChange: 'transform',
+                clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
+                background: 'linear-gradient(to bottom, #2C5A6E 0%, #1B4556 50%, #102F3C 100%)',
               }}
               onClick={handleOpenMailbox}
               onTouchEnd={handleOpenMailbox}
             >
-              {/* FRONT FACE (Closed Flap: Points DOWN to touch wax seal!) */}
-              <div 
-                className="absolute inset-0 w-full h-full backface-hidden"
-                style={{
-                  clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
-                  background: 'linear-gradient(to bottom, #2C5A6E 0%, #1B4556 50%, #102F3C 100%)',
-                  backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden',
-                }}
-              >
-                <svg className="w-full h-full" viewBox="0 0 400 115" preserveAspectRatio="none">
-                  <path d="M 0 0 L 200 115 L 400 0" fill="none" stroke="url(#goldRimGrad)" strokeWidth="3" />
-                  <path d="M 6 4 L 200 110 L 394 4" fill="none" stroke="#FFDF78" strokeWidth="0.8" strokeDasharray="2 2" opacity="0.6" />
-                </svg>
-                
-                {/* Central Gold Tip Seal Tab */}
-                <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full border border-[#D4AF37] bg-[#143542] flex items-center justify-center shadow-lg">
-                  <span className="text-[#FFDF78] text-[10px] font-serif font-bold">P &amp; V</span>
-                </div>
-              </div>
-
-              {/* BACK FACE (Open Flap: Points UPWARD displaying dark teal botanical jaali lining) */}
-              <div 
-                className="absolute inset-0 w-full h-full backface-hidden"
-                style={{
-                  clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
-                  transform: 'rotateX(180deg)',
-                  background: 'linear-gradient(to top, #163644 0%, #0D222C 100%)',
-                  backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden',
-                }}
-              >
-                <div className="absolute inset-0 opacity-30 bg-[radial-gradient(#D4AF37_1.5px,transparent_1.5px)] [background-size:14px_14px]" />
-                <svg className="w-full h-full" viewBox="0 0 400 115" preserveAspectRatio="none">
-                  <path d="M 0 0 L 200 115 L 400 0" fill="none" stroke="#D4AF37" strokeWidth="2.2" />
-                </svg>
-                <div className="absolute bottom-2.5 inset-x-0 text-center">
-                  <span className="font-serif italic text-[10px] text-[#D4AF37] tracking-widest">&#10022; With Love &amp; Blessings &#10022;</span>
-                </div>
+              <svg className="w-full h-full" viewBox="0 0 400 175" preserveAspectRatio="none">
+                <path d="M 0 0 L 200 175 L 400 0" fill="none" stroke="url(#goldRimGrad)" strokeWidth="3.2" />
+                <path d="M 6 4 L 200 169 L 394 4" fill="none" stroke="#FFDF78" strokeWidth="0.8" strokeDasharray="2.5 2.5" opacity="0.7" />
+              </svg>
+              
+              {/* Central Gold Tip Seal Tab */}
+              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full border border-[#D4AF37] bg-[#143542] flex items-center justify-center shadow-lg">
+                <span className="text-[#FFDF78] text-[10px] font-serif font-bold">P &amp; V</span>
               </div>
             </div>
 
