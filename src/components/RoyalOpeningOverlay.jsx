@@ -4,19 +4,109 @@ import { ChevronDown } from 'lucide-react';
 import mainWebp from '../assets/main.webp';
 import mailWebp from '../assets/mail.webp';
 
-/**
- * ROYAL INDIAN WEDDING INVITATION FULL-SCREEN OPENING OVERLAY
- * 
- * Visitor Experience Sequence:
- * 1. Royal Entrance Animation: Full-screen Main.png crimson velvet 4-petal envelope with centered P & V seal.
- * 2. Visitor taps seal -> All 4 petals unfold simultaneously in 3D over 1.8s.
- * 3. Smooth transition to the luxurious Teal-Blue & Ivory Floral Mailbox (matching mail.png).
- * 4. Closed mailbox appears centered with deep teal wax seal and gold botanical emblem.
- * 5. Flap rotates open in 3D, revealing dark teal botanical lining.
- * 6. Large ivory invitation card with double gold filigree borders rises smoothly from inside the envelope.
- * 7. Card displays Priya & Varun wedding details and "Tap to Enter Celebration ↗".
- * 8. User taps card/button or skips -> Overlay dissolves, scroll unlocks, website becomes active.
- */
+// Fluttering Golden Butterflies Configuration (Disperses across viewport)
+const BUTTERFLIES_CONFIG = [
+  { id: 1, targetX: '-36vw', targetY: '-32vh', scale: 1.15, rot: -20, flapSpeed: '0.28s', delay: '0.04s' },
+  { id: 2, targetX: '36vw', targetY: '-30vh', scale: 1.1, rot: 22, flapSpeed: '0.32s', delay: '0.1s' },
+  { id: 3, targetX: '-38vw', targetY: '-10vh', scale: 0.95, rot: -28, flapSpeed: '0.35s', delay: '0.16s' },
+  { id: 4, targetX: '38vw', targetY: '-8vh', scale: 1.0, rot: 25, flapSpeed: '0.3s', delay: '0.2s' },
+  { id: 5, targetX: '0vw', targetY: '-38vh', scale: 1.25, rot: 2, flapSpeed: '0.25s', delay: '0.08s' },
+  { id: 6, targetX: '28vw', targetY: '22vh', scale: 0.9, rot: 35, flapSpeed: '0.34s', delay: '0.24s' },
+  { id: 7, targetX: '-28vw', targetY: '24vh', scale: 0.88, rot: -32, flapSpeed: '0.33s', delay: '0.22s' },
+];
+
+// Radiant Golden Glitter & Sparkle Constellation
+const GLITTER_PARTICLES = [
+  { id: 1, angle: 15, dist: 120, size: 16, char: '✦', delay: '0.05s' },
+  { id: 2, angle: 45, dist: 190, size: 20, char: '✧', delay: '0.12s' },
+  { id: 3, angle: 75, dist: 150, size: 14, char: '★', delay: '0.08s' },
+  { id: 4, angle: 105, dist: 220, size: 18, char: '✦', delay: '0.18s' },
+  { id: 5, angle: 135, dist: 140, size: 12, char: '•', delay: '0.04s' },
+  { id: 6, angle: 165, dist: 180, size: 16, char: '✧', delay: '0.22s' },
+  { id: 7, angle: 195, dist: 210, size: 14, char: '✦', delay: '0.15s' },
+  { id: 8, angle: 225, dist: 160, size: 18, char: '★', delay: '0.1s' },
+  { id: 9, angle: 255, dist: 200, size: 13, char: '✧', delay: '0.25s' },
+  { id: 10, angle: 285, dist: 140, size: 12, char: '•', delay: '0.07s' },
+  { id: 11, angle: 315, dist: 210, size: 20, char: '✦', delay: '0.16s' },
+  { id: 12, angle: 345, dist: 170, size: 15, char: '✧', delay: '0.14s' },
+  { id: 13, angle: 30, dist: 260, size: 14, char: '✦', delay: '0.28s' },
+  { id: 14, angle: 120, dist: 270, size: 15, char: '★', delay: '0.32s' },
+  { id: 15, angle: 210, dist: 250, size: 16, char: '✧', delay: '0.27s' },
+  { id: 16, angle: 300, dist: 280, size: 14, char: '✦', delay: '0.3s' },
+];
+
+// Royal Golden Butterfly with dual flapping 3D wings
+const RoyalButterfly = ({ targetX, targetY, scale = 1, rot = 0, flapSpeed = '0.3s', isFly, delay = '0s' }) => {
+  return (
+    <div
+      className="absolute top-1/2 left-1/2 pointer-events-none z-50 transition-all ease-out"
+      style={{
+        transform: isFly
+          ? `translate(calc(-50% + ${targetX}), calc(-50% + ${targetY})) scale(${scale}) rotate(${rot}deg)`
+          : 'translate(-50%, -50%) scale(0) rotate(0deg)',
+        opacity: isFly ? 1 : 0,
+        transitionDuration: isFly ? '2400ms' : '400ms',
+        transitionDelay: isFly ? delay : '0s',
+        transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
+        willChange: 'transform, opacity',
+      }}
+    >
+      <div 
+        className="relative flex items-center justify-center filter drop-shadow-[0_2px_10px_rgba(255,215,0,0.7)]"
+        style={{
+          animation: isFly ? 'gentleFloat 3s ease-in-out infinite alternate' : 'none',
+          animationDelay: delay,
+        }}
+      >
+        {/* Left Wing */}
+        <svg
+          className="w-5 h-6 sm:w-6 sm:h-7 -mr-[1px]"
+          viewBox="0 0 24 30"
+          fill="none"
+          style={{
+            transformOrigin: 'right center',
+            animation: `wingFlapLeft ${flapSpeed} ease-in-out infinite alternate`,
+            willChange: 'transform',
+          }}
+        >
+          <path
+            d="M23 15 C20 4, 8 0, 2 5 C-2 9, 3 18, 12 18 C3 21, 5 28, 12 28 C18 28, 22 21, 23 15 Z"
+            fill="url(#goldButterflyGrad)"
+            stroke="#FFF9E6"
+            strokeWidth="0.7"
+          />
+          <path d="M22 15 C16 10, 8 8, 4 7" stroke="#FFFDF0" strokeWidth="0.5" strokeOpacity="0.8" fill="none" />
+          <path d="M22 15 C15 17, 8 20, 7 24" stroke="#FFFDF0" strokeWidth="0.5" strokeOpacity="0.8" fill="none" />
+        </svg>
+
+        {/* Butterfly Torso */}
+        <div className="w-[2px] h-5 sm:h-6 bg-gradient-to-b from-[#FFF2B2] via-[#D4AF37] to-[#8C6208] rounded-full shadow-[0_0_6px_#FFD700] z-10" />
+
+        {/* Right Wing */}
+        <svg
+          className="w-5 h-6 sm:w-6 sm:h-7 -ml-[1px]"
+          viewBox="0 0 24 30"
+          fill="none"
+          style={{
+            transformOrigin: 'left center',
+            animation: `wingFlapRight ${flapSpeed} ease-in-out infinite alternate`,
+            willChange: 'transform',
+          }}
+        >
+          <path
+            d="M1 15 C4 4, 16 0, 22 5 C26 9, 21 18, 12 18 C21 21, 19 28, 12 28 C6 28, 2 21, 1 15 Z"
+            fill="url(#goldButterflyGrad)"
+            stroke="#FFF9E6"
+            strokeWidth="0.7"
+          />
+          <path d="M2 15 C8 10, 16 8, 20 7" stroke="#FFFDF0" strokeWidth="0.5" strokeOpacity="0.8" fill="none" />
+          <path d="M2 15 C9 17, 16 20, 17 24" stroke="#FFFDF0" strokeWidth="0.5" strokeOpacity="0.8" fill="none" />
+        </svg>
+      </div>
+    </div>
+  );
+};
+
 export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
   // Master Scene: 'entrance' -> 'mailbox' -> 'entering' (fade out)
   const [scene, setScene] = useState('entrance');
@@ -42,6 +132,7 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
   }, []);
 
   // Step 1: Trigger 4-petal entrance opening
+  // Mailbox is ALREADY mounted underneath, eliminating any blank gap!
   const handleOpenEntrance = (e) => {
     if (e && e.type === 'touchend') e.preventDefault();
     if (entrancePhase !== 'sealed') return;
@@ -49,19 +140,20 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
 
     setEntrancePhase('petals-opening');
 
-    // After 4 petals complete outward sweep (1.8s), transition to Mailbox
+    // As petals unfold outward revealing the mailbox, start opening the mailbox flap at 900ms
+    setTimeout(() => {
+      setMailboxPhase('opening');
+    }, 900);
+
+    // Switch scene to mailbox at 1500ms to free up interaction
     setTimeout(() => {
       setScene('mailbox');
+    }, 1500);
 
-      // Mailbox sequence begins after transition
-      setTimeout(() => {
-        setMailboxPhase('opening');
-      }, 700);
-
-      setTimeout(() => {
-        setMailboxPhase('card-up');
-      }, 1800);
-    }, 1800);
+    // Slide invitation card gracefully upward at 1700ms
+    setTimeout(() => {
+      setMailboxPhase('card-up');
+    }, 1700);
   };
 
   // Step 2: Trigger mailbox flap opening manually if tapped
@@ -113,13 +205,13 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
 
       {/* =========================================================================
           STAGE 2: TEAL-BLUE & IVORY LUXURY FLORAL MAILBOX (Matching mail.png)
-          Appears immediately after entrance animation completes
+          Always mounted directly behind Stage 1 petals - seamlessly revealed as petals open!
           ========================================================================= */}
       <div 
-        className={`absolute inset-0 w-full h-full flex items-center justify-center transition-all duration-1000 ease-out ${
-          scene === 'mailbox' || scene === 'entering' 
-            ? 'opacity-100 scale-100 pointer-events-auto' 
-            : 'opacity-0 scale-95 pointer-events-none'
+        className={`absolute inset-0 w-full h-full flex items-center justify-center z-20 transition-opacity duration-700 ease-out ${
+          scene === 'entering' 
+            ? 'opacity-0 pointer-events-none' 
+            : 'opacity-100 pointer-events-auto'
         }`}
       >
         {/* Full-bleed Ivory & Pale Teal Background with Floral Sprigs from mail.png */}
@@ -530,6 +622,68 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
           </div>
 
         </div>
+      </div>
+
+      {/* =========================================================================
+          STAGE 3: ROYAL GOLDEN BUTTERFLIES & GLITTER BURST
+          Spreads across the screen as petals unfold, floating into the mailbox scene!
+          ========================================================================= */}
+      {/* Hidden SVG Gradient Definition for 3D Golden Butterfly Wings */}
+      <svg width="0" height="0" className="absolute pointer-events-none">
+        <defs>
+          <linearGradient id="goldButterflyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#FFFCE6" />
+            <stop offset="35%" stopColor="#FFE075" />
+            <stop offset="70%" stopColor="#D4AF37" />
+            <stop offset="100%" stopColor="#8C6208" />
+          </linearGradient>
+        </defs>
+      </svg>
+
+      {/* Fluttering Golden Butterflies with 3D Flapping Wings */}
+      {BUTTERFLIES_CONFIG.map((b) => (
+        <RoyalButterfly
+          key={b.id}
+          targetX={b.targetX}
+          targetY={b.targetY}
+          scale={b.scale}
+          rot={b.rot}
+          flapSpeed={b.flapSpeed}
+          delay={b.delay}
+          isFly={isPetalsOpening}
+        />
+      ))}
+
+      {/* Sparkling Glitter Stars & Dust Constellation */}
+      <div className="absolute inset-0 pointer-events-none z-45 overflow-hidden">
+        {GLITTER_PARTICLES.map((p) => {
+          const rad = (p.angle * Math.PI) / 180;
+          const x = Math.round(Math.cos(rad) * p.dist);
+          const y = Math.round(Math.sin(rad) * p.dist);
+
+          return (
+            <div
+              key={p.id}
+              className="absolute top-1/2 left-1/2 text-[#FFF2B2] select-none transition-all ease-out"
+              style={{
+                transform: isPetalsOpening
+                  ? `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) scale(1)`
+                  : 'translate(-50%, -50%) scale(0)',
+                opacity: isPetalsOpening ? 0.95 : 0,
+                fontSize: `${p.size}px`,
+                transitionDuration: isPetalsOpening ? '2200ms' : '400ms',
+                transitionDelay: isPetalsOpening ? p.delay : '0s',
+                transitionTimingFunction: 'cubic-bezier(0.25, 1, 0.4, 1)',
+                animation: isPetalsOpening ? 'glitterTwinkle 2.2s ease-in-out infinite alternate' : 'none',
+                animationDelay: p.delay,
+                textShadow: '0 0 10px #FFD700, 0 0 20px #FFA500',
+                willChange: 'transform, opacity',
+              }}
+            >
+              {p.char}
+            </div>
+          );
+        })}
       </div>
 
     </div>
