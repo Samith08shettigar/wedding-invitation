@@ -1,31 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { weddingData } from '../data/weddingData';
+import { ChevronDown } from 'lucide-react';
 import mainWebp from '../assets/main.webp';
 import mainPng from '../../IMG/main.png';
+import bgCourtyardWebp from '../assets/background1.webp';
+import bgCourtyardPng from '../../IMG/background1.png';
 
 /**
  * ROYAL INDIAN WEDDING INVITATION FULL-SCREEN OPENING OVERLAY
  * 
- * Satisfies all specifications:
- * 1. Uses actual Main.png (with optimized WebP fallback) preserving crisp 941x1672 aspect ratio.
- * 2. Positions circular P & V wax seal precisely at the 50%/50% meeting point of envelope flaps.
- * 3. Clean symmetrical triangular envelope geometry with hairline gold fold accents.
- * 4. Preserves rich maroon velvet, crimson floral vines, lotus motifs, and gold detailing.
- * 5. Slow, graceful, luxurious 5-stage opening animation (glow, 3D flap unseal, card emergence).
- * 6. Dedicated full-screen overlay (position: fixed; inset: 0; z-index: 9999; height: 100dvh).
- * 7. Locks body scroll completely while active; reveals website only after opening/skip.
- * 8. Prevents touch scrolling, swiping, or background jumps.
- * 9. Responsive mobile-first layout, constrained gracefully on tablet and desktop.
+ * Flow matching exact user voice instructions & reference screens (screen_01 -> screen_02 -> screen_03):
+ * 1. Screen fills mobile viewport completely with Main.png (no black cut-off bars).
+ * 2. Circular P & V seal precisely in the center where the 4 petals meet.
+ * 3. When seal is tapped:
+ *    - All 4 petals (top, bottom, left, right) unfold outward in 3D at the same time slowly.
+ *    - The royal courtyard scene and traditional crimson letterbox are revealed.
+ * 4. From the letterbox, the arched royal invitation card pops up smoothly into view.
+ * 5. User taps the card to enter: overlay fades out, scroll unlocks, and all website sections,
+ *    timings, countdown, locations, and events are displayed!
  */
-
 export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
   // Opening Phases:
-  // 'sealed'        -> Invitation closed, P & V seal pulsing with warm glow
-  // 'glowing'       -> Seal shimmers with intense golden radiance (0.8s - 1.2s)
-  // 'flap-opening'  -> Upper triangular flap rotates 180° backward in 3D (1.8s)
-  // 'card-rising'   -> Ivory wedding card glides upward out of envelope pocket (1.5s)
-  // 'settled'       -> Card settled, displaying couple details & "Enter Celebration"
-  // 'fading'        -> Overlay smoothly dissolves, unlocking document scroll
+  // 'sealed'   -> 4 petals closed, filling screen, P & V seal pulsing at center (50% 50%)
+  // 'opening'  -> Seal shimmers; all 4 petals unfold outward in 3D simultaneously (2.0s)
+  // 'card-up'  -> Arched card pops up from the letterbox into prominent view
+  // 'entering' -> Overlay smoothly dissolves, document scroll unlocks, music plays
   const [phase, setPhase] = useState('sealed');
 
   // Lock document scroll completely while overlay is active
@@ -43,7 +42,6 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
     document.body.style.touchAction = 'none';
     document.documentElement.style.overflow = 'hidden';
 
-    // Prevent touchmove default on mobile overlay
     const preventScroll = (e) => {
       e.preventDefault();
     };
@@ -60,61 +58,63 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
     };
   }, []);
 
-  // Trigger opening sequence
+  // Trigger 4-petal simultaneous unfolding & card pop-up
   const handleOpen = () => {
     if (phase !== 'sealed') return;
     if (onStartMusic) onStartMusic();
 
-    // Stage 1: Golden glow on seal (0.8s)
-    setPhase('glowing');
+    // Stage 1: All 4 petals start opening at the same time slowly
+    setPhase('opening');
 
-    // Stage 2: Flap rotates backward (1.8s)
+    // Stage 2: Card pops up smoothly from inside the letterbox as petals clear
     setTimeout(() => {
-      setPhase('flap-opening');
-    }, 900);
-
-    // Stage 3: Card glides up (1.5s)
-    setTimeout(() => {
-      setPhase('card-rising');
-    }, 2400);
-
-    // Stage 4: Card settled (invites enter)
-    setTimeout(() => {
-      setPhase('settled');
-    }, 3900);
+      setPhase('card-up');
+    }, 1100);
   };
 
-  // Immediate skip button or enter button
-  const handleEnterCelebration = () => {
+  // User taps card or button to enter celebration and view full website
+  const handleEnterWebsite = () => {
     if (onStartMusic) onStartMusic();
-    setPhase('fading');
+    setPhase('entering');
     setTimeout(() => {
       if (onComplete) onComplete();
     }, 700);
   };
 
-  const isFlapOpen = phase === 'flap-opening' || phase === 'card-rising' || phase === 'settled';
-  const isCardUp = phase === 'card-rising' || phase === 'settled';
+  const isOpening = phase === 'opening' || phase === 'card-up' || phase === 'entering';
+  const isCardUp = phase === 'card-up' || phase === 'entering';
 
   return (
     <div 
       className={`fixed inset-0 z-[9999] w-full h-[100dvh] min-h-screen bg-[#140004] flex items-center justify-center overflow-hidden select-none transition-opacity duration-700 ease-out ${
-        phase === 'fading' ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'
+        phase === 'entering' ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'
       }`}
-      style={{
-        touchAction: 'none',
-      }}
+      style={{ touchAction: 'none' }}
     >
-      {/* Deep Royal Atmospheric Background with Floating Gold Dust */}
-      <div className="absolute inset-0 bg-radial from-[#2E050D] via-[#1A0105] to-[#0A0002] pointer-events-none" />
+      
+      {/* =========================================================================
+          BACKGROUND LAYER: ROYAL PALACE COURTYARD SCENE (background1.webp)
+          Becomes visible as the 4 petals unfold outward
+          ========================================================================= */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
+        <picture>
+          <source srcSet={bgCourtyardWebp} type="image/webp" />
+          <img 
+            src={bgCourtyardPng} 
+            alt="Royal Palace Courtyard" 
+            className="w-full h-full object-cover object-center" 
+          />
+        </picture>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-black/60" />
+      </div>
 
-      {/* Floating Gold Sparkle Particles */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-40">
+      {/* Floating Golden Dust Particles */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-50">
         {[
-          { top: '15%', left: '20%', size: 3, delay: '0s' },
-          { top: '25%', left: '80%', size: 2.5, delay: '1s' },
-          { top: '75%', left: '15%', size: 3.5, delay: '2s' },
-          { top: '85%', left: '75%', size: 2, delay: '1.5s' },
+          { top: '20%', left: '25%', size: 3, delay: '0s' },
+          { top: '30%', left: '75%', size: 2.5, delay: '1.2s' },
+          { top: '65%', left: '18%', size: 3.5, delay: '2.1s' },
+          { top: '80%', left: '82%', size: 2, delay: '0.8s' },
         ].map((pt, i) => (
           <div
             key={i}
@@ -131,9 +131,9 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
         ))}
       </div>
 
-      {/* Skip Opening Pill (Fixed in lower right corner) */}
+      {/* Skip Opening Button (Fixed in corner) */}
       <button
-        onClick={handleEnterCelebration}
+        onClick={handleEnterWebsite}
         className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 px-4 py-2 rounded-full bg-[#3B0510]/90 border border-[#E06B85]/70 text-[#FFF0F4] font-serif italic text-xs tracking-wider backdrop-blur-md shadow-2xl hover:bg-[#5C0B1C] hover:border-[#FFAAB8] transition-all flex items-center gap-2 cursor-pointer active:scale-95"
         aria-label="Skip opening to explore invitation"
       >
@@ -141,195 +141,240 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
         <span className="text-[13px] font-sans leading-none">&#8599;</span>
       </button>
 
-      {/* MAIN ENVELOPE STAGE (Preserves exact 941:1672 aspect ratio of Main.png) */}
-      <div className="relative w-full max-w-[400px] sm:max-w-[430px] aspect-[941/1672] max-h-[92dvh] flex items-center justify-center p-2 sm:p-4">
+      {/* =========================================================================
+          STAGE 2: THE LETTERBOX & ARCHED INVITATION CARD (Revealed behind petals)
+          ========================================================================= */}
+      <div className="relative w-full max-w-[430px] h-full max-h-[100dvh] flex flex-col items-center justify-center px-4">
         
-        {/* Outer 3D Envelope Container */}
-        <div 
-          className="relative w-full h-full rounded-2xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] perspective-1600"
-          style={{
-            transformStyle: 'preserve-3d',
-          }}
-        >
-          {/* 1. ENVELOPE INTERIOR BACK (Warm Ivory with Gold Jaali Lattice) */}
-          <div className="absolute inset-0 rounded-2xl bg-[#FFFDF7] border-2 border-[#D4AF37]/60 overflow-hidden shadow-inner z-10">
-            {/* Soft Interior Depth Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/40 pointer-events-none" />
-            
-            {/* Gold Jaali Lattice Pattern */}
-            <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#AA7C11_1.5px,transparent_1.5px)] [background-size:16px_16px]" />
-
-            {/* Sacred Shloka watermark inside envelope */}
-            <div className="absolute top-12 inset-x-0 flex flex-col items-center text-center opacity-30 pointer-events-none">
-              <span className="font-serif italic text-sm text-[#8C132B]">|| Shree Ganeshay Namah ||</span>
-            </div>
-          </div>
-
-          {/* 2. ROYAL INVITATION CARD (Glides upward from inside pocket) */}
+        {/* THE LETTERBOX ENVELOPE CONTAINER */}
+        <div className="relative w-full aspect-[941/1400] max-h-[82dvh] flex items-end justify-center perspective-1600">
+          
+          {/* ARCHED ROYAL INVITATION CARD (Pops up from letterbox) */}
           <div 
-            onClick={isCardUp ? handleEnterCelebration : undefined}
-            className={`absolute inset-x-3.5 sm:inset-x-5 top-[8%] h-[64%] rounded-2xl bg-[#FFFDF9] border-2 border-[#D4AF37] p-4 sm:p-5 shadow-2xl flex flex-col items-center justify-between text-center select-none z-20 ${
-              isCardUp ? 'cursor-pointer hover:shadow-[0_20px_50px_rgba(212,175,55,0.4)]' : ''
+            onClick={isCardUp ? handleEnterWebsite : undefined}
+            className={`absolute inset-x-3 sm:inset-x-4 top-1 h-[82%] rounded-t-[50px] rounded-b-2xl bg-[#FFFDF8] border-2 border-[#D4AF37] p-5 sm:p-7 shadow-[0_25px_60px_rgba(0,0,0,0.85)] flex flex-col items-center justify-between text-center select-none z-20 transition-all duration-[1400ms] ease-out ${
+              isCardUp 
+                ? '-translate-y-36 sm:-translate-y-44 scale-100 opacity-100 cursor-pointer hover:shadow-[0_25px_70px_rgba(212,175,55,0.45)]' 
+                : 'translate-y-24 scale-95 opacity-0 pointer-events-none'
             }`}
             style={{
-              transformOrigin: 'bottom center',
-              transform: isCardUp 
-                ? 'translateY(-10%) scale(1.0)' 
-                : 'translateY(36%) scale(0.92)',
-              transition: 'transform 1600ms cubic-bezier(0.25, 1, 0.4, 1), box-shadow 1600ms ease',
-              boxShadow: isCardUp 
-                ? '0 25px 60px rgba(0,0,0,0.85), 0 0 30px rgba(212,175,55,0.4)' 
-                : '0 4px 15px rgba(0,0,0,0.4)',
+              transitionTimingFunction: 'cubic-bezier(0.25, 1, 0.4, 1)',
             }}
           >
-            {/* Inner Dotted Gold Lining */}
-            <div className="absolute inset-2 border border-dashed border-[#AA7C11]/45 rounded-xl pointer-events-none" />
+            {/* Scalloped Gold Inner Arch Border */}
+            <div className="absolute inset-2 border border-dashed border-[#AA7C11]/40 rounded-t-[44px] rounded-b-xl pointer-events-none" />
 
-            {/* Top Scalloped Arch & Lotus */}
+            {/* Sacred Heading */}
             <div className="flex flex-col items-center">
-              <span className="text-[#AA7C11] text-xs font-serif italic mb-1 tracking-widest">
-                &#10022; || Om Gan Ganapataye Namah || &#10022;
+              <span className="text-[#AA7C11] text-xs font-serif italic tracking-widest">
+                &#10022; || Shree Ganeshay Namah || &#10022;
               </span>
-              <span className="font-royal text-[9px] sm:text-[10px] tracking-[0.3em] text-[#8C132B] uppercase font-bold mt-1">
-                Royal Wedding Invitation
-              </span>
+              <p className="font-serif italic text-xs sm:text-sm text-[#781124] leading-relaxed max-w-xs mt-3">
+                Together with our families, we cordially invite you to the Wedding of
+              </p>
             </div>
 
             {/* Couple Names */}
             <div className="my-2 flex flex-col items-center">
-              <h2 className="font-serif text-3xl sm:text-4xl text-[#3B0612] tracking-wide font-medium">
+              <h2 className="font-cursive text-4xl sm:text-5xl text-[#3B0612] tracking-wide my-0.5 drop-shadow-sm font-normal">
                 {weddingData.brideFirstName}
               </h2>
-              <span className="font-serif italic text-lg text-[#AA7C11] my-0.5">&amp;</span>
-              <h2 className="font-serif text-3xl sm:text-4xl text-[#3B0612] tracking-wide font-medium">
+              <span className="font-serif italic text-xl text-[#AA7C11] my-0.5">&amp;</span>
+              <h2 className="font-cursive text-4xl sm:text-5xl text-[#3B0612] tracking-wide my-0.5 drop-shadow-sm font-normal">
                 {weddingData.groomFirstName}
               </h2>
             </div>
 
-            {/* Sacred Blessing Verse */}
-            <p className="font-serif italic text-xs text-[#5C0E1E] leading-relaxed max-w-xs px-2">
-              Together with their families, invite you to celebrate their wedding and beginning of eternal togetherness.
-            </p>
-
             {/* Date & Venue Box */}
-            <div className="w-full py-2 border-y border-[#AA7C11]/30 my-1 flex flex-col items-center">
-              <p className="font-royal text-xs sm:text-sm text-[#2E020A] font-bold tracking-widest">
+            <div className="w-full py-2.5 border-y border-[#AA7C11]/30 my-1 flex flex-col items-center">
+              <p className="font-royal text-sm sm:text-base text-[#2E020A] font-bold tracking-widest">
                 {weddingData.displayDate}
               </p>
-              <p className="font-serif text-[11px] text-[#781124] tracking-wide mt-0.5">
-                {weddingData.venueName} &bull; Bengaluru
+              <p className="font-serif text-xs text-[#781124] tracking-wide mt-0.5">
+                {weddingData.venueName} &bull; {weddingData.venueCity}
               </p>
             </div>
 
-            {/* Enter Celebration Button on Card */}
-            {isCardUp ? (
+            {/* Tap To Enter Button */}
+            <div className="flex flex-col items-center mt-2">
               <button
-                onClick={handleEnterCelebration}
-                className="mt-2 px-6 py-2 rounded-full bg-gradient-to-r from-[#5C0E1E] via-[#8C132B] to-[#42050F] text-[#FFF6D6] border border-[#D4AF37] font-royal text-[11px] tracking-widest uppercase font-semibold shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer animate-fade-in"
+                onClick={handleEnterWebsite}
+                className="px-6 py-2.5 rounded-full bg-gradient-to-r from-[#5C0E1E] via-[#8C132B] to-[#42050F] text-[#FFF6D6] border border-[#D4AF37] font-royal text-[11px] sm:text-xs tracking-[0.2em] uppercase font-bold shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer animate-pulse"
               >
-                Enter Celebration &#8599;
+                <span>Tap to Enter Celebration</span>
+                <span className="text-[13px]">&#8599;</span>
               </button>
-            ) : (
-              <div className="h-8" />
-            )}
+              <span className="font-serif italic text-[11px] text-[#781124]/80 mt-1.5 flex items-center gap-1">
+                View ceremony timings, schedule &amp; venue details
+                <ChevronDown className="w-3.5 h-3.5 inline animate-bounce" />
+              </span>
+            </div>
           </div>
 
-          {/* 3. FRONT ENVELOPE POCKET (Left, Right, Bottom triangular flaps from Main.png) */}
-          <div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none z-25">
-            {/* Base Image Layer for Left, Right, Bottom */}
+          {/* LETTERBOX ENVELOPE FRONT POCKET (Holds the card inside) */}
+          <div className="relative w-full h-[44%] rounded-b-2xl bg-gradient-to-t from-[#1F0106] via-[#3B0510] to-[#580D1D] border-2 border-[#D4AF37]/90 shadow-2xl overflow-hidden z-25 pointer-events-none">
+            {/* Gold Damask Pattern on Pocket */}
+            <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#FFDF78_1.5px,transparent_1.5px)] [background-size:16px_16px]" />
+            
+            {/* Front Triangular Flap Fold Texture */}
+            <div 
+              className="absolute inset-0 bg-gradient-to-b from-[#7A1328]/80 to-[#2E050D] border-t border-[#D4AF37]/60"
+              style={{
+                clipPath: 'polygon(0 0, 50% 65%, 100% 0, 100% 100%, 0 100%)',
+              }}
+            />
+
+            {/* Gold Filigree Line along V-pocket */}
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <path d="M 0 0 L 50 65 L 100 0" fill="none" stroke="#FFDF78" strokeWidth="1.2" strokeOpacity="0.8" />
+            </svg>
+
+            {/* Gold Wax Medallion on pocket */}
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full border border-[#FFDF78] bg-[#4A0A16] flex items-center justify-center shadow-lg">
+              <span className="font-serif font-bold text-xs text-[#FFDF78]">P &amp; V</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      {/* =========================================================================
+          STAGE 1: 4 CARVED PETALS & CENTERED P & V SEAL (Full-Screen Cover)
+          Unfolds simultaneously outward in 3D when tapped!
+          ========================================================================= */}
+      <div 
+        className={`absolute inset-0 w-full h-full z-30 perspective-1600 transition-all duration-1000 ${
+          phase === 'card-up' || phase === 'entering' 
+            ? 'pointer-events-none opacity-0' 
+            : 'pointer-events-auto opacity-100'
+        }`}
+      >
+        {/* Full-bleed responsive container for 4 petals */}
+        <div className="relative w-full h-full overflow-hidden">
+
+          {/* 1. TOP PETAL: Folds upward in 3D */}
+          <div 
+            className="absolute inset-0 w-full h-full overflow-hidden cursor-pointer"
+            style={{
+              clipPath: 'polygon(0 0, 100% 0, 50% 50%)',
+              transformOrigin: 'top center',
+              transform: isOpening ? 'rotateX(115deg) translateY(-25%) scale(0.85)' : 'rotateX(0deg) translateY(0) scale(1)',
+              opacity: isOpening ? 0 : 1,
+              transition: 'transform 2000ms cubic-bezier(0.25, 1, 0.4, 1), opacity 1800ms ease-out 300ms',
+            }}
+            onClick={handleOpen}
+          >
             <picture>
               <source srcSet={mainWebp} type="image/webp" />
               <img 
                 src={mainPng} 
-                alt="Envelope Pocket" 
-                className="w-full h-full object-cover select-none"
-                style={{
-                  clipPath: 'polygon(0 0, 50% 50%, 100% 0, 100% 100%, 0 100%)',
-                }}
+                alt="Envelope Top Petal" 
+                className="w-full h-full object-cover object-center select-none pointer-events-none" 
               />
             </picture>
-
-            {/* Symmetrical Gold Hairline Seam Accents (Meeting precisely at 50% 50%) */}
-            <svg 
-              className="absolute inset-0 w-full h-full pointer-events-none" 
-              viewBox="0 0 100 100" 
-              preserveAspectRatio="none"
-            >
-              <line x1="0" y1="0" x2="50" y2="50" stroke="#FFDF78" strokeWidth="0.4" strokeOpacity="0.4" />
-              <line x1="100" y1="0" x2="50" y2="50" stroke="#FFDF78" strokeWidth="0.4" strokeOpacity="0.4" />
-              <line x1="0" y1="100" x2="50" y2="50" stroke="#FFDF78" strokeWidth="0.5" strokeOpacity="0.5" />
-              <line x1="100" y1="100" x2="50" y2="50" stroke="#FFDF78" strokeWidth="0.5" strokeOpacity="0.5" />
-            </svg>
           </div>
 
-          {/* 4. UPPER TRIANGULAR MOVING FLAP (3D Hinge at Top) */}
+          {/* 2. BOTTOM PETAL: Folds downward in 3D */}
           <div 
-            className={`absolute top-0 inset-x-0 h-1/2 overflow-hidden cursor-pointer transition-transform duration-[1800ms] ease-in-out ${
-              isFlapOpen ? 'z-15 pointer-events-none' : 'z-30 pointer-events-auto'
-            }`}
+            className="absolute inset-0 w-full h-full overflow-hidden cursor-pointer"
             style={{
-              transformOrigin: 'top center',
-              transformStyle: 'preserve-3d',
-              transform: isFlapOpen ? 'rotateX(180deg)' : 'rotateX(0deg)',
-              transitionTimingFunction: 'cubic-bezier(0.25, 1, 0.4, 1)',
+              clipPath: 'polygon(0 100%, 50% 50%, 100% 100%)',
+              transformOrigin: 'bottom center',
+              transform: isOpening ? 'rotateX(-115deg) translateY(25%) scale(0.85)' : 'rotateX(0deg) translateY(0) scale(1)',
+              opacity: isOpening ? 0 : 1,
+              transition: 'transform 2000ms cubic-bezier(0.25, 1, 0.4, 1), opacity 1800ms ease-out 300ms',
             }}
             onClick={handleOpen}
           >
-            {/* FRONT FACE: Top Triangular Flap from Main.png (Points DOWN to 50% 50%) */}
-            <div 
-              className="absolute inset-0 w-full h-full backface-hidden"
-              style={{
-                clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
-                backfaceVisibility: 'hidden',
-                WebkitBackfaceVisibility: 'hidden',
-              }}
-            >
-              <picture>
-                <source srcSet={mainWebp} type="image/webp" />
-                <img 
-                  src={mainPng} 
-                  alt="Envelope Flap Front" 
-                  className="w-full h-[200%] object-cover object-top select-none pointer-events-none" 
-                />
-              </picture>
-
-              {/* Gold V-seam on flap edge */}
-              <svg 
-                className="absolute inset-0 w-full h-full pointer-events-none" 
-                viewBox="0 0 100 100" 
-                preserveAspectRatio="none"
-              >
-                <line x1="0" y1="0" x2="50" y2="100" stroke="#FFDF78" strokeWidth="0.6" strokeOpacity="0.6" />
-                <line x1="100" y1="0" x2="50" y2="100" stroke="#FFDF78" strokeWidth="0.6" strokeOpacity="0.6" />
-              </svg>
-            </div>
-
-            {/* BACK FACE: Underside of Flap (Warm Ivory Lining with Gold Jaali) */}
-            <div 
-              className="absolute inset-0 w-full h-full bg-[#FFFDF7] border-b-2 border-[#D4AF37] shadow-lg flex items-center justify-center backface-hidden"
-              style={{
-                clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
-                transform: 'rotateX(180deg)',
-                backfaceVisibility: 'hidden',
-                WebkitBackfaceVisibility: 'hidden',
-              }}
-            >
-              <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#AA7C11_1.5px,transparent_1.5px)] [background-size:14px_14px]" />
-              <div className="font-serif italic text-xs text-[#8C132B]/60 tracking-wider">
-                &#10022; With Joy &amp; Blessings &#10022;
-              </div>
-            </div>
+            <picture>
+              <source srcSet={mainWebp} type="image/webp" />
+              <img 
+                src={mainPng} 
+                alt="Envelope Bottom Petal" 
+                className="w-full h-full object-cover object-center select-none pointer-events-none" 
+              />
+            </picture>
           </div>
 
-          {/* 5. CENTRAL CIRCULAR P & V WAX SEAL (Positioned precisely at visual center 50% 50%) */}
+          {/* 3. LEFT PETAL: Folds leftward in 3D */}
+          <div 
+            className="absolute inset-0 w-full h-full overflow-hidden cursor-pointer"
+            style={{
+              clipPath: 'polygon(0 0, 50% 50%, 0 100%)',
+              transformOrigin: 'left center',
+              transform: isOpening ? 'rotateY(-115deg) translateX(-25%) scale(0.85)' : 'rotateY(0deg) translateX(0) scale(1)',
+              opacity: isOpening ? 0 : 1,
+              transition: 'transform 2000ms cubic-bezier(0.25, 1, 0.4, 1), opacity 1800ms ease-out 300ms',
+            }}
+            onClick={handleOpen}
+          >
+            <picture>
+              <source srcSet={mainWebp} type="image/webp" />
+              <img 
+                src={mainPng} 
+                alt="Envelope Left Petal" 
+                className="w-full h-full object-cover object-center select-none pointer-events-none" 
+              />
+            </picture>
+          </div>
+
+          {/* 4. RIGHT PETAL: Folds rightward in 3D */}
+          <div 
+            className="absolute inset-0 w-full h-full overflow-hidden cursor-pointer"
+            style={{
+              clipPath: 'polygon(100% 0, 100% 100%, 50% 50%)',
+              transformOrigin: 'right center',
+              transform: isOpening ? 'rotateY(115deg) translateX(25%) scale(0.85)' : 'rotateY(0deg) translateX(0) scale(1)',
+              opacity: isOpening ? 0 : 1,
+              transition: 'transform 2000ms cubic-bezier(0.25, 1, 0.4, 1), opacity 1800ms ease-out 300ms',
+            }}
+            onClick={handleOpen}
+          >
+            <picture>
+              <source srcSet={mainWebp} type="image/webp" />
+              <img 
+                src={mainPng} 
+                alt="Envelope Right Petal" 
+                className="w-full h-full object-cover object-center select-none pointer-events-none" 
+              />
+            </picture>
+          </div>
+
+          {/* SYMMETRICAL GOLD HAIRLINE SEAMS (Meeting at 50% 50%) */}
+          <svg 
+            className={`absolute inset-0 w-full h-full pointer-events-none transition-opacity duration-500 ${
+              isOpening ? 'opacity-0' : 'opacity-100'
+            }`} 
+            viewBox="0 0 100 100" 
+            preserveAspectRatio="none"
+          >
+            <line x1="0" y1="0" x2="50" y2="50" stroke="#FFDF78" strokeWidth="0.4" strokeOpacity="0.4" />
+            <line x1="100" y1="0" x2="50" y2="50" stroke="#FFDF78" strokeWidth="0.4" strokeOpacity="0.4" />
+            <line x1="0" y1="100" x2="50" y2="50" stroke="#FFDF78" strokeWidth="0.4" strokeOpacity="0.4" />
+            <line x1="100" y1="100" x2="50" y2="50" stroke="#FFDF78" strokeWidth="0.4" strokeOpacity="0.4" />
+          </svg>
+
+          {/* Invitation Sealed Prompt Text */}
+          <div 
+            className={`absolute top-10 sm:top-14 inset-x-0 flex flex-col items-center text-center px-4 pointer-events-none transition-all duration-600 ease-out z-45 ${
+              isOpening ? 'opacity-0 -translate-y-4' : 'opacity-100 translate-y-0'
+            }`}
+          >
+            <p className="font-serif italic text-2xl sm:text-3xl text-[#FFF0F4] tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
+              You are invited
+            </p>
+            <span className="font-royal text-[9px] sm:text-[10px] tracking-[0.35em] text-[#FFDF78] uppercase font-bold mt-1.5 drop-shadow">
+              Tap the seal to open
+            </span>
+          </div>
+
+          {/* CENTRAL CIRCULAR P & V WAX SEAL (Positioned precisely at visual center 50% 50%) */}
           <div 
             onClick={handleOpen}
-            className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 transition-all duration-700 ease-out cursor-pointer ${
-              phase === 'glowing' 
-                ? 'scale-110 drop-shadow-[0_0_35px_#FFD700]' 
-                : isFlapOpen 
-                  ? 'scale-0 opacity-0 pointer-events-none' 
-                  : 'scale-100 opacity-100 hover:scale-105 active:scale-95'
+            className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 transition-all duration-700 ease-out cursor-pointer ${
+              isOpening 
+                ? 'scale-110 opacity-0 pointer-events-none filter drop-shadow-[0_0_35px_#FFD700]' 
+                : 'scale-100 opacity-100 hover:scale-105 active:scale-95'
             }`}
             style={{
               width: '92px',
@@ -344,7 +389,6 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
               xmlns="http://www.w3.org/2000/svg"
             >
               <defs>
-                {/* 3D Wax Rim Radial Gradient */}
                 <radialGradient id="pvWaxRim" cx="35%" cy="30%" r="70%">
                   <stop offset="0%" stopColor="#8C132B" />
                   <stop offset="35%" stopColor="#630B1C" />
@@ -352,14 +396,12 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
                   <stop offset="100%" stopColor="#1C0106" />
                 </radialGradient>
 
-                {/* Stamped Center Inset Gradient */}
                 <radialGradient id="pvCenterCore" cx="45%" cy="40%" r="55%">
                   <stop offset="0%" stopColor="#30030C" />
                   <stop offset="70%" stopColor="#4A0714" />
                   <stop offset="100%" stopColor="#6E0E22" />
                 </radialGradient>
 
-                {/* Golden Lettering Gradient */}
                 <linearGradient id="pvGoldText" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#FFF8E0" />
                   <stop offset="35%" stopColor="#FFDF78" />
@@ -420,25 +462,14 @@ export const RoyalOpeningOverlay = ({ onComplete, onStartMusic }) => {
             </svg>
 
             {/* Subtle Pulsing Warm Glow */}
-            <div className={`absolute inset-0 rounded-full pointer-events-none ${phase === 'sealed' ? 'animate-seal-glow' : ''}`} />
-          </div>
-
-          {/* Invitation Sealed Prompt Text */}
-          <div 
-            className={`absolute top-8 sm:top-10 inset-x-0 flex flex-col items-center text-center px-4 pointer-events-none transition-all duration-700 ease-out z-35 ${
-              isFlapOpen ? 'opacity-0 -translate-y-4' : 'opacity-100 translate-y-0'
-            }`}
-          >
-            <p className="font-serif italic text-2xl sm:text-3xl text-[#FFF0F4] tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
-              You are invited
-            </p>
-            <span className="font-royal text-[9px] sm:text-[10px] tracking-[0.35em] text-[#FFDF78] uppercase font-bold mt-1 drop-shadow">
-              Tap the seal to open
-            </span>
+            <div className={`absolute inset-0 rounded-full pointer-events-none ${!isOpening ? 'animate-seal-glow' : ''}`} />
           </div>
 
         </div>
       </div>
+
     </div>
   );
 };
+
+export default RoyalOpeningOverlay;
